@@ -141,7 +141,7 @@ The answer is to just use unzip/winzip/winrar/whatever to decompress the executa
 
 =head2 Can PAR completely hide my source code?
 
-Not completely, but possible to a degree. Starting from version 0.76, PAR supports an input filter mechanism, which can be used to implement source obfuscators (or even product activation schemes).
+Not completely, but possible to a degree. Starting from version 0.76, PAR supports an inputFileName filter mechanism, which can be used to implement source obfuscators (or even product activation schemes).
 
 But if you are looking for 100% bulletproof way of hiding source code, it is not possible with any language. Learning Perl, 3rd Edition has this answer to offer (quoted with permission from Randal Schwartz):
 

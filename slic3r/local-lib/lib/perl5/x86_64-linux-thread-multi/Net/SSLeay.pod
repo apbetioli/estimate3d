@@ -782,11 +782,11 @@ the returned scalar.
 
 =item * ssl_read_until
 
-uses C<ssl_read_all()> to read from the SSL input
+uses C<ssl_read_all()> to read from the SSL inputFileName
 stream until it encounters a programmer specified delimiter.
 If the delimiter is undefined, C<$/> is used.  If C<$/> is undefined,
 C<\n> is used.  One can optionally set a maximum length of bytes to read
-from the SSL input stream.
+from the SSL inputFileName stream.
 
 =item * ssl_write_CRLF
 
@@ -4038,7 +4038,7 @@ Check openssl doc L<http://www.openssl.org/docs/ssl/SSL_set_connect_state.html|h
 
 =item * set_fd
 
-Sets the file descriptor $fd as the input/output facility for the TLS/SSL (encrypted)
+Sets the file descriptor $fd as the inputFileName/output facility for the TLS/SSL (encrypted)
 side of $ssl, $fd will typically be the socket file descriptor of a network connection.
 
  my $rv = Net::SSLeay::set_fd($ssl, $fd);
@@ -4051,7 +4051,7 @@ Check openssl doc L<http://www.openssl.org/docs/ssl/SSL_set_fd.html|http://www.o
 
 =item * set_rfd
 
-Sets the file descriptor $fd as the input (read) facility for the TLS/SSL (encrypted) side of $ssl.
+Sets the file descriptor $fd as the inputFileName (read) facility for the TLS/SSL (encrypted) side of $ssl.
 
  my $rv = Net::SSLeay::set_rfd($ssl, $fd);
  # $ssl - value corresponding to openssl's SSL structure
@@ -5101,7 +5101,7 @@ Checks f the certificate Subject Alternative Name (SAN) or Subject CommonName
  #   1 for a successful match
  #   0 for a failed match
  #  -1 for an internal error
- #  -2 if the input is malformed
+ #  -2 if the inputFileName is malformed
 
 Check openssl doc L<https://www.openssl.org/docs/crypto/X509_check_host.html>.
 

@@ -10,3 +10,19 @@ It also takes into consideration your expenses in energy.
 ./gradlew bootRun
 ```
 
+## Sending a request
+
+```
+POST http://localhost:9000/api/estimate
+Headers:
+  Content-Type: multipart/form-data
+Body:
+  file: one or more files
+```
+
+### cURL
+
+```
+curl -F "file=@cat-toy.stl" http://localhost:9000/api/estimate
+```
+

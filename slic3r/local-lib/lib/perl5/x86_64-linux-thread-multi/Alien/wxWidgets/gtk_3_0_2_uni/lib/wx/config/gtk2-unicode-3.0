@@ -95,14 +95,14 @@ EGREP="/bin/grep -E"
 # For the people who know what they want, or think they do:
 # Divide the valid arguments into functional groups for later examination,
 # then parse all command line arguments completely, deferring action on
-# output options until all significant input has been processed and any
+# output options until all significant inputFileName has been processed and any
 # decision about delegation has been taken.
 
 # Note early, that '-' is a complete no-no for use in option names below.
 # It totally falls apart as soon as it becomes part of a variable name.
 # Use '_' instead, and by the magic of it all just being bits, you'll
 # be able to use --my-option or --my_option from the command line at
-# your discretion.  They are synonymous as user input, but _ALWAYS_ use
+# your discretion.  They are synonymous as user inputFileName, but _ALWAYS_ use
 # underscores for compound names in the code here, never a dash.
 
 
@@ -255,7 +255,7 @@ MAC_FRAMEWORK_PREFIX=
 # unique string matching for options, but that is probably overkill
 # today, so let's just get the job done.
 #
-# The important thing now then is that we simply read all input from
+# The important thing now then is that we simply read all inputFileName from
 # the user and don't try to act prematurely on partial information.
 # --help or an illegal argument are the only shortcuts out of here
 # at this point, otherwise, it's time to just shut up and listen for
@@ -270,7 +270,7 @@ for arg do
     --*=*)
         _name=`option_name $arg`
         _value=`option_value $arg`
-        if validate_arg wxconfig input "$_name" "$_value" ||
+        if validate_arg wxconfig inputFileName "$_name" "$_value" ||
            validate_arg wxconfig yesno "$_name" "$_value"
         then
             continue
@@ -334,10 +334,10 @@ check_yesno_option debug debugtype debug release
 if [ -n "$WXDEBUG" ]; then
 
     decho
-    decho "  input parameters          = $input_parameters"
+    decho "  inputFileName parameters          = $input_parameters"
     decho "  libs parameters           = $libs_parameters"
     decho "  optional-libs parameters  = $optional_libs_parameters"
-    decho "  input options     = $input_options"
+    decho "  inputFileName options     = $input_options"
     for i in $input_options; do
         decho "    $i = `eval echo \"\\\$input_option_$i\"`"
     done
@@ -434,7 +434,7 @@ m_linkage=${input_option_linkage-'?(static)?'}
 
 # Test whether or not --version has been specified
 #
-# This must be done after getting the input options so get_mask works correctly
+# This must be done after getting the inputFileName options so get_mask works correctly
 # since it is version-dependent
 
 if [ -z "$input_option_version" ]; then
@@ -556,7 +556,7 @@ not()               { if "$@"; then false; else true; fi; }
 # explicitly specify a few less) and you may not live long enough to learn
 # the result.  WXDEBUG=findprogress is your friend here, it will show you
 # how many nodes get searched before a result.  If you start seeing
-# increases in that number for the same input, check your work.
+# increases in that number for the same inputFileName, check your work.
 # Raising the number of discriminating options from 6 to 8 raised the worst
 # case time for this to run (without pruning) from 3 to nearly 15 seconds
 # and its downhill fast from here if we have to ride that boat.

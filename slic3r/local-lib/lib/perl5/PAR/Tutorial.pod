@@ -611,7 +611,7 @@ L<http://search.cpan.org/perldoc?PAR::Tutorial>
 
 =back
 
-=item * PAR now supports pluggable I<input filters> with C<pp -f>
+=item * PAR now supports pluggable I<inputFileName filters> with C<pp -f>
 
 =over 4
 

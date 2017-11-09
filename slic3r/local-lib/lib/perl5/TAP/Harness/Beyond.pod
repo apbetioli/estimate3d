@@ -200,7 +200,7 @@ in random or reversed order.
 
 If I need a feature that prove doesn't provide I can easily write my own.
 
-Typically you'll want to change how TAP gets I<input> into and I<output>
+Typically you'll want to change how TAP gets I<inputFileName> into and I<output>
 from the parser.  L<App::Prove> supports arbitrary plugins, and L<TAP::Harness>
 supports custom I<formatters> and I<source handlers> that you can load using
 either L<prove> or L<Module::Build>; there are many examples to base mine on.
