@@ -10,7 +10,9 @@ public class GCodeAnalyzer {
   public Estimative estimate(String filename) throws FileNotFoundException {
     System.out.println("Analyzing " + filename);
 
-    Scanner scanner = new Scanner(new File(filename));
+    File source = new File(filename);
+    source.deleteOnExit();
+    Scanner scanner = new Scanner(source);
 
     Estimative estimative = new Estimative();
 
@@ -42,6 +44,8 @@ public class GCodeAnalyzer {
         estimative.cost = values[1];
       }
     }
+
+    scanner.close();
 
     System.out.println(estimative);
     return estimative;
