@@ -10,6 +10,11 @@ buildscript {
 	}
 }
 
+plugins {
+    id 'org.springframework.boot' version '1.5.8.RELEASE'
+}
+
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -22,7 +27,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	compile('org.springframework.boot:spring-boot-starter-web')
@@ -30,5 +34,9 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile('org.apache.commons:commons-compress')
+	compile('org.apache.commons:commons-compress:1.15')
+}
+
+bootRun {
+    addResources = true
 }
