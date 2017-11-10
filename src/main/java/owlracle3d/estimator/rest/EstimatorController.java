@@ -46,8 +46,6 @@ public class EstimatorController {
     return total;
   }
 
-
-
   private Estimative execute(String inputFileName, String outputFilename) {
 
     try {
@@ -68,7 +66,7 @@ public class EstimatorController {
       return new GCodeAnalyzer().estimate(outputFilename);
 
     } catch (Exception e) {
-      throw new RuntimeException("Error", e);
+      throw new RuntimeException(e.getMessage(), e);
     }
   }
 

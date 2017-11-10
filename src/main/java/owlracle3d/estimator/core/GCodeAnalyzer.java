@@ -2,6 +2,7 @@ package owlracle3d.estimator.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class GCodeAnalyzer {
@@ -22,16 +23,16 @@ public class GCodeAnalyzer {
       if (line.startsWith("; filament used") && line.contains("cm3")) {
         String[] values = splitValues(line);
         String[] dimensions = values[1].split("\\(");
-        estimative.length = Double.parseDouble(dimensions[0].replace("mm", ""));
-        estimative.volume = Double.parseDouble(dimensions[1].replace("cm3", "").replace(")", ""));
+        estimative.length = new BigDecimal(dimensions[0].replace("mm", ""));
+        estimative.volume = new BigDecimal(dimensions[1].replace("cm3", "").replace(")", ""));
       }
 
       if (line.startsWith("; filament used") && line.endsWith("g")) {
-        estimative.weight = Double.parseDouble(splitValues(line)[1].replace("g", ""));
+        estimative.weight = new BigDecimal(splitValues(line)[1].replace("g", ""));
       }
 
       if (line.startsWith("; total filament cost")) {
-        estimative.cost = Double.parseDouble(splitValues(line)[1]);
+        estimative.cost = new BigDecimal(splitValues(line)[1]);
       }
 
     }
@@ -39,6 +40,7 @@ public class GCodeAnalyzer {
     scanner.close();
 
     System.out.println(estimative);
+
     return estimative;
   }
 
