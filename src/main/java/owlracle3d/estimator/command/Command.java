@@ -1,8 +1,7 @@
 package owlracle3d.estimator.command;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import owlracle3d.estimator.core.Estimative;
+import java.util.Properties;
 
 public interface Command {
 
@@ -12,9 +11,13 @@ public interface Command {
 
   String getOutput() throws IOException;
 
+  Properties getProperties() throws IOException;
+
   void setInputFileName(String inputFileName);
 
   void setOutputFileName(String outputFileName);
 
   boolean success();
+
+  void setProperties(Properties properties) throws IOException;
 }

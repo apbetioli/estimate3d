@@ -1,7 +1,8 @@
 package owlracle3d.estimator.command;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 public class Slic3rCommand implements Command {
@@ -31,6 +32,13 @@ public class Slic3rCommand implements Command {
   }
 
   @Override
+  public Properties getProperties() throws IOException {
+    Properties properties = new Properties();
+    properties.load(new FileReader(new File("slic3r/config.ini")));
+    return properties;
+  }
+
+  @Override
   public void setInputFileName(String inputFileName) {
     this.inputFileName = inputFileName;
   }
@@ -38,6 +46,11 @@ public class Slic3rCommand implements Command {
   @Override
   public void setOutputFileName(String outputFileName) {
     this.outputFileName = outputFileName;
+  }
+
+  @Override
+  public void setProperties(Properties properties) throws IOException {
+    properties.store(new FileWriter(new File("slic3r/config.ini")), "");
   }
 
   @Override
