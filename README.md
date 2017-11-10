@@ -12,6 +12,8 @@ It receives either a stl file or a compressed zip file with some stl files insid
 ./gradlew bootRun
 ```
 
+Also you can run the Application main class from an IDE
+
 ## Sending a request
 
 ```

@@ -24,16 +24,29 @@ public class EstimatorController {
   @RequestMapping(path = "/estimate", method = RequestMethod.POST, consumes = "multipart/form-data")
   @Produces("application/json")
   @ResponseBody
-  public List<Estimative> estimate(@RequestPart("file") MultipartFile file)
+  public Estimative estimate(@RequestPart("file") MultipartFile file)
       throws IOException, InterruptedException, ArchiveException {
 
     List<String> inputFileNames = Files.getFilenamesFromMultipartFile(file);
 
-    return inputFileNames
+    List<Estimative> estimatives = inputFileNames
         .stream()
         .map(inputFileName -> execute(inputFileName, inputFileName + ".gcode"))
         .collect(Collectors.toList());
+
+    if(estimatives.size() == 1)
+      return estimatives.iterator().next();
+
+    Estimative total = new Estimative();
+    total.name = "TOTAL";
+
+    for(Estimative part : estimatives)
+      total.add(part);
+
+    return total;
   }
+
+
 
   private Estimative execute(String inputFileName, String outputFilename) {
 
