@@ -8,11 +8,17 @@ It receives either a stl file or a compressed zip file with some stl files insid
 
 ## Running
 
+You can run the Application main class from an IDE. Or from command line:
+
+### Linux
 ```
 ./gradlew bootRun
 ```
 
-Also you can run the Application main class from an IDE
+### Windows
+```
+gradlew.bat bootRun
+```
 
 ## Sending a request
 

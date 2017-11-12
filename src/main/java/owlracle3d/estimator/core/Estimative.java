@@ -7,11 +7,11 @@ import java.util.List;
 public class Estimative {
 
     public String name;
-    public BigDecimal cost = BigDecimal.ZERO.setScale(2);
-    public BigDecimal length = BigDecimal.ZERO.setScale(2); //mm
-    public BigDecimal volume = BigDecimal.ZERO.setScale(2); //cm3
-    public BigDecimal weight = BigDecimal.ZERO.setScale(2); //g
-    public long time = 0;
+    public BigDecimal cost = BigDecimal.ZERO;
+    public BigDecimal length = BigDecimal.ZERO; //mm
+    public BigDecimal volume = BigDecimal.ZERO; //cm3
+    public BigDecimal weight = BigDecimal.ZERO; //g
+    public BigDecimal time = BigDecimal.ZERO; //min
     public List<Estimative> parts = new ArrayList<>();
 
     public void add(Estimative part) {
@@ -19,7 +19,7 @@ public class Estimative {
         this.length = this.length.add(part.length);
         this.volume = this.volume.add(part.volume);
         this.weight = this.weight.add(part.weight);
-        this.time += part.time;
+        this.time = this.time.add(part.time);
         this.parts.add(part);
     }
 

@@ -1,11 +1,11 @@
-package owlracle3d.estimator.command;
+package owlracle3d.estimator.slicers;
 
 import java.io.IOException;
 import java.util.Properties;
 
-public interface Command {
+public interface Slicer {
 
-  void execute(String... params) throws IOException, InterruptedException;
+  boolean slice(String... params) throws IOException, InterruptedException;
 
   String getError() throws IOException;
 
@@ -16,8 +16,6 @@ public interface Command {
   void setInputFileName(String inputFileName);
 
   void setOutputFileName(String outputFileName);
-
-  boolean success();
 
   void setProperties(Properties properties) throws IOException;
 }

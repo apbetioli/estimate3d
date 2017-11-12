@@ -1,20 +1,37 @@
-package owlracle3d.estimator.command;
+package owlracle3d.estimator.slicers;
 
 import java.io.*;
 import java.util.Properties;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
-public class Slic3rCommand implements Command {
+public class Slic3r implements Slicer {
+
+  public static final String so = System.getProperty("so.name", "Windows");
+
+  private String inputFileName;
+
+  private String outputFileName;
+
+  private Process process;
 
   @Override
-  public void execute(String... params) throws IOException, InterruptedException {
-    String command = String.format("bash slic3r/Slic3r --load %s --no-gui -o %s %s",
-        getConfigFileName(), outputFileName, inputFileName);
+  public boolean slice(String... params) throws IOException, InterruptedException {
+    String executable;
+    System.out.println(so);
+    if(so.contains("Windows")) {
+      executable = "slicers\\slic3r-windows\\slic3r-console.exe";
+      inputFileName = "\"" + inputFileName + "\"";
+      outputFileName = "\"" + outputFileName + "\"";
+    } else {
+      executable = "bash slicers/slic3r-linux/Slic3r --no-gui";      
+    }
+
+    String command = String.format("%s --load %s -o %s %s", executable, getConfigFileName(), outputFileName, inputFileName);
     System.out.println("Executing: " + command);
 
     process = Runtime.getRuntime().exec(command);
-    process.waitFor();
+    return process.waitFor() == 0;
   }
 
   @Override
@@ -34,7 +51,7 @@ public class Slic3rCommand implements Command {
   @Override
   public Properties getProperties() throws IOException {
     Properties properties = new Properties();
-    properties.load(new FileReader(new File("slic3r/config.ini")));
+    properties.load(new FileReader(new File(getConfigFileName())));
     return properties;
   }
 
@@ -50,12 +67,7 @@ public class Slic3rCommand implements Command {
 
   @Override
   public void setProperties(Properties properties) throws IOException {
-    properties.store(new FileWriter(new File("slic3r/config.ini")), "");
-  }
-
-  @Override
-  public boolean success() {
-    return process.exitValue() == 0;
+    properties.store(new FileWriter(new File(getConfigFileName())), "");
   }
 
   private String getConfigFileName() {
@@ -66,12 +78,7 @@ public class Slic3rCommand implements Command {
     //Entrada do custo de energia ?
     //Qual é o tempo de impressão?
 
-    return "slic3r/config.ini";
+    return String.format("slicers"+File.separator+"slic3r-config.ini", so);
   }
 
-  private String inputFileName;
-
-  private String outputFileName;
-
-  private Process process;
 }

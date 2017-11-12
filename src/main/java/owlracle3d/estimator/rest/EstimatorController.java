@@ -3,8 +3,8 @@ package owlracle3d.estimator.rest;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import owlracle3d.estimator.command.Command;
-import owlracle3d.estimator.command.Slic3rCommand;
+import owlracle3d.estimator.slicers.Slicer;
+import owlracle3d.estimator.slicers.Slic3r;
 import owlracle3d.estimator.core.Estimative;
 import owlracle3d.estimator.core.Files;
 import owlracle3d.estimator.core.GCodeAnalyzer;
@@ -27,14 +27,14 @@ public class EstimatorController {
 
     List<String> inputFileNames = Files.getFilenamesFromMultipartFile(file);
 
-    Command command = new Slic3rCommand();
-    Properties properties = command.getProperties();
+    Slicer slicer = new Slic3r();
+    Properties properties = slicer.getProperties();
     properties.setProperty("filament_cost", "150");
-    command.setProperties(properties);
+    slicer.setProperties(properties);
 
     List<Estimative> estimatives = inputFileNames
         .stream()
-        .map(inputFileName -> execute(command, inputFileName, inputFileName + ".gcode"))
+        .map(inputFileName -> estimate(slicer, inputFileName, inputFileName + ".gcode"))
         .collect(Collectors.toList());
 
     if(estimatives.size() == 1)
@@ -49,21 +49,19 @@ public class EstimatorController {
     return total;
   }
 
-  private Estimative execute(Command command, String inputFileName, String outputFilename) {
+  private Estimative estimate(Slicer slicer, String inputFileName, String outputFilename) {
 
     try {
-      command.setInputFileName(inputFileName);
-      command.setOutputFileName(outputFilename);
-      command.execute();
+      slicer.setInputFileName(inputFileName);
+      slicer.setOutputFileName(outputFilename);
 
-      if (!command.success()) {
-        String err = command.getError();
+      if (!slicer.slice()) {
+        String err = slicer.getError();
         System.err.println(err);
         throw new IOException(err);
       }
 
-      String out = command.getOutput();
-      System.out.println(out);
+      System.out.println(slicer.getOutput());
 
       return new GCodeAnalyzer().estimate(outputFilename);
 
