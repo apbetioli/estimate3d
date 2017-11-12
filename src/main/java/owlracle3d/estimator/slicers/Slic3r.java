@@ -7,7 +7,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 public class Slic3r implements Slicer {
 
-  public static final String so = System.getProperty("so.name", "linux");
+  public static final String so = System.getProperty("os.name", "linux");
 
   private String inputFileName;
 
@@ -19,7 +19,7 @@ public class Slic3r implements Slicer {
   public boolean slice(String... params) throws IOException, InterruptedException {
     String executable;
     System.out.println(so);
-    if(so.contains("win")) {
+    if(so.toLowerCase().contains("win")) {
       executable = "slicers\\slic3r-windows\\slic3r-console.exe";
       inputFileName = "\"" + inputFileName + "\"";
       outputFileName = "\"" + outputFileName + "\"";
