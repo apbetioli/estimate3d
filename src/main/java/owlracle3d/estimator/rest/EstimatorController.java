@@ -23,12 +23,12 @@ public class EstimatorController {
   @Produces("application/json")
   @ResponseBody
   public Estimative estimate(
-    @RequestPart("file") MultipartFile file, 
+    @RequestPart("file") MultipartFile[] files, 
     @RequestPart(value="filament_cost", required=false) String filament_cost,
     @RequestPart(value="slicer", required=false) String slicerChoice)
       throws IOException, InterruptedException, ArchiveException {
 
-    List<String> inputFileNames = Files.getFilenamesFromMultipartFile(file);
+    List<String> inputFileNames = Files.getFilenamesFromMultipartFiles(files);
 
     Slicer slicer = createSlicer(slicerChoice);
     

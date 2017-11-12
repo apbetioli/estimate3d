@@ -55,41 +55,50 @@ public class Files {
         return archiveContents;
     }
 
-    public static List<String> getFilenamesFromMultipartFile(MultipartFile file)
+    public static List<String> getFilenamesFromMultipartFiles(MultipartFile[] files)
             throws IOException, ArchiveException {
 
-        File tempDir = new File("temp");
-        tempDir.mkdir();
+        List<String> results = new ArrayList<>();
 
-        File tempFile = new File(tempDir, file.getOriginalFilename().replaceAll(" ", "_"));
-        tempFile.deleteOnExit();
+        for(MultipartFile file : files) {
 
-        FileOutputStream os = new FileOutputStream(tempFile);
-        IOUtils.copy(file.getInputStream(), os);
-        os.close();
+            File tempDir = new File("temp");
+            tempDir.mkdir();
 
-        if (file.getOriginalFilename().toLowerCase().endsWith(".stl") || 
-            file.getOriginalFilename().toLowerCase().endsWith(".gcode")) {
+            File tempFile = new File(tempDir, file.getOriginalFilename().replaceAll(" ", "_"));
+            tempFile.deleteOnExit();
 
-            return Arrays.asList(tempFile.getAbsolutePath());
+            FileOutputStream os = new FileOutputStream(tempFile);
+            IOUtils.copy(file.getInputStream(), os);
+            os.close();
 
-        } else if (file.getOriginalFilename().toLowerCase().endsWith(".zip")) {
+            if (file.getOriginalFilename().toLowerCase().endsWith(".stl") || 
+                file.getOriginalFilename().toLowerCase().endsWith(".gcode")) {
 
-            List<File> files = decompress(tempFile);
-            return findSTLs(files);
+                results.add(tempFile.getAbsolutePath());
 
-        } else {
-            throw new IOException("Invalid file format " + file.getOriginalFilename());
+            } else if (file.getOriginalFilename().toLowerCase().endsWith(".zip")) {
+
+                List<File> uncompressedFiles = decompress(tempFile);
+                results.addAll(findSTLsOrGCodes(uncompressedFiles));
+
+            } else {
+                throw new IOException("Invalid file format " + file.getOriginalFilename());
+            }
         }
 
+        System.out.println(results.size() + " files to be analyzed");
+
+        return results;
     }
 
-    private static List<String> findSTLs(List<File> files) {
+    private static List<String> findSTLsOrGCodes(List<File> files) {
         List<String> results = new ArrayList<>();
         for (File file : files) {
             if (file.isDirectory()) {
-                results.addAll(findSTLs(Arrays.asList(file.listFiles())));
-            } else if (file.getName().toLowerCase().endsWith(".stl")) {
+                results.addAll(findSTLsOrGCodes(Arrays.asList(file.listFiles())));
+            } else if (file.getName().toLowerCase().endsWith(".stl") ||
+                    file.getName().toLowerCase().endsWith(".gcode")) {
                 results.add(file.getAbsolutePath());
             }
         }

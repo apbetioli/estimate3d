@@ -12,7 +12,7 @@ public class Estimative {
     public BigDecimal volume = BigDecimal.ZERO; //cm3
     public BigDecimal weight = BigDecimal.ZERO; //g
     public BigDecimal time = BigDecimal.ZERO; //min
-    public List<Estimative> parts = new ArrayList<>();
+    public List<Estimative> parts;
 
     public void add(Estimative part) {
         this.cost = this.cost.add(part.cost);
@@ -20,6 +20,9 @@ public class Estimative {
         this.volume = this.volume.add(part.volume);
         this.weight = this.weight.add(part.weight);
         this.time = this.time.add(part.time);
+        
+        if(this.parts == null)
+            this.parts = new ArrayList<>();
         this.parts.add(part);
     }
 
