@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>3D Print Cost Estimator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/flat-ui.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="img/favicon.ico" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>3D Print Cost Estimator</h1>
+
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="align-right">Volume (cm³)</th>
+                        <th class="align-right">Weight (g)</th>
+                        <th class="align-right">Filament Cost ($)</th>
+                        <th class="align-right">Time (min)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="part : ${estimative.parts}">
+                        <td th:text="${part.name}"></td>
+                        <td class="align-right" th:text="${part.volume}"></td>
+                        <td class="align-right" th:text="${part.weight}"></td>
+                        <td class="align-right" th:text="${part.cost}"></td>
+                        <td class="align-right" th:text="${part.time}"></td>
+                    </tr>
+                    <tr class="total">
+                        <td th:text="${estimative.name}"></td>
+                        <td class="align-right" th:text="${estimative.volume}"></td>
+                        <td class="align-right" th:text="${estimative.weight}"></td>
+                        <td class="align-right" th:text="${estimative.cost}"></td>
+                        <td class="align-right" th:text="${estimative.time}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../../js/vendor/jquery.min.js "></script>
+    <script src="../../js/flat-ui.min.js "></script>
+</body>
+
+</html>

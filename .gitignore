@@ -27,3 +27,4 @@ temp/
 .gradle/
 out/
 bin/
+.vscode

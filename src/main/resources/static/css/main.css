@@ -1,0 +1,34 @@
+body {
+    color: white;
+    background-color: #34495e;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.form-control[readonly] {
+    color: #34495e;
+}
+
+.input-group-btn:first-child>.btn {
+    margin-right: 0;
+    border-right-width: 0;
+}
+
+.input-group-btn .btn {
+    color: white;
+    background-color: #1abc9c;
+    border: none;
+}
+
+thead,
+.total {
+    background-color: #16a085;
+    color: white;
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    width: 100%
+}

@@ -28,15 +28,18 @@ repositories {
 }
 
 dependencies {
+	compile('net.lingala.zip4j:zip4j:1.3.2')
+	compile('org.apache.commons:commons-compress:1.15')
 	compile('org.springframework.boot:spring-boot-starter-jersey')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
-	runtime('org.springframework.boot:spring-boot-devtools')
+	
 	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile('org.apache.commons:commons-compress:1.15')
-	compile('net.lingala.zip4j:zip4j:1.3.2')
 
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	runtime('org.springframework.boot:spring-boot-devtools')
 }
 
 bootRun {

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>3D Print Cost Estimator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/flat-ui.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="img/favicon.ico" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>3D Print Cost Estimator</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="file">Select STL, GCODE and ZIP files</label>
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary">
+                                    Browse&hellip; <input id="file" type="file" name="file" multiple="multiple" required="required" style="display: none;" />
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly="readonly"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h3>Slicer</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="slicer">Slicer</label>
+                        <select name="slicer" id="slicer" class="form-control select select-primary select-block mbl" required="required">
+                            <option value="slic3r">Slic3r</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h3>Filament</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="material">Material</label>
+                        <select name="material" id="material" class="form-control select select-primary select-block mbl" required="required">
+                            <option value="PLA">PLA - 1,24 g/cm³</option>
+                            <option value="ABS">ABS - 1,04 g/cm³</option>
+                            <option value="PETG">PETG - 1,27 g/cm³</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filament_cost">Filament cost per kg ($)</label>
+                        <input type="number" name="filament_cost" id="filament_cost" class="form-control" value="150" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <h3>Other info</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="preheat_bed_time">Pre-heat bed time for each file (min)</label>
+                        <input type="number" name="preheat_bed_time" id="preheat_bed_time" class="form-control" value="15" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="preheat_hotend_time">Pre-heat hot-end time for each file (min)</label>
+                        <input type="number" name="preheat_hotend_time" id="preheat_hotend_time" class="form-control" value="2" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="power_rating">Power rating (watts)</label>
+                        <input type="number" name="power_rating" id="power_rating" class="form-control" value="600" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="cost_of_energy">Cost of energy (kW/h)</label>
+                        <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" value="0.69118" required="required"></input>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="GO!" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <script src="../../js/vendor/jquery.min.js "></script>
+    <script src="../../js/flat-ui.min.js "></script>
+    <script>
+        $("select").select2({
+            dropdownCssClass: 'dropdown-inverse'
+        });
+        $(function() {
+            $(document).on('change', ':file', function() {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
+
+            $(document).ready(function() {
+                $(':file').on('fileselect', function(event, numFiles, label) {
+
+                    var input = $(this).parents('.input-group').find(':text'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                    if (input.length) {
+                        input.val(log);
+                    } else {
+                        if (log) alert(log);
+                    }
+
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -9,15 +9,17 @@ import owlracle3d.estimator.core.Estimative;
 import owlracle3d.estimator.core.Files;
 import owlracle3d.estimator.core.GCodeAnalyzer;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Produces;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api")
-public class EstimatorController {
+public class EstimatorService {
 
   @RequestMapping(path = "/estimate", method = RequestMethod.POST, consumes = "multipart/form-data")
   @Produces("application/json")
@@ -25,7 +27,10 @@ public class EstimatorController {
   public Estimative estimate(
     @RequestPart("file") MultipartFile[] files, 
     @RequestPart(value="filament_cost", required=false) String filament_cost,
-    @RequestPart(value="slicer", required=false) String slicerChoice)
+    @RequestPart(value="slicer", required=false) @DefaultValue("slic3r") String slicerChoice,
+    @RequestPart(value="preheat_bed_time") @DefaultValue("0") String preheatBedTime,
+    @RequestPart(value="preheat_hotend_time") @DefaultValue("0") String preheatHotendTime)
+    
       throws IOException, InterruptedException, ArchiveException {
 
     List<String> inputFileNames = Files.getFilenamesFromMultipartFiles(files);
@@ -42,14 +47,16 @@ public class EstimatorController {
         .map(inputFileName -> estimate(slicer, inputFileName))
         .collect(Collectors.toList());
 
-    if(estimatives.size() == 1)
-      return estimatives.iterator().next();
+    BigDecimal preheatTimes = new BigDecimal(preheatBedTime).add(new BigDecimal(preheatHotendTime));
+    System.out.println("Pre-heat " + preheatTimes);
 
     Estimative total = new Estimative();
     total.name = "TOTAL";
 
-    for(Estimative part : estimatives)
+    for(Estimative part : estimatives) {
+      part.time = part.time.add(preheatTimes);
       total.add(part);
+    }
 
     return total;
   }
