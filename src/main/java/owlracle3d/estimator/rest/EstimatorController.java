@@ -22,14 +22,19 @@ public class EstimatorController {
   @RequestMapping(path = "/estimate", method = RequestMethod.POST, consumes = "multipart/form-data")
   @Produces("application/json")
   @ResponseBody
-  public Estimative estimate(@RequestPart("file") MultipartFile file)
+  public Estimative estimate(
+    @RequestPart("file") MultipartFile file, 
+    @RequestPart(value="filament_cost", required=false) String filament_cost,
+    @RequestPart(value="slicer", required=false) String slicerChoice)
       throws IOException, InterruptedException, ArchiveException {
 
     List<String> inputFileNames = Files.getFilenamesFromMultipartFile(file);
 
-    Slicer slicer = new Slic3r();
+    Slicer slicer = createSlicer(slicerChoice);
+    
     Properties properties = slicer.getProperties();
-    properties.setProperty("filament_cost", "150");
+    if(filament_cost != null)
+      properties.setProperty("filament_cost", filament_cost);
     slicer.setProperties(properties);
 
     List<Estimative> estimatives = inputFileNames
@@ -47,6 +52,13 @@ public class EstimatorController {
       total.add(part);
 
     return total;
+  }
+
+  private Slicer createSlicer(String slicerChoice) {
+    if(slicerChoice == null || "slic3r".equals(slicerChoice))
+      return new Slic3r();
+    else
+      throw new IllegalArgumentException("Invalid slicer " + slicerChoice);
   }
 
   private Estimative estimate(Slicer slicer, String inputFileName, String outputFilename) {

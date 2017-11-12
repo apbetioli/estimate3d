@@ -76,7 +76,6 @@ public class Slic3r implements Slicer {
     //Entrada de custo de filamento
     //Entrada do tempo de aquecimento da base, hotend
     //Entrada do custo de energia ?
-    //Qual é o tempo de impressão?
 
     return String.format("slicers"+File.separator+"slic3r-config.ini", so);
   }
