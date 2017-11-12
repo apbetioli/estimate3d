@@ -13,6 +13,7 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Produces;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -25,22 +26,22 @@ public class EstimatorService {
   @Produces("application/json")
   @ResponseBody
   public Estimative estimate(
-    @RequestPart("file") MultipartFile[] files, 
-    @RequestPart(value="filament_cost", required=false) String filament_cost,
-    @RequestPart(value="slicer", required=false) @DefaultValue("slic3r") String slicerChoice,
-    @RequestPart(value="preheat_bed_time") @DefaultValue("0") String preheatBedTime,
-    @RequestPart(value="preheat_hotend_time") @DefaultValue("0") String preheatHotendTime)
-    
+        @RequestPart("file") MultipartFile[] files, 
+        @RequestPart(value="filament_cost", required=false) @DefaultValue("150") String filamentCost,
+        @RequestPart(value="slicer", required=false) @DefaultValue("slic3r") String slicerChoice,
+        @RequestPart(value="preheat_bed_time", required=false) @DefaultValue("0") String preheatBedTime,
+        @RequestPart(value="preheat_hotend_time", required=false) @DefaultValue("0") String preheatHotendTime,
+        @RequestPart(value="filament_density", required=false) @DefaultValue("1.24") String filamentDensity,
+        @RequestPart(value="power_rating", required=false) @DefaultValue("600") String powerRating,
+        @RequestPart(value="cost_of_energy", required=false) @DefaultValue("0.69118") String costOfEnergy,
+        @RequestPart(value="fill_density", required=false) @DefaultValue("15") String fillDensity)
       throws IOException, InterruptedException, ArchiveException {
 
     List<String> inputFileNames = Files.getFilenamesFromMultipartFiles(files);
 
     Slicer slicer = createSlicer(slicerChoice);
     
-    Properties properties = slicer.getProperties();
-    if(filament_cost != null)
-      properties.setProperty("filament_cost", filament_cost);
-    slicer.setProperties(properties);
+    updateSlicerProperties(slicer, filamentCost, filamentDensity, fillDensity);
 
     List<Estimative> estimatives = inputFileNames
         .stream()
@@ -48,19 +49,36 @@ public class EstimatorService {
         .collect(Collectors.toList());
 
     BigDecimal preheatTimes = new BigDecimal(preheatBedTime).add(new BigDecimal(preheatHotendTime));
-    System.out.println("Pre-heat " + preheatTimes);
 
     Estimative total = new Estimative();
     total.name = "TOTAL";
 
     for(Estimative part : estimatives) {
       part.time = part.time.add(preheatTimes);
+      part.energyCost = part.time
+        .multiply(new BigDecimal(powerRating))
+        .multiply(new BigDecimal(costOfEnergy))
+        .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
+
       total.add(part);
     }
 
     return total;
   }
 
+  //TODO move to slicer
+  private void updateSlicerProperties(Slicer slicer, String filamentCost, String filamentDensity, String fillDensity) throws IOException {
+    Properties properties = slicer.getProperties();
+    if(filamentCost != null)
+      properties.setProperty("filament_cost", filamentCost);
+    if(filamentDensity != null)
+      properties.setProperty("filament_density", filamentDensity);
+    if(fillDensity != null)
+      properties.setProperty("fill_density", fillDensity + "%");
+    slicer.setProperties(properties);
+  }
+
+  //TODO create factory
   private Slicer createSlicer(String slicerChoice) {
     if(slicerChoice == null || "slic3r".equals(slicerChoice))
       return new Slic3r();
@@ -91,6 +109,7 @@ public class EstimatorService {
       return new GCodeAnalyzer().estimate(outputFilename);
 
     } catch (Exception e) {
+      //TODO improve exception handling
       throw new RuntimeException(e.getMessage(), e);
     }
   }

@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <h1>3D Print Cost Estimator</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
+        <form action="/" method="post" enctype="multipart/form-data" th:object="${formData}">
             <div class="form-group">
                 <fieldset>
                     <div class="form-group">
@@ -44,16 +44,20 @@
                         <h3>Filament</h3>
                     </div>
                     <div class="form-group">
-                        <label for="material">Material</label>
-                        <select name="material" id="material" class="form-control select select-primary select-block mbl" required="required">
-                            <option value="PLA">PLA - 1,24 g/cm³</option>
-                            <option value="ABS">ABS - 1,04 g/cm³</option>
-                            <option value="PETG">PETG - 1,27 g/cm³</option>
+                        <label for="filament_density">Material</label>
+                        <select name="filament_density" id="filament_density" class="form-control select select-primary select-block mbl" required="required">
+                            <option value="1.24">PLA - 1,24 g/cm³</option>
+                            <option value="1.04">ABS - 1,04 g/cm³</option>
+                            <option value="1.27">PETG - 1,27 g/cm³</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="filament_cost">Filament cost per kg ($)</label>
                         <input type="number" name="filament_cost" id="filament_cost" class="form-control" value="150" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="fill_density">Infill density (%)</label>
+                        <input type="number" name="fill_density" id="fill_density" class="form-control" value="15" min="0" max="100" required="required"></input>
                     </div>
                     <div class="form-group">
                         <h3>Other info</h3>

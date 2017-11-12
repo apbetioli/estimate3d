@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <h1>3D Print Cost Estimator</h1>
 
         <div class="table-responsive">
@@ -23,26 +23,32 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th class="align-right">Volume (cm³)</th>
-                        <th class="align-right">Weight (g)</th>
-                        <th class="align-right">Filament Cost ($)</th>
-                        <th class="align-right">Time (min)</th>
+                        <th class="align-right">Volume</th>
+                        <th class="align-right">Weight</th>
+                        <th class="align-right">Filament Cost</th>
+                        <th class="align-right">Time</th>
+                        <th class="align-right">Energy Cost</th>
+                        <th class="align-right">Total Cost</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="part : ${estimative.parts}">
                         <td th:text="${part.name}"></td>
-                        <td class="align-right" th:text="${part.volume}"></td>
-                        <td class="align-right" th:text="${part.weight}"></td>
-                        <td class="align-right" th:text="${part.cost}"></td>
-                        <td class="align-right" th:text="${part.time}"></td>
+                        <td class="align-right" th:text="${part.volume} + ' cm³'"></td>
+                        <td class="align-right" th:text="${part.weight} + ' g'"></td>
+                        <td class="align-right" th:text="'$ ' + ${part.cost}"></td>
+                        <td class="align-right" th:text="${part.time} + ' min'"></td>
+                        <td class="align-right" th:text="'$ ' + ${part.energyCost}"></td>
+                        <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
                     </tr>
                     <tr class="total">
                         <td th:text="${estimative.name}"></td>
-                        <td class="align-right" th:text="${estimative.volume}"></td>
-                        <td class="align-right" th:text="${estimative.weight}"></td>
-                        <td class="align-right" th:text="${estimative.cost}"></td>
-                        <td class="align-right" th:text="${estimative.time}"></td>
+                        <td class="align-right" th:text="${estimative.volume} + ' cm³'"></td>
+                        <td class="align-right" th:text="${estimative.weight} + ' g'"></td>
+                        <td class="align-right" th:text="'$ ' + ${estimative.cost}"></td>
+                        <td class="align-right" th:text="${estimative.time} + ' min'"></td>
+                        <td class="align-right" th:text="'$ ' + ${estimative.energyCost}"></td>
+                        <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
                     </tr>
                 </tbody>
             </table>

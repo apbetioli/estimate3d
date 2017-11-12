@@ -6,22 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
-import owlracle3d.estimator.slicers.Slicer;
-import owlracle3d.estimator.slicers.Slic3r;
 import owlracle3d.estimator.core.Estimative;
-import owlracle3d.estimator.core.Files;
-import owlracle3d.estimator.core.GCodeAnalyzer;
 import owlracle3d.estimator.rest.EstimatorService;
 
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.Produces;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 @Controller
 public class EstimatorViewController {
@@ -36,20 +27,28 @@ public class EstimatorViewController {
 
     @PostMapping(path = "/")
     public ModelAndView save(
-        @RequestPart("file") MultipartFile[] files, 
-        @RequestPart(value="filament_cost") String filament_cost,
-        @RequestPart(value="slicer") @DefaultValue("slic3r") String slicerChoice,
-        @RequestPart(value="preheat_bed_time") @DefaultValue("0") String preheatBedTime,
-        @RequestPart(value="preheat_hotend_time") @DefaultValue("0") String preheatHotendTime,
-        Map<String, Object> model)
+                @RequestPart("file") MultipartFile[] files, 
+                @RequestPart(value="filament_cost") String filamentCost,
+                @RequestPart(value="slicer") @DefaultValue("slic3r") String slicerChoice,
+                @RequestPart(value="preheat_bed_time") @DefaultValue("0") String preheatBedTime,
+                @RequestPart(value="preheat_hotend_time") @DefaultValue("0") String preheatHotendTime,
+                @RequestPart(value="filament_density") @DefaultValue("1.24") String filamentDensity,
+                @RequestPart(value="power_rating") @DefaultValue("600") String powerRating,
+                @RequestPart(value="cost_of_energy") @DefaultValue("0.69118") String costOfEnergy,
+                @RequestPart(value="fill_density") @DefaultValue("15") String fillDensity,
+                Map<String, Object> model)
             throws IOException, InterruptedException, ArchiveException {
 
         Estimative estimative = service.estimate(
             files, 
-            filament_cost, 
+            filamentCost, 
             slicerChoice, 
             preheatBedTime, 
-            preheatHotendTime
+            preheatHotendTime,
+            filamentDensity,
+            powerRating,
+            costOfEnergy,
+            fillDensity
         );
 
         model.put("estimative", estimative);

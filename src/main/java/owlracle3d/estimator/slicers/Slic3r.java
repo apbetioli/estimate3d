@@ -71,12 +71,6 @@ public class Slic3r implements Slicer {
   }
 
   private String getConfigFileName() {
-    //TODO criar config.ini manualmente conforme dados do form
-    //Pré-configs para  ABS/PLA (density, temperature, etc)
-    //Entrada de custo de filamento
-    //Entrada do tempo de aquecimento da base, hotend
-    //Entrada do custo de energia ?
-
     return String.format("slicers"+File.separator+"slic3r-config.ini", so);
   }
 
