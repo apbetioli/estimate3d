@@ -68,7 +68,8 @@ public class Files {
         IOUtils.copy(file.getInputStream(), os);
         os.close();
 
-        if (file.getOriginalFilename().toLowerCase().endsWith(".stl")) {
+        if (file.getOriginalFilename().toLowerCase().endsWith(".stl") || 
+            file.getOriginalFilename().toLowerCase().endsWith(".gcode")) {
 
             return Arrays.asList(tempFile.getAbsolutePath());
 

@@ -39,7 +39,7 @@ public class EstimatorController {
 
     List<Estimative> estimatives = inputFileNames
         .stream()
-        .map(inputFileName -> estimate(slicer, inputFileName, inputFileName + ".gcode"))
+        .map(inputFileName -> estimate(slicer, inputFileName))
         .collect(Collectors.toList());
 
     if(estimatives.size() == 1)
@@ -61,19 +61,25 @@ public class EstimatorController {
       throw new IllegalArgumentException("Invalid slicer " + slicerChoice);
   }
 
-  private Estimative estimate(Slicer slicer, String inputFileName, String outputFilename) {
+  private Estimative estimate(Slicer slicer, String inputFileName) {
 
     try {
-      slicer.setInputFileName(inputFileName);
-      slicer.setOutputFileName(outputFilename);
+      String outputFilename = inputFileName;
 
-      if (!slicer.slice()) {
-        String err = slicer.getError();
-        System.err.println(err);
-        throw new IOException(err);
+      if(!inputFileName.endsWith(".gcode")) {
+        outputFilename += ".gcode";
+        
+        slicer.setInputFileName(inputFileName);
+        slicer.setOutputFileName(outputFilename);
+
+        if (!slicer.slice()) {
+          String err = slicer.getError();
+          System.err.println(err);
+          throw new IOException(err);
+        }
+
+        System.out.println(slicer.getOutput());
       }
-
-      System.out.println(slicer.getOutput());
 
       return new GCodeAnalyzer().estimate(outputFilename);
 
