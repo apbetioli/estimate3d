@@ -11,7 +11,7 @@ body {
     color: #34495e;
 }
 
-.input-group-btn:first-child>.btn {
+.input-group-btn:first-child > .btn {
     margin-right: 0;
     border-right-width: 0;
 }

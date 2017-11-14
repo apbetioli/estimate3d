@@ -60,7 +60,7 @@ public class Files {
 
         List<String> results = new ArrayList<>();
 
-        for(MultipartFile file : files) {
+        for (MultipartFile file : files) {
 
             File tempDir = new File("temp");
             tempDir.mkdir();
@@ -72,8 +72,8 @@ public class Files {
             IOUtils.copy(file.getInputStream(), os);
             os.close();
 
-            if (file.getOriginalFilename().toLowerCase().endsWith(".stl") || 
-                file.getOriginalFilename().toLowerCase().endsWith(".gcode")) {
+            if (file.getOriginalFilename().toLowerCase().endsWith(".stl") ||
+                    file.getOriginalFilename().toLowerCase().endsWith(".gcode")) {
 
                 results.add(tempFile.getAbsolutePath());
 

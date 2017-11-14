@@ -26,8 +26,8 @@ public class Estimative {
         this.weight = this.weight.add(part.weight);
         this.time = this.time.add(part.time);
         this.energyCost = this.energyCost.add(part.energyCost);
-        
-        if(this.parts == null)
+
+        if (this.parts == null)
             this.parts = new ArrayList<>();
         this.parts.add(part);
     }
