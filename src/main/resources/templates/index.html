@@ -19,7 +19,7 @@
     <h1>3D Print Cost Estimator</h1>
     <form action="/" method="post" enctype="multipart/form-data" th:object="${formData}">
         <div class="form-group">
-            <fieldset>
+            <fieldset class="container-fluid">
                 <div class="form-group">
                     <label for="file">Select STL, GCODE and ZIP files</label>
                     <div class="input-group">
@@ -32,65 +32,70 @@
                         <input type="text" class="form-control" readonly="readonly"></input>
                     </div>
                 </div>
-                <div class="form-group">
-                    <h3>Slicer</h3>
+                <div class="row">
+                    <h3>Slicing configs</h3>
                 </div>
-                <div class="form-group">
-                    <label for="slicer">Slicer</label>
-                    <select name="slicer" id="slicer" class="form-control select select-primary select-block mbl"
-                            required="required">
-                        <option value="slic3r">Slic3r</option>
-                    </select>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="slicer">Slicer</label>
+                        <select name="slicer" id="slicer" class="form-control select select-primary select-block mbl"
+                                required="required">
+                            <option value="slic3r">Slic3r</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="filament_density">Material</label>
+                        <select name="filament_density" id="filament_density"
+                                class="form-control select select-primary select-block mbl" required="required">
+                            <option value="1.24">PLA - 1,24 g/cm³</option>
+                            <option value="1.04">ABS - 1,04 g/cm³</option>
+                            <option value="1.27">PETG - 1,27 g/cm³</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="filament_cost">Filament cost per kg ($)</label>
+                        <input type="text" name="filament_cost" id="filament_cost" class="form-control" min="0"
+                               value="150" required="required"></input>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <h3>Filament</h3>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="fill_density">Infill density (%)</label>
+                        <input type="number" name="fill_density" id="fill_density" class="form-control" value="15"
+                               min="0" max="100" required="required"></input>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="filament_density">Material</label>
-                    <select name="filament_density" id="filament_density"
-                            class="form-control select select-primary select-block mbl" required="required">
-                        <option value="1.24">PLA - 1,24 g/cm³</option>
-                        <option value="1.04">ABS - 1,04 g/cm³</option>
-                        <option value="1.27">PETG - 1,27 g/cm³</option>
-                    </select>
+                <div class="row">
+                    <h3>Other</h3>
                 </div>
-                <div class="form-group">
-                    <label for="filament_cost">Filament cost per kg ($)</label>
-                    <input type="text" name="filament_cost" id="filament_cost" class="form-control" min="0" value="150"
-                           required="required"></input>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="preheat_bed_time">Pre-heat bed time for each file (min)</label>
+                        <input type="number" name="preheat_bed_time" id="preheat_bed_time" class="form-control" min="0"
+                               value="15" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="preheat_hotend_time">Pre-heat hot-end time for each file (min)</label>
+                        <input type="number" name="preheat_hotend_time" id="preheat_hotend_time" class="form-control"
+                               min="0" value="2" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="power_rating">Power rating (watts)</label>
+                        <input type="number" name="power_rating" id="power_rating" class="form-control" min="0"
+                               value="600" required="required"></input>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="fill_density">Infill density (%)</label>
-                    <input type="number" name="fill_density" id="fill_density" class="form-control" value="15" min="0"
-                           max="100" required="required"></input>
-                </div>
-                <div class="form-group">
-                    <h3>Other info</h3>
-                </div>
-                <div class="form-group">
-                    <label for="preheat_bed_time">Pre-heat bed time for each file (min)</label>
-                    <input type="number" name="preheat_bed_time" id="preheat_bed_time" class="form-control" min="0"
-                           value="15" required="required"></input>
-                </div>
-                <div class="form-group">
-                    <label for="preheat_hotend_time">Pre-heat hot-end time for each file (min)</label>
-                    <input type="number" name="preheat_hotend_time" id="preheat_hotend_time" class="form-control"
-                           min="0" value="2" required="required"></input>
-                </div>
-                <div class="form-group">
-                    <label for="power_rating">Power rating (watts)</label>
-                    <input type="number" name="power_rating" id="power_rating" class="form-control" min="0" value="600"
-                           required="required"></input>
-                </div>
-                <div class="form-group">
-                    <label for="cost_of_energy">Cost of energy (kW/h)</label>
-                    <input type="text" name="cost_of_energy" id="cost_of_energy" class="form-control" value="0.69118"
-                           required="required"></input>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="cost_of_energy">Cost of energy (kW/h)</label>
+                        <input type="text" name="cost_of_energy" id="cost_of_energy" class="form-control"
+                               value="0.69118" required="required"></input>
+                    </div>
                 </div>
             </fieldset>
         </div>
         <div class="form-group">
-            <input type="submit" value="GO!" class="btn btn-primary"/>
+            <input type="submit" value="GO!" class="btn btn-lg btn-primary"/>
         </div>
     </form>
 </div>
