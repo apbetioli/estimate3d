@@ -4,6 +4,8 @@ It estimates the cost of your 3d printings by uploading a STL, a reprap GCODE fi
 You can choose between different slicers and materials.
 It also takes into consideration your expenses in energy.
 
+Demo: http://estimate3d.herokuapp.com/
+
 ## Running
 
 You can run the Application main class from an IDE. Or from command line:
