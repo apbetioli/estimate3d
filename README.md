@@ -1,4 +1,4 @@
-# 3D print cost estimator (WIP)
+# Estimate 3D
 
 It estimates the cost of your 3d printings by uploading a STL, a reprap GCODE file or a compressed zip file containing these files.
 You can choose between different slicers and materials.
