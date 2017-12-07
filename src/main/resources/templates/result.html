@@ -28,7 +28,10 @@
                 <th class="align-right">Filament Cost</th>
                 <th class="align-right">Time</th>
                 <th class="align-right">Energy Cost</th>
+                <th class="align-right">Additional Cost</th>
                 <th class="align-right">Total Cost</th>
+                <th class="align-right">ROI</th>
+                <th class="align-right">Sell price</th>
             </tr>
             </thead>
             <tbody>
@@ -36,19 +39,25 @@
                 <td th:text="${part.name}"></td>
                 <td class="align-right" th:text="${part.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${part.weight} + ' g'"></td>
-                <td class="align-right" th:text="'$ ' + ${part.cost}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.filament_cost}"></td>
                 <td class="align-right" th:text="${part.time} + ' min'"></td>
                 <td class="align-right" th:text="'$ ' + ${part.energyCost}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.additional_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.roi}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.sellPrice}"></td>
             </tr>
             <tr class="total">
                 <td th:text="${estimative.name}"></td>
                 <td class="align-right" th:text="${estimative.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${estimative.weight} + ' g'"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.cost}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.filament_cost}"></td>
                 <td class="align-right" th:text="${estimative.time} + ' min'"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.energyCost}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.additional_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.roi}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.sellPrice}"></td>
             </tr>
             </tbody>
         </table>

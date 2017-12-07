@@ -140,7 +140,8 @@ public class GCodeAnalyzer {
             }
 
             if (line.startsWith("; total filament cost")) {
-                estimative.cost = new BigDecimal(splitValues(line)[1]);
+                estimative.filament_cost = new BigDecimal(splitValues(line)[1])
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             }
 
         }

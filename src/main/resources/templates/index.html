@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>3D Printing Price Estimator</title>
+    <title>Estimate 3D Printing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link href="../../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
@@ -16,10 +16,11 @@
 
 <body>
 <div class="container">
-    <h1>3D Printing Cost Estimator</h1>
-    <form action="/" method="post" enctype="multipart/form-data" th:object="${formData}">
+    <h1>Estimate 3D Printing Costs</h1>
+    <form action="/" method="post" enctype="multipart/form-data" >
         <div class="form-group">
             <fieldset class="container-fluid">
+
                 <div class="form-group">
                     <label for="file">Select STL, GCODE and ZIP files</label>
                     <div class="input-group">
@@ -32,6 +33,7 @@
                         <input type="text" class="form-control" readonly="readonly"></input>
                     </div>
                 </div>
+
                 <div class="row">
                     <h3>Slicing configs</h3>
                 </div>
@@ -47,51 +49,116 @@
                         <label for="filament_density">Material</label>
                         <select name="filament_density" id="filament_density"
                                 class="form-control select select-primary select-block mbl" required="required">
-                            <option value="1.24">PLA - 1,24 g/cm³</option>
-                            <option value="1.04">ABS - 1,04 g/cm³</option>
-                            <option value="1.27">PETG - 1,27 g/cm³</option>
+                            <option th:value="${pla_density}">PLA</option>
+                            <option th:value="${abs_density}">ABS</option>
+                            <option th:value="${petg_density}">PETG</option>
                         </select>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="filament_cost">Filament cost per kg ($)</label>
-                        <input type="text" name="filament_cost" id="filament_cost" class="form-control" min="0"
-                               value="150" required="required"></input>
+                        <label for="fill_density">Infill density (%)</label>
+                        <input type="number" name="fill_density" id="fill_density" class="form-control"
+                               th:value="${fill_density}"
+                               min="0" max="100" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="fill_density">Infill density (%)</label>
-                        <input type="number" name="fill_density" id="fill_density" class="form-control" value="15"
-                               min="0" max="100" required="required"></input>
+                        <label for="layer_height">Layer height</label>
+                        <input type="text" name="layer_height" id="layer_height" class="form-control"
+                               th:value="${layer_height}"
+                               min="0" required="required"></input>
                     </div>
                 </div>
                 <div class="row">
-                    <h3>Additional time</h3>
+                    <div class="form-group col-sm-3">
+                        <label for="brim_width">Brim width</label>
+                        <input type="number" name="brim_width" id="brim_width" class="form-control"
+                               th:value="${brim_width}"
+                               min="0" required="required"></input>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h3>Additional print time</h3>
                     <p>Add these times to each printing.</p>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-3">
                         <label for="preheat_bed_time">Pre-heat bed time (min)</label>
                         <input type="number" name="preheat_bed_time" id="preheat_bed_time" class="form-control" min="0"
-                               value="15" required="required"></input>
+                               th:value="${preheat_bed_time}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="preheat_hotend_time">Pre-heat hot-end time (min)</label>
                         <input type="number" name="preheat_hotend_time" id="preheat_hotend_time" class="form-control"
-                               min="0" value="2" required="required"></input>
+                               min="0"
+                               th:value="${preheat_hotend_time}" required="required"></input>
                     </div>
                 </div>
+
                 <div class="row">
-                    <h3>Additional costs</h3>
+                    <h3>Costs</h3>
                 </div>
                 <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="filament_cost">Filament cost per kg ($)</label>
+                        <input type="number" name="filament_cost" id="filament_cost" class="form-control" min="0"
+                               th:value="${filament_cost}" required="required"></input>
+                    </div>
                     <div class="form-group col-sm-3">
                         <label for="power_rating">Power rating (watts)</label>
                         <input type="number" name="power_rating" id="power_rating" class="form-control" min="0"
-                               value="600" required="required"></input>
+                               th:value="${power_rating}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="cost_of_energy">Cost of energy (kW/h)</label>
-                        <input type="text" name="cost_of_energy" id="cost_of_energy" class="form-control"
-                               value="0.69118" required="required"></input>
+                        <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control"
+                               th:value="${cost_of_energy}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="fail_average">Fail average (%)</label>
+                        <input type="number" name="fail_average" id="fail_average" class="form-control" min="0" max="100"
+                               th:value="${fail_average}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="spray_use">Used spray per print</label>
+                        <input type="text" name="spray_use" id="spray_use" class="form-control" min="0"
+                               th:value="${spray_use}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="additional_cost">Additional cost</label>
+                        <input type="number" name="additional_cost" id="additional_cost" class="form-control" min="0"
+                               th:value="${additional_cost}" required="required"></input>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h3>Return over investment</h3>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="investment">Investment</label>
+                        <input type="number" name="investment" id="investment" class="form-control" min="0"
+                               th:value="${investment}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="desired_return_time">Desired time (months)</label>
+                        <input type="number" name="desired_return_time" id="desired_return_time" class="form-control" min="0"
+                               th:value="${desired_return_time}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="work_hours">Work hours a day</label>
+                        <input type="number" name="work_hours" id="work_hours" class="form-control" min="0"
+                               th:value="${work_hours}" required="required"></input>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h3>Profit</h3>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="profit">Profit (%)</label>
+                        <input type="number" name="profit" id="profit" class="form-control" min="0"
+                               th:value="${profit}" required="required"></input>
                     </div>
                 </div>
             </fieldset>

@@ -27,21 +27,38 @@ public class EstimatorService {
     @ResponseBody
     public Estimative estimate(
             @RequestPart("file") MultipartFile[] files,
-            @RequestPart(value = "filament_cost", required = false) @DefaultValue("150") String filamentCost,
+
             @RequestPart(value = "slicer", required = false) @DefaultValue("slic3r") String slicerChoice,
-            @RequestPart(value = "preheat_bed_time", required = false) @DefaultValue("0") String preheatBedTime,
-            @RequestPart(value = "preheat_hotend_time", required = false) @DefaultValue("0") String preheatHotendTime,
             @RequestPart(value = "filament_density", required = false) @DefaultValue("1.24") String filamentDensity,
-            @RequestPart(value = "power_rating", required = false) @DefaultValue("600") String powerRating,
-            @RequestPart(value = "cost_of_energy", required = false) @DefaultValue("0") String costOfEnergy,
-            @RequestPart(value = "fill_density", required = false) @DefaultValue("15") String fillDensity)
+            @RequestPart(value = "fill_density", required = false) @DefaultValue("15") String fillDensity,
+            @RequestPart(value = "layer_height", required = false) @DefaultValue("0.2") String layer_height,
+            @RequestPart(value = "brim_width", required = false) @DefaultValue("0") String brim_width,
+
+            @RequestPart(value = "preheat_bed_time", required = false) @DefaultValue("5") String preheatBedTime,
+            @RequestPart(value = "preheat_hotend_time", required = false) @DefaultValue("2") String preheatHotendTime,
+
+            @RequestPart(value = "filament_cost", required = false) @DefaultValue("130") String filamentCost,
+            @RequestPart(value = "power_rating", required = false) @DefaultValue("1400") String powerRating,
+            @RequestPart(value = "cost_of_energy", required = false) @DefaultValue("0.72") String costOfEnergy,
+
+            @RequestPart(value = "fail_average", required = false) @DefaultValue("20") String fail_average,
+            @RequestPart(value = "spray_use", required = false) @DefaultValue("0.2") String spray_use,
+            @RequestPart(value = "additional_cost", required = false) @DefaultValue("0") String additional_cost,
+
+            @RequestPart(value = "investment", required = false) @DefaultValue("2000") String investment,
+            @RequestPart(value = "desired_return_time", required = false) @DefaultValue("12") String desired_return_time,
+            @RequestPart(value = "work_hours", required = false) @DefaultValue("8") String work_hours,
+
+            @RequestPart(value = "profit", required = false) @DefaultValue("200") String profit
+
+    )
             throws IOException, InterruptedException, ArchiveException {
 
         List<String> inputFileNames = Files.getFilenamesFromMultipartFiles(files);
 
         Slicer slicer = createSlicer(slicerChoice);
 
-        updateSlicerProperties(slicer, filamentCost, filamentDensity, fillDensity);
+        updateSlicerProperties(slicer, filamentCost, filamentDensity, fillDensity, layer_height, brim_width);
 
         List<Estimative> estimatives = inputFileNames
                 .stream()
@@ -55,22 +72,50 @@ public class EstimatorService {
 
         for (Estimative part : estimatives) {
             part.time = part.time.add(preheatTimes);
-            part.energyCost = calculateEnergyCost(powerRating, costOfEnergy, part);
+            part.energyCost = calculateEnergyCost(powerRating, costOfEnergy, part.time);
+            part.additional_cost = new BigDecimal(additional_cost)
+                    .add(new BigDecimal(spray_use))
+                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+            part.roi = calculateROI(investment, desired_return_time, work_hours, part.time);
+
+            part.fail_average = new BigDecimal(fail_average);
+            part.profit = new BigDecimal(profit);
+
             total.add(part);
         }
+
+        total.fail_average = new BigDecimal(fail_average);
+        total.profit = new BigDecimal(profit);
 
         return total;
     }
 
-    private BigDecimal calculateEnergyCost(String powerRating, String costOfEnergy, Estimative part) {
-        return part.time
+    private BigDecimal calculateROI(String investment, String desired_return_time, String work_hours, BigDecimal time) {
+        return new BigDecimal(investment)
+                .divide(new BigDecimal(desired_return_time), 2, RoundingMode.HALF_UP)
+                .divide(new BigDecimal(30), 2, RoundingMode.HALF_UP)
+                .divide(new BigDecimal(work_hours), 2, RoundingMode.HALF_UP)
+                .divide(new BigDecimal(60), 2, RoundingMode.HALF_UP)
+                .multiply(time)
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    private BigDecimal calculateEnergyCost(String powerRating, String costOfEnergy, BigDecimal time) {
+        return time
                 .multiply(new BigDecimal(powerRating))
                 .multiply(new BigDecimal(costOfEnergy))
                 .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
     }
 
-    //TODO move to slicer
-    private void updateSlicerProperties(Slicer slicer, String filamentCost, String filamentDensity, String fillDensity) throws IOException {
+    //TODO can't store it because it's shared across requests
+    private void updateSlicerProperties(Slicer slicer,
+                                        String filamentCost,
+                                        String filamentDensity,
+                                        String fillDensity,
+                                        String layer_height,
+                                        String brim_width)
+            throws IOException {
+
         Properties properties = slicer.getProperties();
         if (filamentCost != null)
             properties.setProperty("filament_cost", filamentCost);
@@ -78,6 +123,10 @@ public class EstimatorService {
             properties.setProperty("filament_density", filamentDensity);
         if (fillDensity != null)
             properties.setProperty("fill_density", fillDensity + "%");
+        if (layer_height != null)
+            properties.setProperty("layer_height", layer_height);
+        if (brim_width != null)
+            properties.setProperty("brim_width", brim_width);
         slicer.setProperties(properties);
     }
 
