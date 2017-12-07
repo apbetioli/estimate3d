@@ -40,7 +40,7 @@
                 <td class="align-right" th:text="${part.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${part.weight} + ' g'"></td>
                 <td class="align-right" th:text="'$ ' + ${part.filament_cost}"></td>
-                <td class="align-right" th:text="${part.time} + ' min'"></td>
+                <td class="align-right" th:text="${part.time} / 60 + ' h'"></td>
                 <td class="align-right" th:text="'$ ' + ${part.energyCost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.additional_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
@@ -52,7 +52,7 @@
                 <td class="align-right" th:text="${estimative.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${estimative.weight} + ' g'"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.filament_cost}"></td>
-                <td class="align-right" th:text="${estimative.time} + ' min'"></td>
+                <td class="align-right" th:text="${estimative.time} / 60 + ' h'"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.energyCost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.additional_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
