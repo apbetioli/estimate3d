@@ -1,6 +1,6 @@
 package owlracle3d.estimator.slicers;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.*;
 import java.util.Properties;
