@@ -11,6 +11,7 @@ import owlracle3d.estimator.slicers.Slicer;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Produces;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -107,7 +108,6 @@ public class EstimatorService {
                 .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
     }
 
-    //TODO can't store it because it's shared across requests
     private void updateSlicerProperties(Slicer slicer,
                                         String filamentCost,
                                         String filamentDensity,
@@ -121,8 +121,10 @@ public class EstimatorService {
             properties.setProperty("filament_cost", filamentCost);
         if (filamentDensity != null)
             properties.setProperty("filament_density", filamentDensity);
-        if (fillDensity != null)
+        if (fillDensity != null) {
             properties.setProperty("fill_density", fillDensity + "%");
+            properties.setProperty("fill_pattern", fillDensity.equals("100") ? "rectilinear" : "cubic");
+        }
         if (layer_height != null)
             properties.setProperty("layer_height", layer_height);
         if (brim_width != null)
@@ -140,9 +142,9 @@ public class EstimatorService {
 
     private Estimative estimate(Slicer slicer, String inputFileName) {
 
-        try {
-            String outputFilename = inputFileName;
+        String outputFilename = inputFileName;
 
+        try {
             if (!inputFileName.endsWith(".gcode")) {
                 outputFilename += ".gcode";
 
@@ -163,6 +165,9 @@ public class EstimatorService {
         } catch (Exception e) {
             //TODO improve exception handling
             throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            new File(inputFileName).delete();
+            new File(outputFilename).delete();
         }
     }
 

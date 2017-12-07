@@ -22,6 +22,11 @@ public class Estimative {
 
     public List<Estimative> parts;
 
+    public String getFormattedTime() {
+        BigDecimal[] times = time.divideAndRemainder(new BigDecimal(60));
+        return String.format("%d:%02d", times[0].intValue(), (int)(times[1].intValue()*0.6));
+    }
+
     public BigDecimal getTotalCost() {
         BigDecimal total = filament_cost.add(energyCost).add(additional_cost);
         BigDecimal fail = total
