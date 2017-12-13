@@ -13,7 +13,7 @@ public class Estimative {
     public BigDecimal weight = BigDecimal.ZERO; //g
     public BigDecimal time = BigDecimal.ZERO; //min
     public BigDecimal filament_cost = BigDecimal.ZERO; //$
-    public BigDecimal energyCost = BigDecimal.ZERO; //$
+    public BigDecimal energy_cost = BigDecimal.ZERO; //$
     public BigDecimal additional_cost = BigDecimal.ZERO; //$
     public BigDecimal roi = BigDecimal.ZERO; //$
 
@@ -24,22 +24,29 @@ public class Estimative {
 
     public String getFormattedTime() {
         BigDecimal[] times = time.divideAndRemainder(new BigDecimal(60));
-        return String.format("%d:%02d", times[0].intValue(), (int)(times[1].intValue()*0.6));
+        return String.format("%d:%02d", times[0].intValue(), (int) (times[1].intValue() * 0.6));
     }
 
     public BigDecimal getTotalCost() {
-        BigDecimal total = filament_cost.add(energyCost).add(additional_cost);
-        BigDecimal fail = total
-                .multiply(fail_average)
-                .divide(new BigDecimal(100),2, RoundingMode.HALF_UP);
+        BigDecimal total = sumTotalCost();
+        BigDecimal fail = getFailureMargin();
         return total.add(fail);
     }
 
+    public BigDecimal getFailureMargin() {
+        BigDecimal total = sumTotalCost();
+        BigDecimal fail = total
+                .multiply(fail_average)
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        return fail;
+    }
+
     public BigDecimal getSellPrice() {
-        return getTotalCost()
-                .add(roi)
+        BigDecimal totalCost = getTotalCost();
+        BigDecimal myProfit = totalCost
                 .multiply(profit)
-                .divide(new BigDecimal(100),2, RoundingMode.HALF_UP);
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        return totalCost.add(roi).add(myProfit);
     }
 
     public void add(Estimative part) {
@@ -48,7 +55,7 @@ public class Estimative {
         this.volume = this.volume.add(part.volume);
         this.weight = this.weight.add(part.weight);
         this.time = this.time.add(part.time);
-        this.energyCost = this.energyCost.add(part.energyCost);
+        this.energy_cost = this.energy_cost.add(part.energy_cost);
         this.additional_cost = this.additional_cost.add(part.additional_cost);
         this.roi = this.roi.add(part.roi);
 
@@ -66,12 +73,16 @@ public class Estimative {
                 ", weight=" + weight +
                 ", time=" + time +
                 ", filament_cost=" + filament_cost +
-                ", energyCost=" + energyCost +
+                ", energy_cost=" + energy_cost +
                 ", additional_cost=" + additional_cost +
                 ", roi=" + roi +
                 ", fail_average=" + fail_average +
                 ", profit=" + profit +
                 ", parts=" + parts +
                 '}';
+    }
+
+    private BigDecimal sumTotalCost() {
+        return filament_cost.add(energy_cost).add(additional_cost);
     }
 }

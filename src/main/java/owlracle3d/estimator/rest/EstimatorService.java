@@ -73,10 +73,12 @@ public class EstimatorService {
 
         for (Estimative part : estimatives) {
             part.time = part.time.add(preheatTimes);
-            part.energyCost = calculateEnergyCost(powerRating, costOfEnergy, part.time);
+            part.energy_cost = calculateEnergyCost(powerRating, costOfEnergy, part.time);
+
             part.additional_cost = new BigDecimal(additional_cost)
                     .add(new BigDecimal(spray_use))
                     .setScale(2, BigDecimal.ROUND_HALF_UP);
+
             part.roi = calculateROI(investment, desired_return_time, work_hours, part.time);
 
             part.fail_average = new BigDecimal(fail_average);
