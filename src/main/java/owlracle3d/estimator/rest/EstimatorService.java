@@ -72,6 +72,7 @@ public class EstimatorService {
         total.name = "TOTAL";
 
         for (Estimative part : estimatives) {
+            part.filament_cost = part.calculateFilamentCost(filamentCost);
             part.time = part.time.add(preheatTimes);
             part.energy_cost = calculateEnergyCost(powerRating, costOfEnergy, part.time);
 

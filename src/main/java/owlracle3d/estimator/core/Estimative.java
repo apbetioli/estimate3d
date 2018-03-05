@@ -24,7 +24,7 @@ public class Estimative {
 
     public String getFormattedTime() {
         BigDecimal[] times = time.divideAndRemainder(new BigDecimal(60));
-        return String.format("%d:%02d", times[0].intValue(), (int) (times[1].intValue() * 0.6));
+        return String.format("%d:%02d", times[0].intValue(), times[1].intValue());
     }
 
     public BigDecimal getTotalCost() {
@@ -84,5 +84,10 @@ public class Estimative {
 
     private BigDecimal sumTotalCost() {
         return filament_cost.add(energy_cost).add(additional_cost);
+    }
+
+    public BigDecimal calculateFilamentCost(String filamentCostPerKg) {
+        return this.weight.multiply(new BigDecimal(filamentCostPerKg)).divide(new BigDecimal(1000), 2, RoundingMode.HALF_UP);
+
     }
 }

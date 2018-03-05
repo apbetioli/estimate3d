@@ -128,22 +128,49 @@ public class GCodeAnalyzer {
                 estimative.time = estimative.time.add(time);
             }
 
+            //Slic3r
+
             if (line.startsWith("; filament used")) {
                 if (line.contains("cm3")) {
-                    String[] values = splitValues(line);
+                    String[] values = splitValues(line, "=");
                     String[] dimensions = values[1].split("\\(");
                     estimative.length = new BigDecimal(dimensions[0].replace("mm", ""));
                     estimative.volume = new BigDecimal(dimensions[1].replace("cm3", "").replace(")", ""));
                 } else {
-                    estimative.weight = new BigDecimal(splitValues(line)[1].replace("g", ""));
+                    estimative.weight = new BigDecimal(splitValues(line, "=")[1].replace("g", ""));
                 }
             }
 
-            if (line.startsWith("; total filament cost")) {
-                estimative.filament_cost = new BigDecimal(splitValues(line)[1])
-                        .setScale(2, BigDecimal.ROUND_HALF_UP);
+
+            if (line.startsWith(";   Plastic weight")) {
+                String valueString = line.replace(";   Plastic weight: ", "").split(" ")[0];
+                estimative.weight = new BigDecimal(valueString);
             }
 
+            if (line.startsWith(";   Plastic volume")) {
+                String valueString = line.replace(";   Plastic volume: ", "").split(" ")[0];
+                estimative.volume = new BigDecimal(valueString).divide(new BigDecimal(10), 2, RoundingMode.HALF_UP);
+            }
+
+            if (line.startsWith(";   Filament length")) {
+                String valueString = line.replace(";   Filament length: ", "").split(" ")[0];
+                estimative.length = new BigDecimal(valueString);
+            }
+
+            if (line.startsWith(";   Build time")) {
+                estimative.time = BigDecimal.ZERO;
+                String valueString = line.replace(";   Build time: ", "");
+                StringTokenizer st = new StringTokenizer(valueString);
+                while(st.hasMoreTokens()) {
+                    BigDecimal time = new BigDecimal(st.nextToken());
+                    String type = st.nextToken();
+                    if(type.equals("hour") || type.equals("hours")) {
+                        time = time.multiply(new BigDecimal(60));
+                    }
+                    estimative.time = estimative.time.add(time);
+                }
+
+            }
         }
 
         scanner.close();
@@ -153,8 +180,8 @@ public class GCodeAnalyzer {
         return estimative;
     }
 
-    private String[] splitValues(String line) {
-        return line.replaceAll("[; \\)]", "").split("=");
+    private String[] splitValues(String line, String character) {
+        return line.replaceAll("[; \\)]", "").split(character);
     }
 
 }
