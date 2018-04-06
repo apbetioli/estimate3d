@@ -32,7 +32,9 @@
                 <th class="align-right">Failure Margin</th>
                 <th class="align-right">Total Cost</th>
                 <th class="align-right">ROI</th>
+                <th class="align-right">Profit</th>
                 <th class="align-right">Sell price</th>
+                <th class="align-right">Final price</th>
             </tr>
             </thead>
             <tbody>
@@ -47,7 +49,9 @@
                 <td class="align-right" th:text="'$ ' + ${part.failureMargin}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.roi}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.profit}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.sellPrice}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.finalPrice}"></td>
             </tr>
             <tr class="total">
                 <td th:text="${estimative.name}"></td>
@@ -60,7 +64,9 @@
                 <td class="align-right" th:text="'$ ' + ${estimative.failureMargin}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.roi}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.profit}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.sellPrice}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.finalPrice}"></td>
             </tr>
             </tbody>
         </table>

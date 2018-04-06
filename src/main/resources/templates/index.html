@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="row">
-                    <h3>Slicing configs</h3>
+                    <h3>Slicing configs (only for STL)</h3>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-3">
@@ -122,13 +122,13 @@
                                th:value="${fail_average}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="spray_use">Used spray per print</label>
-                        <input type="text" name="spray_use" id="spray_use" class="form-control" min="0"
+                        <label for="spray_use">Used spray per print ($)</label>
+                        <input type="number" name="spray_use" id="spray_use" class="form-control" min="0" step="0.1"
                                th:value="${spray_use}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="additional_cost">Additional cost</label>
-                        <input type="number" name="additional_cost" id="additional_cost" class="form-control" min="0"
+                        <label for="additional_cost">Additional cost ($)</label>
+                        <input type="number" name="additional_cost" id="additional_cost" class="form-control" min="0" step="0.1"
                                th:value="${additional_cost}" required="required"></input>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-3">
-                        <label for="investment">Investment</label>
+                        <label for="investment">Investment ($)</label>
                         <input type="number" name="investment" id="investment" class="form-control" min="0"
                                th:value="${investment}" required="required"></input>
                     </div>
@@ -164,6 +164,19 @@
                                th:value="${profit}" required="required"></input>
                     </div>
                 </div>
+
+                <div class="row">
+                    <h3>Charges</h3>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="transaction_fee">Transaction fee (%)</label>
+                        <input type="number" name="transaction_fee" id="transaction_fee" class="form-control" min="0" step="0.01"
+                               th:value="${transaction_fee}" required="required"></input>
+                    </div>
+                </div>
+
+
             </fieldset>
         </div>
         <div class="form-group">

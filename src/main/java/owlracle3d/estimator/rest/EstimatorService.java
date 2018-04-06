@@ -50,7 +50,8 @@ public class EstimatorService {
             @RequestPart(value = "desired_return_time", required = false) @DefaultValue("12") String desired_return_time,
             @RequestPart(value = "work_hours", required = false) @DefaultValue("8") String work_hours,
 
-            @RequestPart(value = "profit", required = false) @DefaultValue("200") String profit
+            @RequestPart(value = "profit", required = false) @DefaultValue("200") String profit,
+            @RequestPart(value = "transaction_fee", required = false) @DefaultValue("4") String transaction_fee
 
     )
             throws IOException, InterruptedException, ArchiveException {
@@ -70,8 +71,10 @@ public class EstimatorService {
 
         Estimative total = new Estimative();
         total.name = "TOTAL";
+        total.transaction_fee = new BigDecimal(transaction_fee);
 
         for (Estimative part : estimatives) {
+            part.transaction_fee = new BigDecimal(transaction_fee);
             part.filament_cost = part.calculateFilamentCost(filamentCost);
             part.time = part.time.add(preheatTimes);
             part.energy_cost = calculateEnergyCost(powerRating, costOfEnergy, part.time);

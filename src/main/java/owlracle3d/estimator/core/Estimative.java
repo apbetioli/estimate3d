@@ -19,6 +19,7 @@ public class Estimative {
 
     public BigDecimal fail_average = BigDecimal.ZERO; //%
     public BigDecimal profit = new BigDecimal(100); //%
+    public BigDecimal transaction_fee = BigDecimal.ZERO; //%
 
     public List<Estimative> parts;
 
@@ -43,10 +44,23 @@ public class Estimative {
 
     public BigDecimal getSellPrice() {
         BigDecimal totalCost = getTotalCost();
-        BigDecimal myProfit = totalCost
+        BigDecimal myProfit = getProfit();
+        return totalCost.add(roi).add(myProfit);
+
+    }
+
+    public BigDecimal getFinalPrice() {
+        BigDecimal sellPrice = getSellPrice();
+        BigDecimal fees = sellPrice.multiply(transaction_fee)
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        return sellPrice.add(fees);
+    }
+
+    public BigDecimal getProfit() {
+        BigDecimal totalCost = getTotalCost();
+        return totalCost
                 .multiply(profit)
                 .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-        return totalCost.add(roi).add(myProfit);
     }
 
     public void add(Estimative part) {

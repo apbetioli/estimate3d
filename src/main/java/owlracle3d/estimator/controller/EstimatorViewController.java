@@ -66,6 +66,7 @@ public class EstimatorViewController {
             @RequestPart("work_hours") String work_hours,
 
             @RequestPart("profit") String profit,
+            @RequestPart("transaction_fee") String transaction_fee,
 
             Map<String, Object> model)
             throws IOException, InterruptedException, ArchiveException {
@@ -94,7 +95,8 @@ public class EstimatorViewController {
                 desired_return_time,
                 work_hours,
 
-                profit
+                profit,
+                transaction_fee
         );
 
         model.put("estimative", estimative);
