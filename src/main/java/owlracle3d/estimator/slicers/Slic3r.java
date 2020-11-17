@@ -77,6 +77,8 @@ public class Slic3r implements Slicer {
             executable = "slicers\\slic3r-windows\\slic3r-console.exe";
             inputFileName = "\"" + inputFileName + "\"";
             outputFileName = "\"" + outputFileName + "\"";
+        } else if (OS.toLowerCase().contains("mac")) {
+            executable = "bash slicers/slic3r-mac/Slic3r --no-gui";
         } else {
             executable = "bash slicers/slic3r-linux/Slic3r --no-gui";
         }
