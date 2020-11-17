@@ -23,35 +23,35 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api")
 public class EstimatorService {
 
-    @RequestMapping(path = "/estimate", method = RequestMethod.POST, consumes = "multipart/form-data")
+    @PostMapping(path = "/estimate", consumes = "multipart/form-data")
     @Produces("application/json")
     @ResponseBody
     public Estimative estimate(
-            @RequestPart("file") MultipartFile[] files,
+            @RequestParam("file") MultipartFile[] files,
 
-            @RequestPart(value = "slicer", required = false) @DefaultValue("slic3r") String slicerChoice,
-            @RequestPart(value = "filament_density", required = false) @DefaultValue("1.24") String filamentDensity,
-            @RequestPart(value = "fill_density", required = false) @DefaultValue("15") String fillDensity,
-            @RequestPart(value = "layer_height", required = false) @DefaultValue("0.2") String layer_height,
-            @RequestPart(value = "brim_width", required = false) @DefaultValue("0") String brim_width,
+            @RequestParam(value = "slicer", required = false, defaultValue = "slic3r") String slicerChoice,
+            @RequestParam(value = "filament_density", required = false, defaultValue = "1.24") String filamentDensity,
+            @RequestParam(value = "fill_density", required = false, defaultValue = "15") String fillDensity,
+            @RequestParam(value = "layer_height", required = false, defaultValue = "0.2") String layerHeight,
+            @RequestParam(value = "brim_width", required = false, defaultValue = "0") String brimWidth,
 
-            @RequestPart(value = "preheat_bed_time", required = false) @DefaultValue("5") String preheatBedTime,
-            @RequestPart(value = "preheat_hotend_time", required = false) @DefaultValue("2") String preheatHotendTime,
+            @RequestParam(value = "preheat_bed_time", required = false, defaultValue = "5") String preheatBedTime,
+            @RequestParam(value = "preheat_hotend_time", required = false, defaultValue = "2") String preheatHotendTime,
 
-            @RequestPart(value = "filament_cost", required = false) @DefaultValue("130") String filamentCost,
-            @RequestPart(value = "power_rating", required = false) @DefaultValue("1400") String powerRating,
-            @RequestPart(value = "cost_of_energy", required = false) @DefaultValue("0.72") String costOfEnergy,
+            @RequestParam(value = "filament_cost", required = false, defaultValue = "130") String filamentCost,
+            @RequestParam(value = "power_rating", required = false, defaultValue = "1400") String powerRating,
+            @RequestParam(value = "cost_of_energy", required = false, defaultValue = "0.72") String costOfEnergy,
 
-            @RequestPart(value = "fail_average", required = false) @DefaultValue("20") String fail_average,
-            @RequestPart(value = "spray_use", required = false) @DefaultValue("0.2") String spray_use,
-            @RequestPart(value = "additional_cost", required = false) @DefaultValue("0") String additional_cost,
+            @RequestParam(value = "fail_average", required = false, defaultValue = "20") String failAverage,
+            @RequestParam(value = "spray_use", required = false, defaultValue = "0.2") String sprayUse,
+            @RequestParam(value = "additional_cost", required = false, defaultValue = "0") String additionalCost,
 
-            @RequestPart(value = "investment", required = false) @DefaultValue("2000") String investment,
-            @RequestPart(value = "desired_return_time", required = false) @DefaultValue("12") String desired_return_time,
-            @RequestPart(value = "work_hours", required = false) @DefaultValue("8") String work_hours,
+            @RequestParam(value = "investment", required = false, defaultValue = "2000") String investment,
+            @RequestParam(value = "desired_return_time", required = false, defaultValue = "12") String desiredReturnTime,
+            @RequestParam(value = "work_hours", required = false, defaultValue = "8") String workHours,
 
-            @RequestPart(value = "profit", required = false) @DefaultValue("200") String profit,
-            @RequestPart(value = "transaction_fee", required = false) @DefaultValue("4") String transaction_fee
+            @RequestParam(value = "profit", required = false, defaultValue = "200") String profit,
+            @RequestParam(value = "transaction_fee", required = false, defaultValue = "4") String transactionFee
 
     )
             throws IOException, InterruptedException, ArchiveException {
@@ -60,7 +60,7 @@ public class EstimatorService {
 
         Slicer slicer = createSlicer(slicerChoice);
 
-        updateSlicerProperties(slicer, filamentCost, filamentDensity, fillDensity, layer_height, brim_width);
+        updateSlicerProperties(slicer, filamentCost, filamentDensity, fillDensity, layerHeight, brimWidth);
 
         List<Estimative> estimatives = inputFileNames
                 .stream()
@@ -71,37 +71,37 @@ public class EstimatorService {
 
         Estimative total = new Estimative();
         total.name = "TOTAL";
-        total.transaction_fee = new BigDecimal(transaction_fee);
+        total.transaction_fee = new BigDecimal(transactionFee);
 
         for (Estimative part : estimatives) {
-            part.transaction_fee = new BigDecimal(transaction_fee);
+            part.transaction_fee = new BigDecimal(transactionFee);
             part.filament_cost = part.calculateFilamentCost(filamentCost);
             part.time = part.time.add(preheatTimes);
             part.energy_cost = calculateEnergyCost(powerRating, costOfEnergy, part.time);
 
-            part.additional_cost = new BigDecimal(additional_cost)
-                    .add(new BigDecimal(spray_use))
+            part.additional_cost = new BigDecimal(additionalCost)
+                    .add(new BigDecimal(sprayUse))
                     .setScale(2, BigDecimal.ROUND_HALF_UP);
 
-            part.roi = calculateROI(investment, desired_return_time, work_hours, part.time);
+            part.roi = calculateROI(investment, desiredReturnTime, workHours, part.time);
 
-            part.fail_average = new BigDecimal(fail_average);
+            part.fail_average = new BigDecimal(failAverage);
             part.profit = new BigDecimal(profit);
 
             total.add(part);
         }
 
-        total.fail_average = new BigDecimal(fail_average);
+        total.fail_average = new BigDecimal(failAverage);
         total.profit = new BigDecimal(profit);
 
         return total;
     }
 
-    private BigDecimal calculateROI(String investment, String desired_return_time, String work_hours, BigDecimal time) {
+    private BigDecimal calculateROI(String investment, String desiredReturnTime, String workHours, BigDecimal time) {
         return new BigDecimal(investment)
-                .divide(new BigDecimal(desired_return_time), 2, RoundingMode.HALF_UP)
+                .divide(new BigDecimal(desiredReturnTime), 2, RoundingMode.HALF_UP)
                 .divide(new BigDecimal(30), 2, RoundingMode.HALF_UP)
-                .divide(new BigDecimal(work_hours), 2, RoundingMode.HALF_UP)
+                .divide(new BigDecimal(workHours), 2, RoundingMode.HALF_UP)
                 .divide(new BigDecimal(60), 2, RoundingMode.HALF_UP)
                 .multiply(time)
                 .setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -118,8 +118,8 @@ public class EstimatorService {
                                         String filamentCost,
                                         String filamentDensity,
                                         String fillDensity,
-                                        String layer_height,
-                                        String brim_width)
+                                        String layerHeight,
+                                        String brimWidth)
             throws IOException {
 
         Properties properties = slicer.getProperties();
@@ -131,10 +131,10 @@ public class EstimatorService {
             properties.setProperty("fill_density", fillDensity + "%");
             properties.setProperty("fill_pattern", fillDensity.equals("100") ? "rectilinear" : "cubic");
         }
-        if (layer_height != null)
-            properties.setProperty("layer_height", layer_height);
-        if (brim_width != null)
-            properties.setProperty("brim_width", brim_width);
+        if (layerHeight != null)
+            properties.setProperty("layer_height", layerHeight);
+        if (brimWidth != null)
+            properties.setProperty("brim_width", brimWidth);
         slicer.setProperties(properties);
     }
 
