@@ -113,7 +113,7 @@
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="cost_of_energy">Cost of energy (kW/h)</label>
-                        <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control"
+                        <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" min="0" max="1" step="0.01"
                                th:value="${cost_of_energy}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
