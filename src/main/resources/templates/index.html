@@ -16,7 +16,17 @@
 
 <body>
 <div class="container">
-    <h1>Estimate 3D Printing Costs</h1>
+
+    <div class="row">
+        <div class="span4">
+            <div class="clearfix content-heading main-heading">
+                <img th:src="@{/img/icons/svg/insights-24px.svg}" class="insights-img" />
+                <h1 class="pull-left ">Estimator</h1>
+            </div>
+        </div>
+    </div>
+
+
     <form action="/" method="post" enctype="multipart/form-data" >
         <div class="form-group">
             <fieldset class="container-fluid">
@@ -64,13 +74,13 @@
                                min="0" max="100" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="layer_height">Layer height</label>
+                        <label for="layer_height">Layer height (mm)</label>
                         <input type="text" name="layer_height" id="layer_height" class="form-control"
                                th:value="${layer_height}"
                                min="0" required="required"></input>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="display: none">
                     <div class="form-group col-sm-3">
                         <label for="brim_width">Brim width</label>
                         <input type="number" name="brim_width" id="brim_width" class="form-control"
@@ -116,12 +126,12 @@
                         <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" min="0" max="1" step="0.01"
                                th:value="${cost_of_energy}" required="required"></input>
                     </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-3" style="display:none">
                         <label for="fail_average">Fail average (%)</label>
                         <input type="number" name="fail_average" id="fail_average" class="form-control" min="0" max="100"
                                th:value="${fail_average}" required="required"></input>
                     </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-3" style="display: none">
                         <label for="spray_use">Used spray per print ($)</label>
                         <input type="number" name="spray_use" id="spray_use" class="form-control" min="0" step="0.1"
                                th:value="${spray_use}" required="required"></input>
@@ -132,50 +142,50 @@
                                th:value="${additional_cost}" required="required"></input>
                     </div>
                 </div>
+                <div style="display: none">
+                    <div class="row">
+                        <h3>Return over investment</h3>
+                    </div>
+                    <div class="row" style="display: none">
+                        <div class="form-group col-sm-3">
+                            <label for="investment">Investment ($)</label>
+                            <input type="number" name="investment" id="investment" class="form-control" min="0"
+                                   th:value="${investment}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="desired_return_time">Desired time (months)</label>
+                            <input type="number" name="desired_return_time" id="desired_return_time" class="form-control" min="0"
+                                   th:value="${desired_return_time}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="work_hours">Work hours a day</label>
+                            <input type="number" name="work_hours" id="work_hours" class="form-control" min="0"
+                                   th:value="${work_hours}" required="required"></input>
+                        </div>
+                    </div>
 
-                <div class="row">
-                    <h3>Return over investment</h3>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-3">
-                        <label for="investment">Investment ($)</label>
-                        <input type="number" name="investment" id="investment" class="form-control" min="0"
-                               th:value="${investment}" required="required"></input>
+                    <div class="row">
+                        <h3>Profit</h3>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="desired_return_time">Desired time (months)</label>
-                        <input type="number" name="desired_return_time" id="desired_return_time" class="form-control" min="0"
-                               th:value="${desired_return_time}" required="required"></input>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="profit">Profit (%)</label>
+                            <input type="number" name="profit" id="profit" class="form-control" min="0"
+                                   th:value="${profit}" required="required"></input>
+                        </div>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="work_hours">Work hours a day</label>
-                        <input type="number" name="work_hours" id="work_hours" class="form-control" min="0"
-                               th:value="${work_hours}" required="required"></input>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <h3>Profit</h3>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-3">
-                        <label for="profit">Profit (%)</label>
-                        <input type="number" name="profit" id="profit" class="form-control" min="0"
-                               th:value="${profit}" required="required"></input>
+                    <div class="row">
+                        <h3>Charges</h3>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="transaction_fee">Transaction fee (%)</label>
+                            <input type="number" name="transaction_fee" id="transaction_fee" class="form-control" min="0" step="0.01"
+                                   th:value="${transaction_fee}" required="required"></input>
+                        </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <h3>Charges</h3>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-3">
-                        <label for="transaction_fee">Transaction fee (%)</label>
-                        <input type="number" name="transaction_fee" id="transaction_fee" class="form-control" min="0" step="0.01"
-                               th:value="${transaction_fee}" required="required"></input>
-                    </div>
-                </div>
-
 
             </fieldset>
         </div>
