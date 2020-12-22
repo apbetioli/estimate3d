@@ -88,7 +88,16 @@ public class Slic3r implements Slicer {
     private boolean execute(File configFile) throws IOException, InterruptedException {
         String command = String.format("%s --load %s -o %s %s", getExecutableCommand(), configFile.getAbsolutePath(), outputFileName, inputFileName);
         System.out.println("Executing: " + command);
-        process = Runtime.getRuntime().exec(command);
+
+        ProcessBuilder processBuilder = new ProcessBuilder(command.split("\\s+"));
+        processBuilder.redirectErrorStream(true);
+        process = processBuilder.start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+
+        while ((line = reader.readLine()) != null)
+            System.out.println("Output: " + line);
         return process.waitFor() == 0;
     }
 
