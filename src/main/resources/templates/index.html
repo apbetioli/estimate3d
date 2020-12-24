@@ -109,34 +109,36 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <h3>Costs</h3>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-3">
-                        <label for="power_rating">Power rating (watts)</label>
-                        <input type="number" name="power_rating" id="power_rating" class="form-control" min="0"
-                               th:value="${power_rating}" required="required"></input>
+                <div style="display: none">
+                    <div class="row">
+                        <h3>Costs</h3>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="cost_of_energy">Cost of energy (kW/h)</label>
-                        <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" min="0" max="1" step="0.01"
-                               th:value="${cost_of_energy}" required="required"></input>
-                    </div>
-                    <div class="form-group col-sm-3" style="display:none">
-                        <label for="fail_average">Fail average (%)</label>
-                        <input type="number" name="fail_average" id="fail_average" class="form-control" min="0" max="100"
-                               th:value="${fail_average}" required="required"></input>
-                    </div>
-                    <div class="form-group col-sm-3" style="display: none">
-                        <label for="spray_use">Used spray per print ($)</label>
-                        <input type="number" name="spray_use" id="spray_use" class="form-control" min="0" step="0.1"
-                               th:value="${spray_use}" required="required"></input>
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="additional_cost">Additional cost ($)</label>
-                        <input type="number" name="additional_cost" id="additional_cost" class="form-control" min="0" step="0.1"
-                               th:value="${additional_cost}" required="required"></input>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="power_rating">Power rating (watts)</label>
+                            <input type="number" name="power_rating" id="power_rating" class="form-control" min="0"
+                                   th:value="${power_rating}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="cost_of_energy">Cost of energy (kW/h)</label>
+                            <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" min="0" max="1" step="0.01"
+                                   th:value="${cost_of_energy}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3" style="display:none">
+                            <label for="fail_average">Fail average (%)</label>
+                            <input type="number" name="fail_average" id="fail_average" class="form-control" min="0" max="100"
+                                   th:value="${fail_average}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3" style="display: none">
+                            <label for="spray_use">Used spray per print ($)</label>
+                            <input type="number" name="spray_use" id="spray_use" class="form-control" min="0" step="0.1"
+                                   th:value="${spray_use}" required="required"></input>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="additional_cost">Additional cost ($)</label>
+                            <input type="number" name="additional_cost" id="additional_cost" class="form-control" min="0" step="0.1"
+                                   th:value="${additional_cost}" required="required"></input>
+                        </div>
                     </div>
                 </div>
 
@@ -145,14 +147,42 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-3">
-                        <label for="filament_cost">Filament cost per kg ($)</label>
+                        <label for="filament_cost">Filament Cost ($ per kg)</label>
                         <input type="number" name="filament_cost" id="filament_cost" class="form-control" min="0"
                                th:value="${filament_cost}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="cost_of_energy">Cost of energy cost per kW/h ($)</label>
+                        <label for="cost_of_energy">Energy Cost ($ per kW/h)</label>
                         <input type="number" name="cost_of_energy" id="cost_of_energy" class="form-control" min="0" max="1" step="0.01"
                                th:value="${cost_of_energy}" required="required"></input>
+                    </div>
+                </div>
+
+                <div class="dotted_line"></div>
+
+                <div class="row">
+                    <h3>Charge</h3>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="filament_charge">Filament Charge ($ per kg)</label>
+                        <input type="number" name="filament_cost" id="filament_charge" class="form-control" min="0"
+                               th:value="${filament_charge}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="energy_charge">Energy Charge ($ per kW/h)</label>
+                        <input type="number" name="energy_charge" id="energy_charge" class="form-control" min="0" max="1" step="0.01"
+                               th:value="${energy_charge}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="work_hours">Print Time Charge</label>
+                        <input type="number" name="print_time_charge" id="print_time_charge" class="form-control" min="0"
+                               th:value="${print_time_charge}" required="required"></input>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="work_hours">Any Additional Charge</label>
+                        <input type="number" name="additional_charge" id="additional_charge" class="form-control" min="0"
+                               th:value="${additional_charge}" required="required"></input>
                     </div>
                 </div>
 
@@ -160,7 +190,7 @@
                     <div class="row">
                         <h3>Return over investment</h3>
                     </div>
-                    <div class="row" style="display: none">
+                    <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="investment">Investment ($)</label>
                             <input type="number" name="investment" id="investment" class="form-control" min="0"
