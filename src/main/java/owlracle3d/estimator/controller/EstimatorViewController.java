@@ -68,6 +68,11 @@ public class EstimatorViewController {
             @RequestPart("profit") String profit,
             @RequestPart("transaction_fee") String transaction_fee,
 
+            @RequestPart("filament_charge") String filament_charge,
+            @RequestPart("energy_charge") String energy_charge,
+            @RequestPart("print_time_charge") String print_time_charge,
+            @RequestPart("additional_chargee") String additional_charge,
+
             Map<String, Object> model)
             throws IOException, InterruptedException, ArchiveException {
 
