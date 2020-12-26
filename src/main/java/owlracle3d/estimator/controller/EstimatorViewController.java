@@ -71,7 +71,7 @@ public class EstimatorViewController {
             @RequestPart("filament_charge") String filament_charge,
             @RequestPart("energy_charge") String energy_charge,
             @RequestPart("print_time_charge") String print_time_charge,
-            @RequestPart("additional_chargee") String additional_charge,
+            @RequestPart("additional_charge") String additional_charge,
 
             Map<String, Object> model)
             throws IOException, InterruptedException, ArchiveException {
@@ -101,7 +101,12 @@ public class EstimatorViewController {
                 work_hours,
 
                 profit,
-                transaction_fee
+                transaction_fee,
+
+                filament_charge,
+                energy_charge,
+                print_time_charge,
+                additional_charge
         );
 
         model.put("estimative", estimative);
