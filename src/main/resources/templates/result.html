@@ -31,48 +31,46 @@
                 <th>Name</th>
                 <th class="align-right">Volume</th>
                 <th class="align-right">Weight</th>
-                <th class="align-right">Filament Cost</th>
                 <th class="align-right">Time</th>
+                <th class="align-right">Filament Cost</th>
                 <th class="align-right">Energy Cost</th>
                 <th class="align-right">Additional Cost</th>
-                <th class="align-right">Failure Margin</th>
                 <th class="align-right">Total Cost</th>
-                <th class="align-right">ROI</th>
-                <th class="align-right">Profit</th>
-                <th class="align-right">Sell price</th>
-                <th class="align-right">Final price</th>
+                <th class="align-right">Filament Charge</th>
+                <th class="align-right">Energy Charge</th>
+                <th class="align-right">Print Time Charge</th>
+                <th class="align-right">Total To Charge</th>
             </tr>
+
             </thead>
             <tbody>
             <tr th:each="part : ${estimative.parts}">
                 <td th:text="${part.name}"></td>
                 <td class="align-right" th:text="${part.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${part.weight} + ' g'"></td>
-                <td class="align-right" th:text="'$ ' + ${part.filament_cost}"></td>
                 <td class="align-right" th:text="${part.formattedTime}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.filament_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.energy_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.additional_cost}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.failureMargin}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.roi}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.profit}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.sellPrice}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.finalPrice}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.filament_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.energy_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.print_time_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${part.totalCharge}"></td>
             </tr>
             <tr class="total">
                 <td th:text="${estimative.name}"></td>
                 <td class="align-right" th:text="${estimative.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${estimative.weight} + ' g'"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.filament_cost}"></td>
                 <td class="align-right" th:text="${estimative.formattedTime}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.filament_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.energy_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.additional_cost}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.failureMargin}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.roi}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.profit}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.sellPrice}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.finalPrice}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.filament_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.energy_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.print_time_charge}"></td>
+                <td class="align-right" th:text="'$ ' + ${estimative.totalCharge}"></td>
             </tr>
             </tbody>
         </table>
@@ -81,6 +79,13 @@
 
 <script src="../../js/vendor/jquery.min.js "></script>
 <script src="../../js/flat-ui.min.js "></script>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-center">2021 Polar Cloud, LLC. This project is based on  <a href="https://github.com/apbetioli/estimate3d">estimate3d</a>. Thanks GitHub user <a href="https://github.com/apbetioli">apbetioli</a> for your hard work.</p>
+    </div>
+</footer>
+
 </body>
 
 </html>

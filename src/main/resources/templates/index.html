@@ -166,7 +166,7 @@
                 <div class="row">
                     <div class="form-group col-sm-3">
                         <label for="filament_charge">Filament Charge ($ per kg)</label>
-                        <input type="number" name="filament_cost" id="filament_charge" class="form-control" min="0"
+                        <input type="number" name="filament_charge" id="filament_charge" class="form-control" min="0"
                                th:value="${filament_charge}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
@@ -175,12 +175,12 @@
                                th:value="${energy_charge}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="work_hours">Print Time Charge</label>
-                        <input type="number" name="print_time_charge" id="print_time_charge" class="form-control" min="0"
+                        <label for="work_hours">Print Time Charge ($ per hour)</label>
+                        <input type="number" name="print_time_charge" id="print_time_charge" class="form-control" min="0" step="0.01"
                                th:value="${print_time_charge}" required="required"></input>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="work_hours">Any Additional Charge</label>
+                        <label for="work_hours">Any Additional Charge ($)</label>
                         <input type="number" name="additional_charge" id="additional_charge" class="form-control" min="0"
                                th:value="${additional_charge}" required="required"></input>
                     </div>
@@ -270,6 +270,13 @@
 
     });
 </script>
+
+<footer class="footer">
+    <div class="container">
+        <p>2021 Polar Cloud, LLC. This project is based on  <a href="https://github.com/apbetioli/estimate3d">estimate3d</a>. Thanks GitHub user <a href="https://github.com/apbetioli">apbetioli</a> for your hard work.</p>
+    </div>
+</footer>
+
 </body>
 
 </html>
