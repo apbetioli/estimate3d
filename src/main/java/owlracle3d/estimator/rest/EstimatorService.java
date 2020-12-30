@@ -51,7 +51,12 @@ public class EstimatorService {
             @RequestParam(value = "work_hours", required = false, defaultValue = "8") String workHours,
 
             @RequestParam(value = "profit", required = false, defaultValue = "200") String profit,
-            @RequestParam(value = "transaction_fee", required = false, defaultValue = "4") String transactionFee
+            @RequestParam(value = "transaction_fee", required = false, defaultValue = "4") String transactionFee,
+
+            @RequestPart("filament_charge") String filamentCharge,
+            @RequestPart("energy_charge") String energyCharge,
+            @RequestPart("print_time_charge") String printTimeCharge,
+            @RequestPart("additional_charge") String additionalCharge
 
     )
             throws IOException, InterruptedException, ArchiveException {
@@ -88,6 +93,12 @@ public class EstimatorService {
             part.fail_average = new BigDecimal(failAverage);
             part.profit = new BigDecimal(profit);
 
+            part.filament_charge = part.calculateFilamentCharge(filamentCharge);
+            part.energy_charge = calculateEnergyCharge(energyCharge, part.time);
+            part.print_time_charge = calculatePrintTimeCharge(printTimeCharge, part.time);
+            part.additional_charge =  new BigDecimal(additionalCharge)
+                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+
             total.add(part);
         }
 
@@ -112,6 +123,19 @@ public class EstimatorService {
                 .multiply(new BigDecimal(powerRating))
                 .multiply(new BigDecimal(costOfEnergy))
                 .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal calculateEnergyCharge(String chargeOfEnergy, BigDecimal time) {
+        return time
+                .multiply(new BigDecimal(chargeOfEnergy))
+                .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
+    }
+
+
+    public BigDecimal calculatePrintTimeCharge(String printTimeCharge,  BigDecimal time) {
+        return time
+                .multiply(new BigDecimal(printTimeCharge))
+                .divide(new BigDecimal(60), 2, RoundingMode.HALF_UP);
     }
 
     private void updateSlicerProperties(Slicer slicer,

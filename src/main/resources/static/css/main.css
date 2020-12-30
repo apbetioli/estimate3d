@@ -1,6 +1,10 @@
 body {
     color: #424242;
     background-color: #F5F5F5;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+    padding-bottom: 30px;
 }
 
 .align-right {
@@ -26,6 +30,12 @@ body {
     border: none;
 }
 
+.input-group-btn span {
+    color: white;
+    background-color: #1D8BF1 !important;
+    border: none;
+}
+
 thead,
 .total {
     background-color: #16a085;
@@ -44,4 +54,37 @@ input[type="submit"] {
 .main-heading img {
     margin: 50px 0px 0px 13px;
     width: 35px;
+}
+
+.dotted_line {
+    border-bottom: 2px dashed #e2e2e2;
+    width: auto;
+    margin-top: 15px;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: #F5F5F5;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    width:100%;
+}
+
+.footer p a {
+    color: #bac1c8;
+}
+
+.footer p a:hover, a:active {
+    color: #9aa4af;
+}
+
+.footer p {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.footer p img {
+    margin-right: 15px;
+    height: 30px;
 }

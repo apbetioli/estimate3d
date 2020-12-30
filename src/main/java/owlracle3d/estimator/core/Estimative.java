@@ -12,10 +12,16 @@ public class Estimative {
     public BigDecimal volume = BigDecimal.ZERO; //cm3
     public BigDecimal weight = BigDecimal.ZERO; //g
     public BigDecimal time = BigDecimal.ZERO; //min
+
     public BigDecimal filament_cost = BigDecimal.ZERO; //$
     public BigDecimal energy_cost = BigDecimal.ZERO; //$
     public BigDecimal additional_cost = BigDecimal.ZERO; //$
     public BigDecimal roi = BigDecimal.ZERO; //$
+
+    public BigDecimal filament_charge = BigDecimal.ZERO; //$
+    public BigDecimal energy_charge = BigDecimal.ZERO; //$
+    public BigDecimal additional_charge = BigDecimal.ZERO; //$
+    public BigDecimal print_time_charge = BigDecimal.ZERO; //$
 
     public BigDecimal fail_average = BigDecimal.ZERO; //%
     public BigDecimal profit = new BigDecimal(100); //%
@@ -32,6 +38,12 @@ public class Estimative {
         BigDecimal total = sumTotalCost();
         BigDecimal fail = getFailureMargin();
         return total.add(fail);
+    }
+
+    public BigDecimal getTotalCharge() {
+        BigDecimal total = sumTotalCharge();
+
+        return total;
     }
 
     public BigDecimal getFailureMargin() {
@@ -72,6 +84,10 @@ public class Estimative {
         this.energy_cost = this.energy_cost.add(part.energy_cost);
         this.additional_cost = this.additional_cost.add(part.additional_cost);
         this.roi = this.roi.add(part.roi);
+        this.filament_charge = this.filament_charge.add(part.filament_charge);
+        this.energy_charge = this.energy_charge.add(part.energy_charge);
+        this.additional_charge = this.additional_charge.add(part.additional_charge);
+        this.print_time_charge = this.print_time_charge.add(part.print_time_charge);
 
         if (this.parts == null)
             this.parts = new ArrayList<>();
@@ -89,6 +105,9 @@ public class Estimative {
                 ", filament_cost=" + filament_cost +
                 ", energy_cost=" + energy_cost +
                 ", additional_cost=" + additional_cost +
+                ", filament_charge=" + filament_charge +
+                ", energy_charge=" + energy_charge +
+                ", additional_charge=" + additional_charge +
                 ", roi=" + roi +
                 ", fail_average=" + fail_average +
                 ", profit=" + profit +
@@ -103,5 +122,13 @@ public class Estimative {
     public BigDecimal calculateFilamentCost(String filamentCostPerKg) {
         return this.weight.multiply(new BigDecimal(filamentCostPerKg)).divide(new BigDecimal(1000), 2, RoundingMode.HALF_UP);
 
+    }
+
+    private BigDecimal sumTotalCharge() {
+        return filament_charge.add(energy_charge).add(print_time_charge).add(additional_charge);
+    }
+
+    public BigDecimal calculateFilamentCharge(String filamentChargePerKg) {
+        return this.weight.multiply(new BigDecimal(filamentChargePerKg)).divide(new BigDecimal(1000), 2, RoundingMode.HALF_UP);
     }
 }
