@@ -116,7 +116,7 @@ public class Estimative {
     }
 
     private BigDecimal sumTotalCost() {
-        return filament_cost.add(energy_cost).add(additional_cost);
+        return filament_cost.add(energy_cost);
     }
 
     public BigDecimal calculateFilamentCost(String filamentCostPerKg) {
@@ -130,5 +130,10 @@ public class Estimative {
 
     public BigDecimal calculateFilamentCharge(String filamentChargePerKg) {
         return this.weight.multiply(new BigDecimal(filamentChargePerKg)).divide(new BigDecimal(1000), 2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal calculateEnergyCharge(String costOfEnergy, String energyCharge) {
+        return new BigDecimal(energyCharge).multiply(energy_cost)
+                .divide(new BigDecimal(costOfEnergy), 2, RoundingMode.HALF_UP);
     }
 }
