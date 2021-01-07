@@ -31,11 +31,10 @@
                 <th>Name</th>
                 <th class="align-right">Volume</th>
                 <th class="align-right">Weight</th>
-                <th class="align-right">Time</th>
+                <th class="align-right border-line">Time</th>
                 <th class="align-right">Filament Cost</th>
                 <th class="align-right">Energy Cost</th>
-                <th class="align-right">Additional Cost</th>
-                <th class="align-right">Total Cost</th>
+                <th class="align-right border-line">Total Cost</th>
                 <th class="align-right">Filament Charge</th>
                 <th class="align-right">Energy Charge</th>
                 <th class="align-right">Print Time Charge</th>
@@ -51,7 +50,6 @@
                 <td class="align-right" th:text="${part.formattedTime}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.filament_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.energy_cost}"></td>
-                <td class="align-right" th:text="'$ ' + ${part.additional_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.totalCost}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.filament_charge}"></td>
                 <td class="align-right" th:text="'$ ' + ${part.energy_charge}"></td>
@@ -62,11 +60,10 @@
                 <td th:text="${estimative.name}"></td>
                 <td class="align-right" th:text="${estimative.volume} + ' cm³'"></td>
                 <td class="align-right" th:text="${estimative.weight} + ' g'"></td>
-                <td class="align-right" th:text="${estimative.formattedTime}"></td>
+                <td class="align-right border-line" th:text="${estimative.formattedTime}" ></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.filament_cost}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.energy_cost}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.additional_cost}"></td>
-                <td class="align-right" th:text="'$ ' + ${estimative.totalCost}"></td>
+                <td class="align-right border-line" th:text="'$ ' + ${estimative.totalCost}" ></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.filament_charge}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.energy_charge}"></td>
                 <td class="align-right" th:text="'$ ' + ${estimative.print_time_charge}"></td>
@@ -81,6 +78,14 @@
 <script src="../../js/flat-ui.min.js "></script>
 
 <footer class="footer">
+    <div class="btn-wrapper">
+        <button class="btn btn-primary" onclick="history.back()" >
+            <img class="back-img" th:src="@{/img/icons/svg/keyboard_arrow_left-white-48dp.svg}" />Back
+        </button>
+        <a th:href="@{'/'}" class="btn btn-primary">
+            <img class="back-img" th:src="@{/img/icons/svg/settings_backup_restore-white-48dp.svg}" />Run New Estimate
+        </a>
+    </div>
     <div class="container">
         <p class="text-center"><img th:src="@{/img/icons/png/PolarCloudLogo.png}" /> 2021 Polar Cloud, LLC. This project is based on  <a href="https://github.com/apbetioli/estimate3d">estimate3d</a>. Thanks GitHub user <a href="https://github.com/apbetioli">apbetioli</a> for your hard work.</p>
     </div>
