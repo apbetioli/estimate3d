@@ -36,8 +36,8 @@ public class Estimative {
 
     public BigDecimal getTotalCost() {
         BigDecimal total = sumTotalCost();
-        BigDecimal fail = getFailureMargin();
-        return total.add(fail);
+
+        return total;
     }
 
     public BigDecimal getTotalCharge() {
