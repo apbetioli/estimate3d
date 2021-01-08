@@ -94,7 +94,7 @@ public class EstimatorService {
             part.profit = new BigDecimal(profit);
 
             part.filament_charge = part.calculateFilamentCharge(filamentCharge);
-            part.energy_charge = calculateEnergyCharge(energyCharge, part.time);
+            part.energy_charge = part.calculateEnergyCharge(costOfEnergy, energyCharge);
             part.print_time_charge = calculatePrintTimeCharge(printTimeCharge, part.time);
             part.additional_charge =  new BigDecimal(additionalCharge)
                     .setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -124,13 +124,6 @@ public class EstimatorService {
                 .multiply(new BigDecimal(costOfEnergy))
                 .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
     }
-
-    public BigDecimal calculateEnergyCharge(String chargeOfEnergy, BigDecimal time) {
-        return time
-                .multiply(new BigDecimal(chargeOfEnergy))
-                .divide(new BigDecimal(60 * 1000), 2, RoundingMode.HALF_UP);
-    }
-
 
     public BigDecimal calculatePrintTimeCharge(String printTimeCharge,  BigDecimal time) {
         return time
