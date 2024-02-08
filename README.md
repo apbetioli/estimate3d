@@ -1,43 +1,16 @@
 # Estimate 3D
 
-It estimates the cost of your 3d printings by uploading a STL, a reprap GCODE file or a compressed zip file containing these files.
-You can choose between different slicers and materials.
-It also takes into consideration your expenses in energy.
+An app for estimating the cost and selling price of your 3d printings.
 
-Demo: http://estimate3d.herokuapp.com/
+Some slicers already give a cost estimate for you, but that accounts only for used material.
 
-## Running
+If you want to sell your 3d printings you need to make sure you are selling it for the right price, so you should also consider your energy costs, failure margin, return over investment (ROI), markup, fees, etc.
 
-You can run the Application main class from an IDE. Or from command line:
+That is why this tool exists, to make those calculations easier for you.
 
-### Linux
-```
-./gradlew bootRun
-```
-
-### Windows
-```
-gradlew.bat bootRun
-```
-
-## Parameters
-
-TODO
-
-## Sending a request
+## Quick start
 
 ```
-POST http://localhost:9000/api/estimate
-Headers:
-  Content-Type: multipart/form-data
-Body:
-  file: cat-toy.stl
+npm install
+npm run dev
 ```
-
-### cURL
-
-```
-curl -F "file=@cat-toy.stl" http://localhost:9000/api/estimate
-```
-
-
