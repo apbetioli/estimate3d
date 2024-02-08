@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/apbetioli/estimate3d#readme",
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
