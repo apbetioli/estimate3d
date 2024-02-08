@@ -1,24 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Estimate 3D Printing</title>
+    <link href="./style.css" rel="stylesheet" />
   </head>
   <body>
     <div id="root">Not rendered</div>
-    <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script>
-      const App = () => {
-        return React.createElement("div", {}, [
-          React.createElement("h1", {}, "Hello World"),
-          React.createElement("p", {}, "This is a paragraph"),
-        ]);
-      };
-      const container = document.getElementById("root");
-      const root = ReactDOM.createRoot(container);
-      root.render(React.createElement(App))
-    </script>
+    <script type="module" src="./App.tsx"></script>
   </body>
 </html>
