@@ -1,10 +1,14 @@
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+
 import EmptyResult from "../components/EmptyResult";
 import { Printer } from "../types";
 import Section from "../components/Section";
+import { addPrinter } from "../store/printersSlice";
 import { useState } from "react";
 
 const Printers = () => {
-  const [printers, setPrinters] = useState<Printer[]>([]);
+  const dispatch = useAppDispatch();
+  const printers = useAppSelector((state) => state.printers.value);
 
   const [printer, setPrinter] = useState<Printer>({
     name: "",
@@ -13,7 +17,7 @@ const Printers = () => {
 
   const add = (e: React.FormEvent) => {
     e.preventDefault();
-    setPrinters([...printers, printer]);
+    dispatch(addPrinter(printer));
     setPrinter({ name: "", power: 0 });
   };
 
@@ -47,16 +51,18 @@ const Printers = () => {
             Add
           </button>
         </form>
-
-        <ul>
-          {printers.map((p) => {
-            return <li key={p.name}>{p.name}</li>;
-          })}
-        </ul>
       </Section>
 
       <Section title="Printers">
-        <EmptyResult title="No printers yet" /> :
+        {printers.length === 0 ? (
+          <EmptyResult title="No printers yet" />
+        ) : (
+          <ul>
+            {printers.map((p) => {
+              return <li key={p.name}>{p.name}</li>;
+            })}
+          </ul>
+        )}
       </Section>
     </>
   );

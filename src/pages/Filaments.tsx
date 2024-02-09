@@ -1,10 +1,14 @@
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+
 import EmptyResult from "../components/EmptyResult";
 import { Filament } from "../types";
 import Section from "../components/Section";
+import { addFilament } from "../store/filamentsSlice";
 import { useState } from "react";
 
 const Filaments = () => {
-  const [filaments, setFilaments] = useState<Filament[]>([]);
+  const filaments = useAppSelector((state) => state.filaments.value);
+  const dispatch = useAppDispatch();
 
   const [filament, setFilament] = useState<Filament>({
     name: "",
@@ -13,7 +17,7 @@ const Filaments = () => {
 
   const add = (e: React.FormEvent) => {
     e.preventDefault();
-    setFilaments([...filaments, filament]);
+    dispatch(addFilament(filament));
     setFilament({ name: "", price: 0 });
   };
 
@@ -47,15 +51,17 @@ const Filaments = () => {
             Add
           </button>
         </form>
-
-        <ul>
-          {filaments.map((p) => {
-            return <li key={p.name}>{p.name}</li>;
-          })}
-        </ul>
       </Section>
       <Section title="Filaments">
-        <EmptyResult title="No filaments yet" />
+        {filaments.length === 0 ? (
+          <EmptyResult title="No filaments yet" />
+        ) : (
+          <ul>
+            {filaments.map((p) => {
+              return <li key={p.name}>{p.name}</li>;
+            })}
+          </ul>
+        )}
       </Section>
     </>
   );

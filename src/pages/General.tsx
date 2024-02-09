@@ -1,8 +1,11 @@
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+
 import Section from "../components/Section";
-import { useState } from "react";
+import { setEnergyCost } from "../store/generalSlice";
 
 const General = () => {
-  const [energyCost, setEnergyCost] = useState(0);
+  const energyCost = useAppSelector((state) => state.general.energyCost);
+  const dispatch = useAppDispatch();
 
   return (
     <Section title="General settings">
@@ -11,7 +14,7 @@ const General = () => {
         id="energy"
         type="number"
         value={energyCost}
-        onChange={(e) => setEnergyCost(Number(e.target.value))}
+        onChange={(e) => dispatch(setEnergyCost(Number(e.target.value)))}
         step={0.01}
       />
     </Section>

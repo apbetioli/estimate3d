@@ -1,20 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Calculate from "./pages/Calculate";
 import Filaments from "./pages/Filaments";
 import General from "./pages/General";
 import Header from "./components/Header";
 import Printers from "./pages/Printers";
+import { Provider } from "react-redux";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
-
-const queryClient = new QueryClient();
+import store from "./store/store";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
         <Header />
         <main className="container p-5">
           <div className="flex overflow-x-auto whitespace-nowrap">
@@ -30,7 +29,7 @@ const App = () => {
             <Route path="/" element={<Calculate />} />
           </Routes>
         </main>
-      </QueryClientProvider>
+      </Provider>
     </BrowserRouter>
   );
 };
