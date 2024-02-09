@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 type SectionProps = {
   title: string;
   collapsable?: boolean;
-  children?: any;
 };
 
-const Section = ({ collapsable = true, title, children }: SectionProps) => {
+const Section = ({
+  collapsable = true,
+  title,
+  children,
+}: PropsWithChildren<SectionProps>) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (

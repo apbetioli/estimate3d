@@ -8,13 +8,10 @@ import Header from "./components/Header";
 import Printers from "./pages/Printers";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const theme = useState(null);
-
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>

@@ -48,9 +48,9 @@ const Filaments = () => {
           </button>
         </form>
 
-        <ul role="list">
+        <ul>
           {filaments.map((p) => {
-            return <li>{p.name}</li>;
+            return <li key={p.name}>{p.name}</li>;
           })}
         </ul>
       </Section>
