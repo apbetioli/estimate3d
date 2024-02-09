@@ -10,10 +10,10 @@ const Section = ({ collapsable = true, title, children }: SectionProps) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <section className="my-10 px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <section className="my-10 rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-800">
       {collapsable ? (
         <button
-          className="text-xl font-bold mb-3"
+          className="mb-3 text-xl font-bold"
           onClick={() => setCollapsed(!collapsed)}
         >
           {title}

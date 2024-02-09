@@ -19,7 +19,7 @@ const App = () => {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Header />
-        <main className="p-5 container">
+        <main className="container p-5">
           <div className="flex overflow-x-auto whitespace-nowrap">
             <Tab to="/">Calculate</Tab>
             <Tab to="/printers">Printers</Tab>

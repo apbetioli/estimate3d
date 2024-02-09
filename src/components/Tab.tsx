@@ -14,10 +14,10 @@ const Tab = (props: TabProps) => {
     <Link
       to={props.to}
       className={classnames(
-        "inline-flex items-center h-12 px-4 py-2 text-sm text-center text-gray-700  border-gray-300 sm:text-base dark:border-gray-500 dark:text-white whitespace-nowrap focus:outline-none",
+        "inline-flex h-12 items-center whitespace-nowrap border-gray-300 px-4 py-2 text-center  text-sm text-gray-700 focus:outline-none dark:border-gray-500 dark:text-white sm:text-base",
         {
-          "border border-b-0 rounded-t-md": active,
-          "bg-transparent border-b cursor-base hover:border-gray-400 dark:hover:border-gray-300":
+          "rounded-t-md border border-b-0": active,
+          "cursor-base border-b bg-transparent hover:border-gray-400 dark:hover:border-gray-300":
             !active,
         },
       )}
