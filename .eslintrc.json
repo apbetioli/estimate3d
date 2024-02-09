@@ -12,10 +12,7 @@
   "rules": {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
-    "@typescript-eslint/no-empty-function": 0,
-    "import/named": "off",
-    "import/namespace": "off",
-    "import/no-unresolved": "off"
+    "@typescript-eslint/no-empty-function": 0
   },
   "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
@@ -40,9 +37,6 @@
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".tsx", ".config.js"]
-      },
       "typescript": {
         "alwaysTryTypes": true
       }
