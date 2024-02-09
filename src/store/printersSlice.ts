@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Printer } from "../types";
+export type Printer = {
+  name: string;
+  power: number;
+};
 
 type PrintersState = {
   value: Printer[];

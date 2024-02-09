@@ -1,10 +1,9 @@
+import { addFilament, type Filament } from "../store/filamentsSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-import EmptyResult from "../components/EmptyResult";
-import { Filament } from "../types";
-import Section from "../components/Section";
-import { addFilament } from "../store/filamentsSlice";
 import { useState } from "react";
+import EmptyResult from "../components/EmptyResult";
+import Section from "../components/Section";
 
 const Filaments = () => {
   const filaments = useAppSelector((state) => state.filaments.value);
@@ -25,18 +24,20 @@ const Filaments = () => {
     <>
       <Section title="Add a filament">
         <form onSubmit={add}>
-          <label htmlFor="filamentName">Name</label>
+          <label htmlFor="name">Name</label>
           <input
-            id="filamentName"
+            id="name"
+            name="name"
             type="text"
             value={filament.name}
             onChange={(e) => setFilament({ ...filament, name: e.target.value })}
             required
           />
 
-          <label htmlFor="energy">Price ($/kg)</label>
+          <label htmlFor="price">Price ($/kg)</label>
           <input
-            id="energy"
+            id="price"
+            name="price"
             type="number"
             value={filament.price}
             onChange={(e) =>

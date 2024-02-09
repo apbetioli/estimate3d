@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type Part = {
+export type Print = {
+  name: string;
   printer: string;
   filament: string;
   weight: number;
@@ -8,44 +9,51 @@ type Part = {
 };
 
 type CalculateState = {
-  addingPart: Part;
-  parts: Part[];
+  current: Print;
+  prints: Print[];
 };
 
 const initialState: CalculateState = {
-  addingPart: {
+  current: {
+    name: "",
     printer: "",
     filament: "",
     weight: 0,
     time: 0,
   },
-  parts: [],
+  prints: [],
 };
 
 export const calculateSlice = createSlice({
   name: "calculateSlice",
   initialState,
   reducers: {
+    setName: (state, action: PayloadAction<string>) => {
+      state.current.name = action.payload;
+    },
     setPrinter: (state, action: PayloadAction<string>) => {
-      state.addingPart.printer = action.payload;
+      state.current.printer = action.payload;
     },
     setFilament: (state, action: PayloadAction<string>) => {
-      state.addingPart.filament = action.payload;
+      state.current.filament = action.payload;
     },
     setWeight: (state, action: PayloadAction<number>) => {
-      state.addingPart.weight = action.payload;
+      state.current.weight = action.payload;
     },
     setTime: (state, action: PayloadAction<number>) => {
-      state.addingPart.time = action.payload;
+      state.current.time = action.payload;
     },
     addPart: (state) => {
-      state.parts.push(state.addingPart);
-      state.addingPart = initialState.addingPart;
+      state.prints.push(state.current);
+
+      state.current.name = "";
+      state.current.weight = 0;
+      state.current.time = 0;
     },
   },
 });
 
-export const { setPrinter, setFilament, setWeight, setTime, addPart } =
+export const { setName, setPrinter, setFilament, setWeight, setTime, addPart } =
   calculateSlice.actions;
 
 export default calculateSlice.reducer;

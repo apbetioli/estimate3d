@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Filament } from "../types";
+export type Filament = {
+  name: string;
+  price: number;
+};
 
 type FilamentsState = {
   value: Filament[];

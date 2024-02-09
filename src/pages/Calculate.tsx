@@ -1,6 +1,7 @@
 import {
   addPart,
   setFilament,
+  setName,
   setPrinter,
   setTime,
   setWeight,
@@ -11,12 +12,11 @@ import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
 
 const Calculate = () => {
-  const parts = useAppSelector((state) => state.calculate.parts);
+  const prints = useAppSelector((state) => state.calculate.prints);
   const printers = useAppSelector((state) => state.printers.value);
   const filaments = useAppSelector((state) => state.filaments.value);
-  const { printer, filament, weight, time } = useAppSelector(
-    (state) => state.calculate.addingPart,
-  );
+  const current = useAppSelector((state) => state.calculate.current);
+
   const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.FormEvent) => {
@@ -26,13 +26,24 @@ const Calculate = () => {
 
   return (
     <div>
-      <Section title="Add a part" collapsable>
+      <Section title="Add a print" collapsable>
         <form onSubmit={onSubmit}>
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            value={current.name}
+            onChange={(e) => dispatch(setName(e.target.value))}
+          />
+
           <label htmlFor="printer">Printer</label>
           <select
             id="printer"
+            name="printer"
             required
-            value={printer}
+            value={current.printer}
             onChange={(e) => dispatch(setPrinter(e.target.value))}
           >
             <option value="">
@@ -48,8 +59,9 @@ const Calculate = () => {
           <label htmlFor="filament">Filament</label>
           <select
             id="filament"
+            name="filament"
             required
-            value={filament}
+            value={current.filament}
             onChange={(e) => dispatch(setFilament(e.target.value))}
           >
             <option value="">
@@ -67,22 +79,24 @@ const Calculate = () => {
           <label htmlFor="weight">Estimated weight (g)</label>
           <input
             id="weight"
+            name="weight"
             type="number"
             required
             step={1}
             min={0}
-            value={weight}
+            value={current.weight}
             onChange={(e) => dispatch(setWeight(Number(e.target.value)))}
           />
 
           <label htmlFor="time">Estimated time (min)</label>
           <input
             id="time"
+            name="time"
             type="number"
             required
             step={1}
             min={0}
-            value={time}
+            value={current.time}
             onChange={(e) => dispatch(setTime(Number(e.target.value)))}
           />
 
@@ -92,12 +106,22 @@ const Calculate = () => {
         </form>
       </Section>
       <Section title="Results">
-        {parts.length === 0 ? (
+        {prints.length === 0 ? (
           <EmptyResult title="No parts yet" />
         ) : (
-          parts.map((p, index) => 
-            <div key={index}>{p.printer + " " + p.filament + " " + p.weight + " " + p.time}</div>,
-          )
+          prints.map((p) => (
+            <div key={p.name}>
+              {p.name +
+                " " +
+                p.printer +
+                " " +
+                p.filament +
+                " " +
+                p.weight +
+                " " +
+                p.time}
+            </div>
+          ))
         )}
       </Section>
     </div>

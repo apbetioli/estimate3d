@@ -1,10 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-import EmptyResult from "../components/EmptyResult";
-import { Printer } from "../types";
-import Section from "../components/Section";
-import { addPrinter } from "../store/printersSlice";
 import { useState } from "react";
+import EmptyResult from "../components/EmptyResult";
+import Section from "../components/Section";
+import { addPrinter, type Printer } from "../store/printersSlice";
 
 const Printers = () => {
   const dispatch = useAppDispatch();
@@ -25,18 +24,20 @@ const Printers = () => {
     <>
       <Section title="Add a printer">
         <form onSubmit={add}>
-          <label htmlFor="printerName">Name</label>
+          <label htmlFor="name">Name</label>
           <input
-            id="printerName"
+            id="name"
+            name="name"
             type="text"
             value={printer.name}
             onChange={(e) => setPrinter({ ...printer, name: e.target.value })}
             required
           />
 
-          <label htmlFor="energy">Power consumption (W)</label>
+          <label htmlFor="power">Power consumption (W)</label>
           <input
-            id="energy"
+            id="power"
+            name="power"
             type="number"
             value={printer.power}
             onChange={(e) =>
