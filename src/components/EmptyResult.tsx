@@ -8,6 +8,7 @@ type EmptyResultProps = {
 const EmptyResult = ({
   title,
   text = "Get started by adding one above",
+  children,
 }: PropsWithChildren<EmptyResultProps>) => {
   return (
     <div className="mt-6 flex h-96 items-center rounded-lg border text-center dark:border-gray-700">
