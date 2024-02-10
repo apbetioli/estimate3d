@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import Section from "../components/Section";
-import { setEnergyCost } from "../store/generalSlice";
+import { setEnergyCost } from "../redux/generalSlice";
 
 const General = () => {
   const energyCost = useAppSelector((state) => state.general.energyCost);

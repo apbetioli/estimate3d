@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import { useState } from "react";
 import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
-import { addPrinter, type Printer } from "../store/printersSlice";
+import { addPrinter, type Printer } from "../redux/printersSlice";
 
 const Printers = () => {
   const dispatch = useAppDispatch();

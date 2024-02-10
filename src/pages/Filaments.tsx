@@ -1,5 +1,5 @@
-import { addFilament, type Filament } from "../store/filamentsSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { addFilament, type Filament } from "../redux/filamentsSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import { useState } from "react";
 import EmptyResult from "../components/EmptyResult";

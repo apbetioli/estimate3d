@@ -5,8 +5,8 @@ import {
   setPrinter,
   setTime,
   setWeight,
-} from "../store/calculateSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+} from "../redux/calculateSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
