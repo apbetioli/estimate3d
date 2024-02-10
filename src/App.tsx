@@ -17,8 +17,8 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Header />
-          <main className="container p-5">
-            <div className="flex overflow-x-auto whitespace-nowrap">
+          <main className="container m-auto p-5">
+            <div className="">
               <Tab to="/">Calculate</Tab>
               <Tab to="/printers">Printers</Tab>
               <Tab to="/filaments">Filaments</Tab>
