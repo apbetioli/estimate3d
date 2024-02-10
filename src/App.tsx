@@ -11,24 +11,11 @@ import { Provider } from "react-redux";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
 
-const Loading = () => {
-  return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex h-screen items-center justify-center space-x-2 bg-white dark:invert">
-        <span className="sr-only">Loading...</span>
-        <div className="h-8 w-8 animate-bounce rounded-full bg-blue-600 [animation-delay:-0.3s]" />
-        <div className="h-8 w-8 animate-bounce rounded-full bg-blue-600 [animation-delay:-0.15s]" />
-        <div className="h-8 w-8 animate-bounce rounded-full bg-blue-600" />
-      </div>
-    </div>
-  );
-};
-
 const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={<Loading />} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Header />
           <main className="container p-5">
             <div className="flex overflow-x-auto whitespace-nowrap">
