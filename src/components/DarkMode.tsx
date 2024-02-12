@@ -35,13 +35,24 @@ const Sun = () => (
 );
 
 const DarkMode = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches),
+  );
 
   return (
     <button
       className="rounded-lg border p-2 transition-colors duration-300 hover:bg-gray-100"
       onClick={() => {
         setDarkMode(!darkMode);
+        if (darkMode) {
+          document.documentElement.classList.remove("dark");
+          localStorage.theme = "light";
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.theme = "dark";
+        }
       }}
     >
       {darkMode ? <Sun /> : <Moon />}

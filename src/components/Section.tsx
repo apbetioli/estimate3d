@@ -13,7 +13,7 @@ const Section = ({
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <section className="my-10 rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-800">
+    <section className="my-10 rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-900">
       {collapsable ? (
         <button onClick={() => setCollapsed(!collapsed)}>
           <h2>{title}</h2>

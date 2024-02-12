@@ -116,7 +116,10 @@ const Printers = () => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
                 {Object.values(printers).map((p) => (
-                  <tr key={p.id} className="whitespace-nowrap text-gray-700">
+                  <tr
+                    key={p.id}
+                    className="whitespace-nowrap text-gray-700 dark:text-gray-300"
+                  >
                     <td className="p-4">{p.name}</td>
                     <td className="p-4">{p.power} W</td>
                     <td className="w-1 p-4">

@@ -24,7 +24,7 @@ const Prints = () => {
     weight: 0,
     time: 0,
   });
-  
+
   const [editing, setEditing] = useState(false);
 
   const save = (e: React.FormEvent) => {
@@ -221,7 +221,10 @@ const Prints = () => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
                 {Object.values(prints).map((p) => (
-                  <tr key={p.id} className="whitespace-nowrap text-gray-700">
+                  <tr
+                    key={p.id}
+                    className="whitespace-nowrap text-gray-700 dark:text-gray-300"
+                  >
                     <td className="p-4">{p.name}</td>
                     <td className="p-4">
                       {findPrinter(p.printer)?.name || p.printer}
