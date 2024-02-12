@@ -10,6 +10,12 @@ const Prints = () => {
   const prints = useAppSelector((state) => state.prints.value);
   const printers = useAppSelector((state) => state.printers.value);
   const filaments = useAppSelector((state) => state.filaments.value);
+
+  const findPrinter = (id: string) =>
+    Object.values(printers).find((_p) => id === _p.id);
+  const findFilament = (id: string) =>
+    Object.values(filaments).find((_f) => id === _f.id);
+
   const [print, setPrint] = useState<Print>({
     id: "",
     name: "",
@@ -18,6 +24,7 @@ const Prints = () => {
     weight: 0,
     time: 0,
   });
+  
   const [editing, setEditing] = useState(false);
 
   const save = (e: React.FormEvent) => {
@@ -217,13 +224,10 @@ const Prints = () => {
                   <tr key={p.id} className="whitespace-nowrap text-gray-700">
                     <td className="p-4">{p.name}</td>
                     <td className="p-4">
-                      {Object.values(printers).find((_p) => p.printer === _p.id)
-                        ?.name || p.printer}
+                      {findPrinter(p.printer)?.name || p.printer}
                     </td>
                     <td className="p-4">
-                      {Object.values(filaments).find(
-                        (_f) => p.filament === _f.id,
-                      )?.name || p.filament}
+                      {findFilament(p.filament)?.name || p.filament}
                     </td>
                     <td className="p-4">{p.weight} g</td>
                     <td className="p-4">{p.time} min</td>

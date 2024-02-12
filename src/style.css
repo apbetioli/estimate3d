@@ -8,7 +8,8 @@
   }
 
   h1,
-  h2 {
+  h2,
+  h3 {
     @apply mb-6 font-bold;
   }
 
@@ -18,6 +19,9 @@
 
   h2 {
     @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
   }
 }
 
@@ -45,7 +49,7 @@
   input[type="text"],
   input[type="number"],
   select {
-    @apply w-full lg:w-4/12 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 placeholder-gray-400/70 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:border-blue-300;
+    @apply w-full rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 placeholder-gray-400/70 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:border-blue-300 lg:w-4/12;
   }
 
   .field-description {

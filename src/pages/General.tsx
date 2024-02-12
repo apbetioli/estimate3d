@@ -86,10 +86,9 @@ const General = () => {
           />
         </div>
         <div>
-          <label htmlFor="additionalCost">Additional cost ($)</label>
+          <label htmlFor="additionalCost">Additional charge ($)</label>
           <p className="field-description">
-            Any additional cost to be added. E.g. ROI, maintenance, shipping,
-            etc.
+            Any additional charge, e.g. ROI, maintenance, shipping, etc.
           </p>
           <input
             id="additionalCost"

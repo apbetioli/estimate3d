@@ -8,6 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import Printers from "./pages/Printers";
 import Prints from "./pages/Prints";
 import { Provider } from "react-redux";
+import Results from "./pages/Results";
 import Settings from "./pages/Settings";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
@@ -19,13 +20,15 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <Header />
           <main className="container m-auto p-5">
-            <Tab to="/">Prints</Tab>
+            <Tab to="/">Results</Tab>
+            <Tab to="/prints">Prints</Tab>
             <Tab to="/printers">Printers</Tab>
             <Tab to="/filaments">Filaments</Tab>
             <Tab to="/general">General</Tab>
             <Tab to="/settings">Settings</Tab>
             <Routes>
-              <Route path="/" element={<Prints />} />
+              <Route path="/" element={<Results />} />
+              <Route path="/prints" element={<Prints />} />
               <Route path="/printers" element={<Printers />} />
               <Route path="/filaments" element={<Filaments />} />
               <Route path="/general" element={<General />} />
