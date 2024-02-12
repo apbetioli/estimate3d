@@ -43,7 +43,8 @@ const DarkMode = () => {
 
   return (
     <button
-      className="btn-secondary rounded-lg border p-2 transition-colors duration-300"
+      className="btn-secondary rounded-lg border p-2"
+      title="Toggle dark mode"
       onClick={() => {
         setDarkMode(!darkMode);
         if (darkMode) {
