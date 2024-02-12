@@ -35,7 +35,7 @@
   }
 
   .btn-secondary {
-    @apply bg-gray-100 text-black hover:bg-gray-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+    @apply bg-gray-100 text-black hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600;
   }
 
   .btn-danger {

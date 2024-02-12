@@ -43,7 +43,7 @@ const DarkMode = () => {
 
   return (
     <button
-      className="rounded-lg border p-2 transition-colors duration-300 hover:bg-gray-100"
+      className="btn-secondary rounded-lg border p-2 transition-colors duration-300"
       onClick={() => {
         setDarkMode(!darkMode);
         if (darkMode) {
