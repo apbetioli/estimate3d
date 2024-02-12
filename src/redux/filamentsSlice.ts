@@ -1,28 +1,35 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+import { v4 as uuidv4 } from "uuid";
+
 export type Filament = {
+  id: string;
   name: string;
   price: number;
 };
 
 type FilamentsState = {
-  value: Filament[];
+  value: Record<string, Filament>;
 };
 
 const initialState: FilamentsState = {
-  value: [],
+  value: {},
 };
 
 export const filamentsSlice = createSlice({
   name: "filamentsSlice",
   initialState,
   reducers: {
-    addFilament: (state, action: PayloadAction<Filament>) => {
-      state.value.push(action.payload);
+    saveFilament: (state, action: PayloadAction<Filament>) => {
+      action.payload.id ||= uuidv4();
+      state.value[action.payload.id] = action.payload;
+    },
+    removeFilament: (state, action: PayloadAction<Filament>) => {
+      delete state.value[action.payload.id];
     },
   },
 });
 
-export const { addFilament } = filamentsSlice.actions;
+export const { saveFilament, removeFilament } = filamentsSlice.actions;
 
 export default filamentsSlice.reducer;

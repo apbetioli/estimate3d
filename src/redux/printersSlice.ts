@@ -1,28 +1,35 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+import { v4 as uuidv4 } from "uuid";
+
 export type Printer = {
+  id: string;
   name: string;
   power: number;
 };
 
 type PrintersState = {
-  value: Printer[];
+  value: Record<string, Printer>;
 };
 
 const initialState: PrintersState = {
-  value: [],
+  value: {},
 };
 
 export const printersSlice = createSlice({
   name: "printersSlice",
   initialState,
   reducers: {
-    addPrinter: (state, action: PayloadAction<Printer>) => {
-      state.value.push(action.payload);
+    savePrinter: (state, action: PayloadAction<Printer>) => {
+      action.payload.id ||= uuidv4();
+      state.value[action.payload.id] = action.payload;
+    },
+    removePrinter: (state, action: PayloadAction<Printer>) => {
+      delete state.value[action.payload.id];
     },
   },
 });
 
-export const { addPrinter } = printersSlice.actions;
+export const { savePrinter, removePrinter } = printersSlice.actions;
 
 export default printersSlice.reducer;

@@ -15,11 +15,8 @@ const Section = ({
   return (
     <section className="my-10 rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-800">
       {collapsable ? (
-        <button
-          className="mb-3 text-xl font-bold"
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          {title}
+        <button onClick={() => setCollapsed(!collapsed)}>
+          <h2>{title}</h2>
         </button>
       ) : (
         <h2>{title}</h2>

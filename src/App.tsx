@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { persistor, store } from "./redux/store";
 
-import Calculate from "./pages/Calculate";
 import Filaments from "./pages/Filaments";
 import General from "./pages/General";
 import Header from "./components/Header";
 import { PersistGate } from "redux-persist/integration/react";
 import Printers from "./pages/Printers";
+import Prints from "./pages/Prints";
 import { Provider } from "react-redux";
+import Settings from "./pages/Settings";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
 
@@ -18,17 +19,17 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <Header />
           <main className="container m-auto p-5">
-            <div className="">
-              <Tab to="/">Calculate</Tab>
-              <Tab to="/printers">Printers</Tab>
-              <Tab to="/filaments">Filaments</Tab>
-              <Tab to="/general">General</Tab>
-            </div>
+            <Tab to="/">Prints</Tab>
+            <Tab to="/printers">Printers</Tab>
+            <Tab to="/filaments">Filaments</Tab>
+            <Tab to="/general">General</Tab>
+            <Tab to="/settings">Settings</Tab>
             <Routes>
-              <Route path="/general" element={<General />} />
-              <Route path="/filaments" element={<Filaments />} />
+              <Route path="/" element={<Prints />} />
               <Route path="/printers" element={<Printers />} />
-              <Route path="/" element={<Calculate />} />
+              <Route path="/filaments" element={<Filaments />} />
+              <Route path="/general" element={<General />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
         </PersistGate>

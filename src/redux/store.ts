@@ -10,10 +10,10 @@ import {
 } from "redux-persist";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import calculate from "./calculateSlice";
 import filaments from "./filamentsSlice";
 import general from "./generalSlice";
 import printers from "./printersSlice";
+import prints from "./printsSlice";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   printers,
   filaments,
   general,
-  calculate,
+  prints,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
