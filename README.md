@@ -8,6 +8,9 @@ If you want to sell your 3D printings, you need to make sure you are selling the
 
 That is why this tool exists: to make those calculations more effortless for you.
 
+![image](https://github.com/apbetioli/estimate3d/assets/2829329/95c51b96-5212-4eef-9555-7073f07bb762)
+
+
 ## Quick start
 
 ```
