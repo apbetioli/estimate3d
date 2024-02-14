@@ -1,5 +1,7 @@
 # Estimate 3D
 
+[Live preview](https://master--estimate3d.netlify.app/)
+
 An app for estimating the cost and selling price of your 3d printings.
 
 Some slicers already give you a cost estimate, but that accounts only for used material.
