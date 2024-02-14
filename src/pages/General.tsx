@@ -19,7 +19,7 @@ const General = () => {
       <form className="flex flex-col gap-y-5">
         <div>
           <label htmlFor="energy">Energy cost (kW/h)</label>
-          <p className="field-description">
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
             This information is usually available in your energy bill.
           </p>
           <input
@@ -35,7 +35,7 @@ const General = () => {
 
         <div>
           <label htmlFor="markup">Markup (%)</label>
-          <p className="field-description">
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
             The percentage of profit over the final cost.
           </p>
           <input
@@ -51,7 +51,7 @@ const General = () => {
         </div>
         <div>
           <label htmlFor="failureMargin">Failure margin (%)</label>
-          <p className="field-description">
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
             Prints fail! This is a fact. If yours fail often you can give a
             failure margin to cover this cost.
           </p>
@@ -68,7 +68,7 @@ const General = () => {
         </div>
         <div>
           <label htmlFor="transactionFee">Transaction fee (%)</label>
-          <p className="field-description">
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
             The percentage of the transaction fee charged by the payment gateway
             to be added to the final price.
           </p>
@@ -87,7 +87,7 @@ const General = () => {
         </div>
         <div>
           <label htmlFor="additionalCost">Additional charge ($)</label>
-          <p className="field-description">
+          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
             Any additional charge, e.g. ROI, maintenance, shipping, etc.
           </p>
           <input
