@@ -46,7 +46,6 @@ const DarkMode = () => {
       className="btn-secondary rounded-lg border p-2"
       title="Toggle dark mode"
       onClick={() => {
-        setDarkMode(!darkMode);
         if (darkMode) {
           document.documentElement.classList.remove("dark");
           localStorage.theme = "light";
@@ -54,6 +53,7 @@ const DarkMode = () => {
           document.documentElement.classList.add("dark");
           localStorage.theme = "dark";
         }
+        setDarkMode(!darkMode);
       }}
     >
       {darkMode ? <Sun /> : <Moon />}
