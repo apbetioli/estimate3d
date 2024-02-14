@@ -3,7 +3,7 @@ import { persistor } from "../redux/store";
 import { useState } from "react";
 
 const Settings = () => {
-  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
   return (
     <Section title="Settings">
       <div className="flex flex-col gap-y-5">
@@ -11,7 +11,7 @@ const Settings = () => {
           <label htmlFor="energy" className="font-bold text-red-500">
             Delete all data
           </label>
-          <p className="field-description text-red-500">
+          <p className="text-sm text-red-500">
             This will erase all your saved data.
           </p>
           <button
@@ -20,19 +20,22 @@ const Settings = () => {
               persistor
                 .purge()
                 .then(() => {
-                  setShowMessage(true);
+                  setMessage("All your data was erased!");
                   setTimeout(() => {
-                    setShowMessage(false);
+                    setMessage("");
                   }, 3000);
                 })
                 .catch((err) => {
+                  setMessage(
+                    "An error occurred. Check the console for details.",
+                  );
                   console.error(err);
                 });
             }}
           >
             Delete all
           </button>
-          {showMessage && <p className="mt-5">All your data was erased!</p>}
+          {message && <p className="mt-5">{message}</p>}
         </div>
       </div>
     </Section>
