@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="container m-auto flex items-center justify-between p-5">
-      <h1>My 3D printing business</h1>
+      <h1>Estimate 3D</h1>
       <div className="flex items-center gap-x-2">
         <Link
           to="https://github.com/apbetioli/estimate3d"
