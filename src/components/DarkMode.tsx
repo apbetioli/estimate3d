@@ -43,8 +43,9 @@ const DarkMode = () => {
 
   return (
     <button
+      data-testid="dark-mode-button"
       className="btn-secondary rounded-lg border p-2"
-      title="Toggle dark mode"
+      title={darkMode ? "Toggle dark mode" : "Toggle light mode"}
       onClick={() => {
         if (darkMode) {
           document.documentElement.classList.remove("dark");
