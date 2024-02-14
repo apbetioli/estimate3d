@@ -35,7 +35,7 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Lint
+      - name: Typecheck
         run: npm run typecheck
 
   format:
@@ -52,5 +52,5 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Lint
+      - name: Check format
         run: npm run format -- --check
