@@ -8,7 +8,7 @@ const Settings = () => {
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "General" }]} />
+        <Breadcrumb pages={[{ name: "Settings" }]} />
       </div>
       <div className="flex flex-col gap-y-5">
         <div className="rounded-lg border border-red-600 p-5">
