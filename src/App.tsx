@@ -19,7 +19,7 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Header />
-          <main className="container m-auto p-5">
+          <main className="container m-auto sm:p-5">
             <Tab to="/">Results</Tab>
             <Tab to="/prints">Prints</Tab>
             <Tab to="/printers">Printers</Tab>
