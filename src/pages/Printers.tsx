@@ -81,7 +81,7 @@ const Printers = () => {
 
             <div className="flex justify-between gap-x-5">
               <button className="btn btn-primary grow" type="submit">
-                {editing ? "Save" : "Add"}
+                Save
               </button>
 
               {editing && (
@@ -121,7 +121,7 @@ const Printers = () => {
                   d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
-              Add a printer
+              Add
             </button>
           </div>
           {Object.values(printers).length === 0 ? (
