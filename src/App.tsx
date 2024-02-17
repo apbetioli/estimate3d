@@ -2,11 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { persistor, store } from "./redux/store";
 
 import Filaments from "./pages/Filaments";
+import FilamentsEdit from "./pages/FilamentsEdit";
 import General from "./pages/General";
 import Header from "./components/Header";
 import { PersistGate } from "redux-persist/integration/react";
 import Printers from "./pages/Printers";
+import PrintersEdit from "./pages/PrintersEdit";
 import Prints from "./pages/Prints";
+import PrintsEdit from "./pages/PrintsEdit";
 import { Provider } from "react-redux";
 import Results from "./pages/Results";
 import Settings from "./pages/Settings";
@@ -29,8 +32,11 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Results />} />
               <Route path="/prints" element={<Prints />} />
+              <Route path="/prints/:id" element={<PrintsEdit />} />
               <Route path="/printers" element={<Printers />} />
+              <Route path="/printers/:id" element={<PrintersEdit />} />
               <Route path="/filaments" element={<Filaments />} />
+              <Route path="/filaments/:id" element={<FilamentsEdit />} />
               <Route path="/general" element={<General />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
