@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 type Page = {
   name: string;
-  onClick?: () => void;
+  to?: string;
 };
 
 type BreadcrumbProps = {
@@ -29,10 +31,10 @@ const Breadcrumb = ({ pages }: BreadcrumbProps) => {
             </span>
           )}
 
-          {page.onClick ? (
-            <button onClick={page.onClick} className="hover:underline">
+          {page.to ? (
+            <Link to={page.to} className="hover:underline">
               {page.name}
-            </button>
+            </Link>
           ) : (
             page.name
           )}

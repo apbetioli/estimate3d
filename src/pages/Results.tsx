@@ -58,7 +58,7 @@ const Results = () => {
       </div>
       {Object.values(prints).length === 0 ? (
         <EmptyResult
-          title="No prints yet"
+          title="No results yet"
           text="Go to the Prints tab or click the button below to add a print."
         >
           <Link to="/prints" className="btn btn-primary">
@@ -80,7 +80,7 @@ const Results = () => {
           </Link>
         </EmptyResult>
       ) : (
-        <div className="grid w-1/4 grid-cols-2 gap-y-2">
+        <div className="grid grid-cols-2 gap-y-2">
           <div>Weight:</div>
           <div>{printsResult.weight} g</div>
 

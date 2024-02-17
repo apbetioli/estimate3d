@@ -31,9 +31,7 @@ const EmptyResult = ({
         </div>
         <h1 className="mt-3 text-lg text-gray-800 dark:text-white">{title}</h1>
         <p className="mt-2 text-gray-500 dark:text-gray-400">{text}</p>
-        <div className="mt-4 flex items-center gap-x-3 mx-auto">
-          {children}
-        </div>
+        <div className="mx-auto mt-4 flex items-center gap-x-3">{children}</div>
       </div>
     </div>
   );
