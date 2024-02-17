@@ -1,13 +1,8 @@
 import { PropsWithChildren } from "react";
 
-type SectionProps = {
-  title: string;
-};
-
-const Section = ({ title, children }: PropsWithChildren<SectionProps>) => {
+const Section = ({ children }: PropsWithChildren) => {
   return (
-    <section className="my-10 rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-900">
-      <h2>{title}</h2>
+    <section className="rounded-lg bg-white px-8 py-4 shadow-md dark:bg-gray-900">
       {children}
     </section>
   );

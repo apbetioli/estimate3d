@@ -9,7 +9,8 @@ type TabProps = {
 
 const Tab = ({ to, children }: PropsWithChildren<TabProps>) => {
   const { pathname } = useLocation();
-  const active = to === pathname;
+  const active =
+    pathname == to || (String(to) !== "/" && pathname.startsWith(String(to)));
   return (
     <Link
       to={to}
