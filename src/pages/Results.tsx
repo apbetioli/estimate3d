@@ -1,3 +1,4 @@
+import Breadcrumb from "../components/Breadcrumb";
 import EmptyResult from "../components/EmptyResult";
 import { Link } from "react-router-dom";
 import Section from "../components/Section";
@@ -51,7 +52,10 @@ const Results = () => {
   const finalPrice = price + transactionFee;
 
   return (
-    <Section title="Results">
+    <Section>
+      <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
+        <Breadcrumb pages={[{ name: "Results" }]} />
+      </div>
       {Object.values(prints).length === 0 ? (
         <EmptyResult
           title="No prints yet"

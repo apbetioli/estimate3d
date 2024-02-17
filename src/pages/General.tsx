@@ -7,6 +7,7 @@ import {
 } from "../redux/generalSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
+import Breadcrumb from "../components/Breadcrumb";
 import Section from "../components/Section";
 
 const General = () => {
@@ -15,7 +16,10 @@ const General = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Section title="General">
+    <Section>
+      <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
+        <Breadcrumb pages={[{ name: "General" }]} />
+      </div>
       <form className="flex flex-col gap-y-5">
         <div>
           <label htmlFor="energy">Energy cost (kW/h)</label>
