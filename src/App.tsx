@@ -12,6 +12,7 @@ import Prints from "./pages/Prints";
 import PrintsEdit from "./pages/PrintsEdit";
 import { Provider } from "react-redux";
 import Results from "./pages/Results";
+import ScrollToTop from "./components/ScrollToTop";
 import Settings from "./pages/Settings";
 import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
@@ -21,6 +22,7 @@ const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <ScrollToTop />
           <Header />
           <main className="container m-auto sm:p-5">
             <Tab to="/">Results</Tab>
