@@ -5,8 +5,12 @@ import Breadcrumb from "../components/Breadcrumb";
 import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
 import { removePrinter, type Printer } from "../redux/printersSlice";
+import ConfirmationDialog from "../components/ConfirmationDialog";
+import { useState } from "react";
 
 const Printers = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [deletingPrinter, setDeletingPrinter] = useState<any>();
   const dispatch = useAppDispatch();
   const printers = useAppSelector((state) => state.printers.value);
 
@@ -76,7 +80,10 @@ const Printers = () => {
                     <div className="flex items-center gap-x-6">
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
-                        onClick={() => remove(p)}
+                        onClick={() => {
+                           setIsDialogOpen(pre => !pre);
+                           setDeletingPrinter(p);
+                            }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +130,7 @@ const Printers = () => {
           </table>
         </div>
       )}
+      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingPrinter?.name} deleteFn={() => {remove(deletingPrinter)}}/>
     </Section>
   );
 };

@@ -5,8 +5,12 @@ import { Link } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
+import { useState } from "react";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 
 const Filaments = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [deletingFilament, setDeletingFilament] = useState<any>();
   const dispatch = useAppDispatch();
   const filaments = useAppSelector((state) => state.filaments.value);
 
@@ -76,7 +80,10 @@ const Filaments = () => {
                     <div className="flex items-center gap-x-6">
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
-                        onClick={() => remove(f)}
+                        onClick={() => {
+                          setIsDialogOpen(pre => !pre);
+                          setDeletingFilament(f);
+                           }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +130,7 @@ const Filaments = () => {
           </table>
         </div>
       )}
+      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingFilament?.name} deleteFn={() => {remove(deletingFilament)}}/>
     </Section>
   );
 };
