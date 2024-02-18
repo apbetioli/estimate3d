@@ -5,8 +5,12 @@ import Breadcrumb from "../components/Breadcrumb";
 import EmptyResult from "../components/EmptyResult";
 import { Link } from "react-router-dom";
 import Section from "../components/Section";
+import { useState } from "react";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 
 const Prints = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [deletingPrint, setDeletingPrint] = useState<any>();
   const dispatch = useAppDispatch();
   const prints = useAppSelector((state) => state.prints.value);
   const printers = useAppSelector((state) => state.printers.value);
@@ -111,7 +115,10 @@ const Prints = () => {
                     <div className="flex items-center gap-x-6">
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
-                        onClick={() => remove(p)}
+                        onClick={() => {
+                          setIsDialogOpen(pre => !pre);
+                          setDeletingPrint(p);
+                           }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -158,6 +165,7 @@ const Prints = () => {
           </table>
         </div>
       )}
+      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingPrint?.name} deleteFn={() => {remove(deletingPrint)}}/>
     </Section>
   );
 };

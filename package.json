@@ -48,6 +48,7 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@reduxjs/toolkit": "^2.1.0",
     "@types/uuid": "^9.0.8",
     "classnames": "^2.5.1",
