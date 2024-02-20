@@ -44,10 +44,8 @@ export default function ConfirmationDialog({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg border border-red-600 dark:bg-gray-900 bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title as="h2">
-                  Remove
-                </Dialog.Title>
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg border border-red-600 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
+                <Dialog.Title as="h2">Remove</Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-red-600">
                     Removing <b>{name}</b> will permanently delete it from your
@@ -58,7 +56,7 @@ export default function ConfirmationDialog({
                 <div className="mt-4 flex justify-end gap-2">
                   <button
                     type="button"
-                    className="inline-flex justify-center rounded-lg border px-4 py-2 text-sm font-medium dark:text-gray-200 focus:outline-none focus-visible:ring-2 border-gray-900 dark:border-gray-200"
+                    className="inline-flex justify-center rounded-lg border border-gray-900 px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 dark:border-gray-200 dark:text-gray-200"
                     onClick={closeModal}
                   >
                     Cancel
