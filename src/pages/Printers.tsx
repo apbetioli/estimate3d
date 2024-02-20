@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const Printers = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [deletingPrinter, setDeletingPrinter] = useState<any>();
+  const [deletingPrinter, setDeletingPrinter] = useState<Printer>();
   const dispatch = useAppDispatch();
   const printers = useAppSelector((state) => state.printers.value);
 
@@ -81,9 +81,9 @@ const Printers = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                           setIsDialogOpen(pre => !pre);
-                           setDeletingPrinter(p);
-                            }}
+                          setIsDialogOpen((pre) => !pre);
+                          setDeletingPrinter(p);
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,14 @@ const Printers = () => {
           </table>
         </div>
       )}
-      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingPrinter?.name} deleteFn={() => {remove(deletingPrinter)}}/>
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        name={deletingPrinter?.name}
+        deleteFn={() => {
+          if (deletingPrinter) remove(deletingPrinter);
+        }}
+      />
     </Section>
   );
 };

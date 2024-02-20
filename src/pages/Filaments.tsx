@@ -10,7 +10,7 @@ import ConfirmationDialog from "../components/ConfirmationDialog";
 
 const Filaments = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [deletingFilament, setDeletingFilament] = useState<any>();
+  const [deletingFilament, setDeletingFilament] = useState<Filament>();
   const dispatch = useAppDispatch();
   const filaments = useAppSelector((state) => state.filaments.value);
 
@@ -81,9 +81,9 @@ const Filaments = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen(pre => !pre);
+                          setIsDialogOpen((pre) => !pre);
                           setDeletingFilament(f);
-                           }}
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,14 @@ const Filaments = () => {
           </table>
         </div>
       )}
-      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingFilament?.name} deleteFn={() => {remove(deletingFilament)}}/>
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        name={deletingFilament?.name}
+        deleteFn={() => {
+          if (deletingFilament) remove(deletingFilament);
+        }}
+      />
     </Section>
   );
 };
