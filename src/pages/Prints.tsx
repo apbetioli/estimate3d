@@ -10,7 +10,7 @@ import ConfirmationDialog from "../components/ConfirmationDialog";
 
 const Prints = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [deletingPrint, setDeletingPrint] = useState<any>();
+  const [deletingPrint, setDeletingPrint] = useState<Print>();
   const dispatch = useAppDispatch();
   const prints = useAppSelector((state) => state.prints.value);
   const printers = useAppSelector((state) => state.printers.value);
@@ -116,9 +116,9 @@ const Prints = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen(pre => !pre);
+                          setIsDialogOpen((pre) => !pre);
                           setDeletingPrint(p);
-                           }}
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,14 @@ const Prints = () => {
           </table>
         </div>
       )}
-      <ConfirmationDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} name={deletingPrint?.name} deleteFn={() => {remove(deletingPrint)}}/>
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        name={deletingPrint?.name}
+        deleteFn={() => {
+          if (deletingPrint) remove(deletingPrint);
+        }}
+      />
     </Section>
   );
 };
