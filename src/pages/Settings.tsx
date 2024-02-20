@@ -51,9 +51,7 @@ const Settings = () => {
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
         name={"All Data"}
-        deleteFn={() => {
-          deleteAll();
-        }}
+        deleteFn={() => deleteAll()}
       />
     </Section>
   );
