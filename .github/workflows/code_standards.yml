@@ -1,7 +1,6 @@
 name: Code Standards
 
-on:
-  push:
+on: [push, pull_request]
 
 jobs:
   lint:
