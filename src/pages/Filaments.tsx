@@ -81,7 +81,7 @@ const Filaments = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen((pre) => !pre);
+                          setIsDialogOpen(true);
                           setDeletingFilament(f);
                         }}
                       >
@@ -130,14 +130,14 @@ const Filaments = () => {
           </table>
         </div>
       )}
-      <ConfirmationDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        name={deletingFilament?.name}
-        deleteFn={() => {
-          if (deletingFilament) remove(deletingFilament);
-        }}
-      />
+      {deletingFilament && (
+        <ConfirmationDialog
+          isOpen={isDialogOpen}
+          setIsOpen={setIsDialogOpen}
+          name={deletingFilament.name}
+          deleteFn={() => remove(deletingFilament)}
+        />
+      )}
     </Section>
   );
 };

@@ -39,7 +39,7 @@ const Settings = () => {
           <button
             className="btn btn-danger mt-5"
             onClick={() => {
-              setIsDialogOpen((pre) => !pre);
+              setIsDialogOpen(true);
             }}
           >
             Delete all

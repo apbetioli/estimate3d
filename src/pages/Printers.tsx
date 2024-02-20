@@ -81,7 +81,7 @@ const Printers = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen((pre) => !pre);
+                          setIsDialogOpen(true);
                           setDeletingPrinter(p);
                         }}
                       >
@@ -130,14 +130,14 @@ const Printers = () => {
           </table>
         </div>
       )}
-      <ConfirmationDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        name={deletingPrinter?.name}
-        deleteFn={() => {
-          if (deletingPrinter) remove(deletingPrinter);
-        }}
-      />
+      {deletingPrinter && (
+        <ConfirmationDialog
+          isOpen={isDialogOpen}
+          setIsOpen={setIsDialogOpen}
+          name={deletingPrinter.name}
+          deleteFn={() => remove(deletingPrinter)}
+        />
+      )}
     </Section>
   );
 };
