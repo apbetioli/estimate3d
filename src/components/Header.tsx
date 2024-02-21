@@ -4,8 +4,8 @@ import Menu from "./Menu";
 
 const Header = () => {
   return (
-    <header className="container m-auto flex flex-wrap items-center justify-between p-5 pb-0">
-      <h1 className="mb-0 md:w-1/2 flex-1 md:flex-initial">Estimate 3D</h1>
+    <header className="container m-auto flex flex-wrap items-center justify-between p-5 pb-0 text-xs sm:text-base">
+      <h1 className="mb-0 md:w-1/2 flex-1 md:flex-initial text-lg sm:text-2xl">Estimate 3D</h1>
       <div className="flex items-center justify-end gap-x-2 md:w-1/2">
         <Link
           to="https://github.com/apbetioli/estimate3d"
@@ -29,23 +29,9 @@ const Header = () => {
         </Link>
         <DarkMode />       
       </div>
-        <section className="relative toggle-container">
-            <input type="checkbox" id="toggleCheckbox" className="checkbox-menu ml-2 hidden" />
-            <label htmlFor="toggleCheckbox" className="btn-secondary block rounded-lg border p-2 toggle-menu md:hidden ml-2">
-            <svg fill="currentColor" height="25" width="25" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32.055 32.055">
-              <g>
-                <path d="M3.968,12.061C1.775,12.061,0,13.835,0,16.027c0,2.192,1.773,3.967,3.968,3.967c2.189,0,3.966-1.772,3.966-3.967
-                  C7.934,13.835,6.157,12.061,3.968,12.061z M16.233,12.061c-2.188,0-3.968,1.773-3.968,3.965c0,2.192,1.778,3.967,3.968,3.967
-                  s3.97-1.772,3.97-3.967C20.201,13.835,18.423,12.061,16.233,12.061z M28.09,12.061c-2.192,0-3.969,1.774-3.969,3.967
-                  c0,2.19,1.774,3.965,3.969,3.965c2.188,0,3.965-1.772,3.965-3.965S30.278,12.061,28.09,12.061z"/>
-              </g>
-              </svg>
-            </label>
-            <div className="menu hidden md:block absolute shadow-xl md:shadow-none bg-white md:bg-transparent dark:bg-slate-700 md:dark:bg-transparent md:static top-0 right-full px-10 md:px-0 mr-2 rounded-lg text-center">
-              <Menu />
-            </div>
-          </section>
+      <section className="relative toggle-container">
+        <Menu />
+      </section>
     </header>
   );
 };

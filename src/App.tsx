@@ -14,7 +14,6 @@ import { Provider } from "react-redux";
 import Results from "./pages/Results";
 import ScrollToTop from "./components/ScrollToTop";
 import Settings from "./pages/Settings";
-import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
 
 const App = () => {

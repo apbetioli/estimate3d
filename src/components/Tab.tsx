@@ -5,14 +5,16 @@ import classnames from "classnames";
 
 type TabProps = {
   to: To;
+  setShowMenu: (value: boolean) => void;
 };
 
-const Tab = ({ to, children }: PropsWithChildren<TabProps>) => {
+const Tab = ({ to, children, setShowMenu }: PropsWithChildren<TabProps>) => {
   const { pathname } = useLocation();
   const active =
     pathname == to || (String(to) !== "/" && pathname.startsWith(String(to)));
   return (
     <Link
+      onClick={() => setShowMenu(false)}
       to={to}
       className={classnames(
         "inline-flex h-12 items-center whitespace-nowrap px-4 py-2 text-center text-sm text-gray-700 focus:outline-none dark:border-gray-500 dark:text-white sm:text-base md:border-gray-300",
