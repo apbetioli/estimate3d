@@ -24,13 +24,7 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <ScrollToTop />
           <Header />
-          <main className="container m-auto sm:p-5">
-            <Tab to="/">Results</Tab>
-            <Tab to="/prints">Prints</Tab>
-            <Tab to="/printers">Printers</Tab>
-            <Tab to="/filaments">Filaments</Tab>
-            <Tab to="/general">General</Tab>
-            <Tab to="/settings">Settings</Tab>
+          <main className="container m-auto p-5 md:p-0 md:px-5">
             <Routes>
               <Route path="/" element={<Results />} />
               <Route path="/prints" element={<Prints />} />
