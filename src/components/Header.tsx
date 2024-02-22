@@ -5,7 +5,9 @@ import Menu from "./Menu";
 const Header = () => {
   return (
     <header className="container m-auto flex flex-wrap items-center justify-between p-5 pb-0 text-xs sm:text-base">
-      <h1 className="mb-0 md:w-1/2 flex-1 md:flex-initial text-lg sm:text-2xl">Estimate 3D</h1>
+      <h1 className="mb-0 flex-1 text-lg sm:text-2xl md:w-1/2 md:flex-initial">
+        Estimate 3D
+      </h1>
       <div className="flex items-center justify-end gap-x-2 md:w-1/2">
         <Link
           to="https://github.com/apbetioli/estimate3d"
@@ -27,9 +29,9 @@ const Header = () => {
             ></path>
           </svg>
         </Link>
-        <DarkMode />       
+        <DarkMode />
       </div>
-      <section className="relative toggle-container">
+      <section className="toggle-container relative">
         <Menu />
       </section>
     </header>

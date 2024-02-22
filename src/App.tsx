@@ -23,7 +23,7 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <ScrollToTop />
           <Header />
-          <main className="container m-auto py-5 md:py-0 md:px-5">
+          <main className="container m-auto py-5 md:px-5 md:py-0">
             <Routes>
               <Route path="/" element={<Results />} />
               <Route path="/prints" element={<Prints />} />
