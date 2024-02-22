@@ -4,11 +4,12 @@
   "description": "Estimates the cost and selling price of your 3d printings.",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html}\"",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,html}\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest"
   },
