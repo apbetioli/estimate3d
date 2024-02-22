@@ -1,8 +1,8 @@
 import Tab from "./Tab";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Menu = () => {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
 
   const tabItems = [
     { to: "/", label: "Results" },
@@ -12,6 +12,20 @@ const Menu = () => {
     { to: "/general", label: "General" },
     { to: "/settings", label: "Settings" },
   ];
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const targetElement = event.target as HTMLElement;
+    if (showMenu && !targetElement.closest('.toggle-container')) {
+      setShowMenu(false);
+    }
+  };
+  
+    useEffect(() => {
+      document.addEventListener('click', handleClickOutside);
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, [showMenu]);
 
   return (
     <section className="relative toggle-container">
@@ -30,7 +44,7 @@ const Menu = () => {
         </svg>
       </button>
       <div
-        className={`${showMenu ? '' : 'hidden'} md:block z-[1] absolute shadow-xl md:shadow-none bg-white md:bg-transparent dark:bg-slate-700 md:dark:bg-transparent md:static top-full right-0 px-10 md:px-0 rounded-lg text-center mt-2`}
+        className={`${showMenu ? '' : 'hidden'} menu md:block z-[1] absolute shadow-xl md:shadow-none bg-white md:bg-transparent dark:bg-slate-700 md:dark:bg-transparent md:static top-full right-0 px-10 md:px-0 rounded-lg text-center mt-2`}
       >
         <div className="md:flex flex-col md:flex-row">
           {tabItems.map((tab) => (
