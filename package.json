@@ -11,7 +11,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,html}\"",
     "typecheck": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
