@@ -30,15 +30,13 @@ const Menu = () => {
   return (
     <section className="toggle-container relative">
       <button
-        className="btn-secondary toggle-menu ml-2 block rounded-lg border p-2 md:hidden"
+        className="btn-secondary ml-2 block rounded-lg border p-2 md:hidden"
         onClick={() => setShowMenu(!showMenu)}
       >
         <svg
           fill="currentColor"
           height="25"
           width="25"
-          version="1.1"
-          id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32.055 32.055"
         >
@@ -53,11 +51,11 @@ const Menu = () => {
         </svg>
       </button>
       <div
-        className={`${showMenu ? "" : "hidden"} menu absolute right-0 top-full z-[1] mt-2 rounded-lg bg-white px-10 text-center shadow-xl dark:bg-slate-700 md:static md:block md:bg-transparent md:px-0 md:shadow-none md:dark:bg-transparent`}
+        className={`${showMenu ? "" : "hidden"} absolute right-0 top-full z-[1] mt-2 rounded-lg bg-white text-center shadow-xl dark:bg-slate-700 md:static md:block md:bg-transparent md:px-0 md:shadow-none md:dark:bg-transparent`}
       >
-        <div className="flex-col md:flex md:flex-row">
+        <div className="flex flex-col md:flex-row">
           {tabItems.map((tab) => (
-            <Tab key={tab.label} to={tab.to} setShowMenu={setShowMenu}>
+            <Tab key={tab.label} to={tab.to} onClick={() => setShowMenu(false)}>
               {tab.label}
             </Tab>
           ))}
