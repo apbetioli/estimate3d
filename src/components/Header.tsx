@@ -31,9 +31,7 @@ const Header = () => {
         </Link>
         <DarkMode />
       </div>
-      <section className="toggle-container relative">
-        <Menu />
-      </section>
+      <Menu />
     </header>
   );
 };
