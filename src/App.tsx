@@ -14,7 +14,6 @@ import { Provider } from "react-redux";
 import Results from "./pages/Results";
 import ScrollToTop from "./components/ScrollToTop";
 import Settings from "./pages/Settings";
-import Tab from "./components/Tab";
 import { createRoot } from "react-dom/client";
 
 const App = () => {
@@ -24,13 +23,7 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <ScrollToTop />
           <Header />
-          <main className="container m-auto sm:p-5">
-            <Tab to="/">Results</Tab>
-            <Tab to="/prints">Prints</Tab>
-            <Tab to="/printers">Printers</Tab>
-            <Tab to="/filaments">Filaments</Tab>
-            <Tab to="/general">General</Tab>
-            <Tab to="/settings">Settings</Tab>
+          <main className="container m-auto py-5 md:px-5 md:py-0">
             <Routes>
               <Route path="/" element={<Results />} />
               <Route path="/prints" element={<Prints />} />
