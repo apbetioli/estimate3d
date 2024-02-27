@@ -44,7 +44,7 @@ export default function ConfirmationDialog({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg border border-red-600 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
+              <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-lg border border-red-600 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
                 <Dialog.Title as="h2">Remove</Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-red-600">
