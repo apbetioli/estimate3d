@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { ArrowRightIcon } from './Icons';
+import { Link } from "react-router-dom";
+import { ArrowRightIcon } from "./Icons";
 
 type Page = {
   name: string;

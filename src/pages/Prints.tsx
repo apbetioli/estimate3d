@@ -10,7 +10,6 @@ import ConfirmationDialog from "../components/ConfirmationDialog";
 
 import { AddIcon, TrashIcon, PenIcon } from "../components/Icons";
 
-
 const Prints = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deletingPrint, setDeletingPrint] = useState<Print>();

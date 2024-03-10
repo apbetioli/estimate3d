@@ -1,7 +1,7 @@
-import DarkMode from './DarkMode';
-import { Link } from 'react-router-dom';
-import Menu from './Menu';
-import { GitHubIcon } from './Icons';
+import DarkMode from "./DarkMode";
+import { Link } from "react-router-dom";
+import Menu from "./Menu";
+import { GitHubIcon } from "./Icons";
 
 const Header = () => {
   return (
