@@ -1,20 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { persistor, store } from "./redux/store";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { persistor, store } from './redux/store'
 
-import Filaments from "./pages/Filaments";
-import FilamentsEdit from "./pages/FilamentsEdit";
-import General from "./pages/General";
-import Header from "./components/Header";
-import { PersistGate } from "redux-persist/integration/react";
-import Printers from "./pages/Printers";
-import PrintersEdit from "./pages/PrintersEdit";
-import Prints from "./pages/Prints";
-import PrintsEdit from "./pages/PrintsEdit";
-import { Provider } from "react-redux";
-import Results from "./pages/Results";
-import ScrollToTop from "./components/ScrollToTop";
-import Settings from "./pages/Settings";
-import { createRoot } from "react-dom/client";
+import Filaments from './pages/Filaments'
+import FilamentsEdit from './pages/FilamentsEdit'
+import General from './pages/General'
+import Header from './components/Header'
+import { PersistGate } from 'redux-persist/integration/react'
+import Printers from './pages/Printers'
+import PrintersEdit from './pages/PrintersEdit'
+import Prints from './pages/Prints'
+import PrintsEdit from './pages/PrintsEdit'
+import { Provider } from 'react-redux'
+import Results from './pages/Results'
+import ScrollToTop from './components/ScrollToTop'
+import Settings from './pages/Settings'
+import { createRoot } from 'react-dom/client'
 
 const App = () => {
   return (
@@ -39,9 +39,9 @@ const App = () => {
         </PersistGate>
       </Provider>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-const container = document.getElementById("root");
-const root = createRoot(container as Element);
-root.render(<App />);
+const container = document.getElementById('root')
+const root = createRoot(container as Element)
+root.render(<App />)

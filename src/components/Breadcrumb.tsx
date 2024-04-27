@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { ArrowRightIcon } from "./Icons";
+import { Link } from 'react-router-dom'
+import { ArrowRightIcon } from './Icons'
 
 type Page = {
-  name: string;
-  to?: string;
-};
+  name: string
+  to?: string
+}
 
 type BreadcrumbProps = {
-  pages: Page[];
-};
+  pages: Page[]
+}
 
 const Breadcrumb = ({ pages }: BreadcrumbProps) => {
   return (
@@ -31,7 +31,7 @@ const Breadcrumb = ({ pages }: BreadcrumbProps) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Breadcrumb;
+export default Breadcrumb

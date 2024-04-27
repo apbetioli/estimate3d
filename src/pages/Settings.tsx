@@ -1,32 +1,32 @@
-import Breadcrumb from "../components/Breadcrumb";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import Section from "../components/Section";
-import { persistor } from "../redux/store";
-import { useState } from "react";
+import Breadcrumb from '../components/Breadcrumb'
+import ConfirmationDialog from '../components/ConfirmationDialog'
+import Section from '../components/Section'
+import { persistor } from '../redux/store'
+import { useState } from 'react'
 
 const Settings = () => {
-  const [message, setMessage] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [message, setMessage] = useState('')
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const deleteAll: () => void = () => {
     persistor
       .purge()
       .then(() => {
-        setMessage("All your data was erased!");
+        setMessage('All your data was erased!')
         setTimeout(() => {
-          setMessage("");
-        }, 3000);
+          setMessage('')
+        }, 3000)
       })
       .catch((err) => {
-        setMessage("An error occurred. Check the console for details.");
-        console.error(err);
-      });
-  };
+        setMessage('An error occurred. Check the console for details.')
+        console.error(err)
+      })
+  }
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "Settings" }]} />
+        <Breadcrumb pages={[{ name: 'Settings' }]} />
       </div>
       <div className="flex flex-col gap-y-5">
         <div className="rounded-lg border border-red-600 p-5">
@@ -39,7 +39,7 @@ const Settings = () => {
           <button
             className="btn btn-danger mt-5"
             onClick={() => {
-              setIsDialogOpen(true);
+              setIsDialogOpen(true)
             }}
           >
             Delete all
@@ -50,12 +50,12 @@ const Settings = () => {
       {isDialogOpen && (
         <ConfirmationDialog
           onClose={() => setIsDialogOpen(false)}
-          name={"All Data"}
+          name={'All Data'}
           deleteFn={() => deleteAll()}
         />
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import EmptyResult from "../components/EmptyResult";
-import Section from "../components/Section";
-import { useAppSelector, usePrints, useResults } from "../redux/hooks";
+import { Link } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import EmptyResult from '../components/EmptyResult'
+import Section from '../components/Section'
+import { useAppSelector, usePrints, useResults } from '../redux/hooks'
 
-import { AddIcon } from "../components/Icons";
+import { AddIcon } from '../components/Icons'
 
 const Results = () => {
-  const { prints } = usePrints();
-  const general = useAppSelector((state) => state.general);
+  const { prints } = usePrints()
+  const general = useAppSelector((state) => state.general)
 
   const {
     weight,
@@ -22,12 +22,12 @@ const Results = () => {
     price,
     transactionFee,
     finalPrice,
-  } = useResults();
+  } = useResults()
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "Results" }]} />
+        <Breadcrumb pages={[{ name: 'Results' }]} />
       </div>
       {prints.length === 0 ? (
         <EmptyResult
@@ -79,7 +79,7 @@ const Results = () => {
         </div>
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default Results;
+export default Results

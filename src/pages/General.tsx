@@ -4,21 +4,21 @@ import {
   setFailureMargin,
   setMarkup,
   setTransactionFee,
-} from "../redux/generalSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+} from '../redux/generalSlice'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
 
-import Breadcrumb from "../components/Breadcrumb";
-import Section from "../components/Section";
+import Breadcrumb from '../components/Breadcrumb'
+import Section from '../components/Section'
 
 const General = () => {
   const { energyCost, failureMargin, markup, transactionFee, additionalCost } =
-    useAppSelector((state) => state.general);
-  const dispatch = useAppDispatch();
+    useAppSelector((state) => state.general)
+  const dispatch = useAppDispatch()
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "General" }]} />
+        <Breadcrumb pages={[{ name: 'General' }]} />
       </div>
       <form className="flex flex-col gap-y-5">
         <div>
@@ -108,7 +108,7 @@ const General = () => {
         </div>
       </form>
     </Section>
-  );
-};
+  )
+}
 
-export default General;
+export default General

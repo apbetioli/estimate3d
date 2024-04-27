@@ -1,40 +1,40 @@
-import { usePrinters } from "../redux/hooks";
+import { usePrinters } from '../redux/hooks'
 
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import Section from "../components/Section";
+import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import Section from '../components/Section'
 
 const PrintersEdit = () => {
-  const navigate = useNavigate();
-  const { findById, save } = usePrinters();
-  const { id } = useParams();
-  const nameInput = useRef<HTMLInputElement>(null);
-  const printer = findById(id!);
-  const [name, setName] = useState(printer?.name || "");
-  const [power, setPower] = useState(printer?.power || 0);
+  const navigate = useNavigate()
+  const { findById, save } = usePrinters()
+  const { id } = useParams()
+  const nameInput = useRef<HTMLInputElement>(null)
+  const printer = findById(id!)
+  const [name, setName] = useState(printer?.name || '')
+  const [power, setPower] = useState(printer?.power || 0)
 
   const onSave = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     save({
       id: printer?.id,
       name,
       power,
-    });
-    navigate("/printers");
-  };
+    })
+    navigate('/printers')
+  }
 
   useEffect(() => {
-    nameInput.current?.focus();
-  }, []);
+    nameInput.current?.focus()
+  }, [])
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
         <Breadcrumb
           pages={[
-            { name: "Printers", to: "/printers" },
-            { name: printer?.id ? "Edit printer" : "Add a printer" },
+            { name: 'Printers', to: '/printers' },
+            { name: printer?.id ? 'Edit printer' : 'Add a printer' },
           ]}
         />
       </div>
@@ -78,7 +78,7 @@ const PrintersEdit = () => {
         </div>
       </form>
     </Section>
-  );
-};
+  )
+}
 
-export default PrintersEdit;
+export default PrintersEdit

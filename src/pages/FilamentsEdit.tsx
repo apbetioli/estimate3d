@@ -1,39 +1,39 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import Section from "../components/Section";
-import { useFilaments } from "../redux/hooks";
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import Section from '../components/Section'
+import { useFilaments } from '../redux/hooks'
 
 const FilamentsEdit = () => {
-  const navigate = useNavigate();
-  const { findById, save } = useFilaments();
-  const { id } = useParams();
-  const nameInput = useRef<HTMLInputElement>(null);
-  const filament = findById(id!);
-  const [name, setName] = useState(filament?.name || "");
-  const [price, setPrice] = useState(filament?.price || 0);
+  const navigate = useNavigate()
+  const { findById, save } = useFilaments()
+  const { id } = useParams()
+  const nameInput = useRef<HTMLInputElement>(null)
+  const filament = findById(id!)
+  const [name, setName] = useState(filament?.name || '')
+  const [price, setPrice] = useState(filament?.price || 0)
 
   const onSave = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     save({
       id: filament?.id,
       name,
       price,
-    });
-    navigate("/filaments");
-  };
+    })
+    navigate('/filaments')
+  }
 
   useLayoutEffect(() => {
-    nameInput.current?.focus();
-  }, []);
+    nameInput.current?.focus()
+  }, [])
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
         <Breadcrumb
           pages={[
-            { name: "Filaments", to: "/filaments" },
-            { name: filament?.id ? "Edit filament" : "Add a filament" },
+            { name: 'Filaments', to: '/filaments' },
+            { name: filament?.id ? 'Edit filament' : 'Add a filament' },
           ]}
         />
       </div>
@@ -77,7 +77,7 @@ const FilamentsEdit = () => {
         </div>
       </form>
     </Section>
-  );
-};
+  )
+}
 
-export default FilamentsEdit;
+export default FilamentsEdit

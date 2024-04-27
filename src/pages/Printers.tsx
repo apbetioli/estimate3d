@@ -1,24 +1,24 @@
-import { usePrinters } from "../redux/hooks";
+import { usePrinters } from '../redux/hooks'
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import EmptyResult from "../components/EmptyResult";
-import Section from "../components/Section";
-import { type Printer } from "../redux/printersSlice";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import ConfirmationDialog from '../components/ConfirmationDialog'
+import EmptyResult from '../components/EmptyResult'
+import Section from '../components/Section'
+import { type Printer } from '../redux/printersSlice'
 
-import { AddIcon, PenIcon, TrashIcon } from "../components/Icons";
+import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
 const Printers = () => {
-  const [deletingPrinter, setDeletingPrinter] = useState<Printer | null>(null);
+  const [deletingPrinter, setDeletingPrinter] = useState<Printer | null>(null)
 
-  const { printers, remove } = usePrinters();
+  const { printers, remove } = usePrinters()
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "Printers" }]} />
+        <Breadcrumb pages={[{ name: 'Printers' }]} />
         <Link className="btn btn-primary whitespace-nowrap" to="/printers/new">
           <AddIcon />
           Add
@@ -65,7 +65,7 @@ const Printers = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setDeletingPrinter(printer);
+                          setDeletingPrinter(printer)
                         }}
                       >
                         <TrashIcon />
@@ -95,7 +95,7 @@ const Printers = () => {
         />
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default Printers;
+export default Printers
