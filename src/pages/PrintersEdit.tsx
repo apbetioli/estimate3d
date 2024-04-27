@@ -1,34 +1,31 @@
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { usePrinters } from "../redux/hooks";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import Section from "../components/Section";
-import { savePrinter, type Printer } from "../redux/printersSlice";
 
 const PrintersEdit = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { findById, save } = usePrinters();
+  const { id } = useParams();
+  const nameInput = useRef<HTMLInputElement>(null);
+  const printer = findById(id!);
+  const [name, setName] = useState(printer?.name || "");
+  const [power, setPower] = useState(printer?.power || 0);
 
-  const dispatch = useAppDispatch();
-  const printers = useAppSelector((state) => state.printers.value);
-
-  const [printer, setPrinter] = useState<Printer>(
-    (id && printers[id]) || {
-      id: "",
-      name: "",
-      power: 0,
-    },
-  );
-
-  const save = (e: React.FormEvent) => {
+  const onSave = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(savePrinter(printer));
+    save({
+      id: printer?.id,
+      name,
+      power,
+    });
     navigate("/printers");
   };
 
-  useLayoutEffect(() => {
-    document.getElementById("printerName")?.focus();
+  useEffect(() => {
+    nameInput.current?.focus();
   }, []);
 
   return (
@@ -37,12 +34,12 @@ const PrintersEdit = () => {
         <Breadcrumb
           pages={[
             { name: "Printers", to: "/printers" },
-            { name: printer.id ? printer.name : "Add a printer" },
+            { name: printer?.id ? "Edit printer" : "Add a printer" },
           ]}
         />
       </div>
       <form
-        onSubmit={save}
+        onSubmit={onSave}
         className="flex flex-col gap-5 lg:flex-row lg:items-center"
       >
         <label htmlFor="printerName">Name</label>
@@ -50,10 +47,11 @@ const PrintersEdit = () => {
           id="printerName"
           name="printerName"
           type="text"
-          value={printer.name}
-          onChange={(e) => setPrinter({ ...printer, name: e.target.value })}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="lg:grow"
+          ref={nameInput}
         />
 
         <label htmlFor="power">Power consumption (W)</label>
@@ -61,10 +59,8 @@ const PrintersEdit = () => {
           id="power"
           name="power"
           type="number"
-          value={printer.power}
-          onChange={(e) =>
-            setPrinter({ ...printer, power: Number(e.target.value) })
-          }
+          value={power}
+          onChange={(e) => setPower(Number(e.target.value))}
           step={0.01}
           min={0}
           required

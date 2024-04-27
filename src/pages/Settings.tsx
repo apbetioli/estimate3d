@@ -47,12 +47,13 @@ const Settings = () => {
           {message && <p className="mt-5">{message}</p>}
         </div>
       </div>
-      <ConfirmationDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        name={"All Data"}
-        deleteFn={() => deleteAll()}
-      />
+      {isDialogOpen && (
+        <ConfirmationDialog
+          onClose={() => setIsDialogOpen(false)}
+          name={"All Data"}
+          deleteFn={() => deleteAll()}
+        />
+      )}
     </Section>
   );
 };

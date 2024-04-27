@@ -1,24 +1,21 @@
-import { removeFilament, type Filament } from "../redux/filamentsSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { type Filament } from "../redux/filamentsSlice";
+import { useFilaments } from "../redux/hooks";
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import EmptyResult from "../components/EmptyResult";
 import Section from "../components/Section";
-import { useState } from "react";
-import ConfirmationDialog from "../components/ConfirmationDialog";
 
-import { AddIcon, TrashIcon, PenIcon } from "../components/Icons";
+import { AddIcon, PenIcon, TrashIcon } from "../components/Icons";
 
 const Filaments = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [deletingFilament, setDeletingFilament] = useState<Filament>();
-  const dispatch = useAppDispatch();
-  const filaments = useAppSelector((state) => state.filaments.value);
+  const [deletingFilament, setDeletingFilament] = useState<Filament | null>(
+    null,
+  );
 
-  const remove = (filament: Filament) => {
-    dispatch(removeFilament(filament));
-  };
+  const { filaments, remove } = useFilaments();
 
   return (
     <Section>
@@ -29,7 +26,7 @@ const Filaments = () => {
           Add
         </Link>
       </div>
-      {Object.values(filaments).length === 0 ? (
+      {filaments.length === 0 ? (
         <EmptyResult title="No filaments yet" />
       ) : (
         <div className="overflow-auto rounded-lg border border-gray-200 dark:border-gray-700">
@@ -58,20 +55,19 @@ const Filaments = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-              {Object.values(filaments).map((f) => (
+              {filaments.map((filament) => (
                 <tr
-                  key={f.id}
+                  key={filament.id}
                   className="whitespace-nowrap text-gray-700 dark:text-gray-300"
                 >
-                  <td className="p-4">{f.name}</td>
-                  <td className="p-4">$ {f.price}</td>
+                  <td className="p-4">{filament.name}</td>
+                  <td className="p-4">$ {filament.price}</td>
                   <td className="w-1 p-4">
                     <div className="flex items-center gap-x-6">
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen(true);
-                          setDeletingFilament(f);
+                          setDeletingFilament(filament);
                         }}
                       >
                         <TrashIcon />
@@ -80,7 +76,7 @@ const Filaments = () => {
 
                       <Link
                         className="text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none dark:text-gray-300 dark:hover:text-yellow-500"
-                        to={`/filaments/${f.id}`}
+                        to={`/filaments/${filament.id}`}
                       >
                         <PenIcon />
                         <span className="sr-only">Edit</span>
@@ -95,10 +91,9 @@ const Filaments = () => {
       )}
       {deletingFilament && (
         <ConfirmationDialog
-          isOpen={isDialogOpen}
-          setIsOpen={setIsDialogOpen}
           name={deletingFilament.name}
           deleteFn={() => remove(deletingFilament)}
+          onClose={() => setDeletingFilament(null)}
         />
       )}
     </Section>

@@ -1,31 +1,21 @@
-import { Print, removePrint } from "../redux/printsSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useFilaments, usePrinters, usePrints } from "../redux/hooks";
+import { Print } from "../redux/printsSlice";
 
-import Breadcrumb from "../components/Breadcrumb";
-import EmptyResult from "../components/EmptyResult";
-import { Link } from "react-router-dom";
-import Section from "../components/Section";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
 import ConfirmationDialog from "../components/ConfirmationDialog";
+import EmptyResult from "../components/EmptyResult";
+import Section from "../components/Section";
 
-import { AddIcon, TrashIcon, PenIcon } from "../components/Icons";
+import { AddIcon, PenIcon, TrashIcon } from "../components/Icons";
 
 const Prints = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [deletingPrint, setDeletingPrint] = useState<Print>();
-  const dispatch = useAppDispatch();
-  const prints = useAppSelector((state) => state.prints.value);
-  const printers = useAppSelector((state) => state.printers.value);
-  const filaments = useAppSelector((state) => state.filaments.value);
+  const [deletingPrint, setDeletingPrint] = useState<Print | null>(null);
 
-  const findPrinter = (id: string) =>
-    Object.values(printers).find((_p) => id === _p.id);
-  const findFilament = (id: string) =>
-    Object.values(filaments).find((_f) => id === _f.id);
-
-  const remove = (_print: Print) => {
-    dispatch(removePrint(_print));
-  };
+  const { prints, remove } = usePrints();
+  const { findById: findPrinter } = usePrinters();
+  const { findById: findFilament } = useFilaments();
 
   return (
     <Section>
@@ -36,7 +26,7 @@ const Prints = () => {
           Add
         </Link>
       </div>
-      {Object.values(prints).length === 0 ? (
+      {prints.length === 0 ? (
         <EmptyResult title="No prints yet" />
       ) : (
         <div className="overflow-auto rounded-lg border border-gray-200 dark:border-gray-700">
@@ -86,27 +76,26 @@ const Prints = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-              {Object.values(prints).map((p) => (
+              {prints.map((print) => (
                 <tr
-                  key={p.id}
+                  key={print.id}
                   className="whitespace-nowrap text-gray-700 dark:text-gray-300"
                 >
-                  <td className="p-4">{p.name}</td>
+                  <td className="p-4">{print.name}</td>
                   <td className="p-4">
-                    {findPrinter(p.printer)?.name || p.printer}
+                    {findPrinter(print.printer)?.name || print.printer}
                   </td>
                   <td className="p-4">
-                    {findFilament(p.filament)?.name || p.filament}
+                    {findFilament(print.filament)?.name || print.filament}
                   </td>
-                  <td className="p-4">{p.weight} g</td>
-                  <td className="p-4">{p.time} min</td>
+                  <td className="p-4">{print.weight} g</td>
+                  <td className="p-4">{print.time} min</td>
                   <td className="w-1 p-4">
                     <div className="flex items-center gap-x-6">
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setIsDialogOpen(true);
-                          setDeletingPrint(p);
+                          setDeletingPrint(print);
                         }}
                       >
                         <TrashIcon />
@@ -115,7 +104,7 @@ const Prints = () => {
 
                       <Link
                         className="text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none dark:text-gray-300 dark:hover:text-yellow-500"
-                        to={`/prints/${p.id}`}
+                        to={`/prints/${print.id}`}
                       >
                         <PenIcon />
                         <span className="sr-only">Edit</span>
@@ -130,8 +119,7 @@ const Prints = () => {
       )}
       {deletingPrint && (
         <ConfirmationDialog
-          isOpen={isDialogOpen}
-          setIsOpen={setIsDialogOpen}
+          onClose={() => setDeletingPrint(null)}
           name={deletingPrint.name}
           deleteFn={() => remove(deletingPrint)}
         />
