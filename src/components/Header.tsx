@@ -1,7 +1,7 @@
-import DarkMode from "./DarkMode";
-import { Link } from "react-router-dom";
-import Menu from "./Menu";
-import { GitHubIcon } from "./Icons";
+import DarkMode from './DarkMode'
+import { Link } from 'react-router-dom'
+import Menu from './Menu'
+import { GitHubIcon } from './Icons'
 
 const Header = () => {
   return (
@@ -22,7 +22,7 @@ const Header = () => {
       </div>
       <Menu />
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

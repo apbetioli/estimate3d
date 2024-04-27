@@ -1,26 +1,26 @@
-import { useFilaments, usePrinters, usePrints } from "../redux/hooks";
-import { Print } from "../redux/printsSlice";
+import { useFilaments, usePrinters, usePrints } from '../redux/hooks'
+import { Print } from '../redux/printsSlice'
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import EmptyResult from "../components/EmptyResult";
-import Section from "../components/Section";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import ConfirmationDialog from '../components/ConfirmationDialog'
+import EmptyResult from '../components/EmptyResult'
+import Section from '../components/Section'
 
-import { AddIcon, PenIcon, TrashIcon } from "../components/Icons";
+import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
 const Prints = () => {
-  const [deletingPrint, setDeletingPrint] = useState<Print | null>(null);
+  const [deletingPrint, setDeletingPrint] = useState<Print | null>(null)
 
-  const { prints, remove } = usePrints();
-  const { findById: findPrinter } = usePrinters();
-  const { findById: findFilament } = useFilaments();
+  const { prints, remove } = usePrints()
+  const { findById: findPrinter } = usePrinters()
+  const { findById: findFilament } = useFilaments()
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "Prints" }]} />
+        <Breadcrumb pages={[{ name: 'Prints' }]} />
         <Link className="btn btn-primary whitespace-nowrap" to="/prints/new">
           <AddIcon />
           Add
@@ -95,7 +95,7 @@ const Prints = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setDeletingPrint(print);
+                          setDeletingPrint(print)
                         }}
                       >
                         <TrashIcon />
@@ -125,7 +125,7 @@ const Prints = () => {
         />
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default Prints;
+export default Prints

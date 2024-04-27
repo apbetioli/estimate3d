@@ -1,14 +1,14 @@
-import { PropsWithChildren } from "react";
-import { MagnifyingGlassIcon } from "./Icons";
+import { PropsWithChildren } from 'react'
+import { MagnifyingGlassIcon } from './Icons'
 
 type EmptyResultProps = {
-  title: string;
-  text?: string;
-};
+  title: string
+  text?: string
+}
 
 const EmptyResult = ({
   title,
-  text = "Get started by adding one above",
+  text = 'Get started by adding one above',
   children,
 }: PropsWithChildren<EmptyResultProps>) => {
   return (
@@ -22,7 +22,7 @@ const EmptyResult = ({
         <div className="mx-auto mt-4 flex items-center gap-x-3">{children}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EmptyResult;
+export default EmptyResult

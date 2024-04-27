@@ -1,10 +1,10 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, PropsWithChildren } from "react";
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, PropsWithChildren } from 'react'
 
 interface ConfirmationDialogProps {
-  name?: string;
-  deleteFn: () => void;
-  onClose: () => void;
+  name?: string
+  deleteFn: () => void
+  onClose: () => void
 }
 
 export default function ConfirmationDialog({
@@ -59,8 +59,8 @@ export default function ConfirmationDialog({
                     type="button"
                     className="btn-danger inline-flex justify-center rounded-lg border border-transparent  px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 "
                     onClick={() => {
-                      deleteFn();
-                      onClose();
+                      deleteFn()
+                      onClose()
                     }}
                   >
                     Yes
@@ -72,5 +72,5 @@ export default function ConfirmationDialog({
         </div>
       </Dialog>
     </Transition>
-  );
+  )
 }

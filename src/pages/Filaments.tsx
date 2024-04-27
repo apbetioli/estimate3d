@@ -1,26 +1,26 @@
-import { type Filament } from "../redux/filamentsSlice";
-import { useFilaments } from "../redux/hooks";
+import { type Filament } from '../redux/filamentsSlice'
+import { useFilaments } from '../redux/hooks'
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import EmptyResult from "../components/EmptyResult";
-import Section from "../components/Section";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb'
+import ConfirmationDialog from '../components/ConfirmationDialog'
+import EmptyResult from '../components/EmptyResult'
+import Section from '../components/Section'
 
-import { AddIcon, PenIcon, TrashIcon } from "../components/Icons";
+import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
 const Filaments = () => {
   const [deletingFilament, setDeletingFilament] = useState<Filament | null>(
     null,
-  );
+  )
 
-  const { filaments, remove } = useFilaments();
+  const { filaments, remove } = useFilaments()
 
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
-        <Breadcrumb pages={[{ name: "Filaments" }]} />
+        <Breadcrumb pages={[{ name: 'Filaments' }]} />
         <Link className="btn btn-primary whitespace-nowrap" to="/filaments/new">
           <AddIcon />
           Add
@@ -67,7 +67,7 @@ const Filaments = () => {
                       <button
                         className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none dark:text-gray-300 dark:hover:text-red-500"
                         onClick={() => {
-                          setDeletingFilament(filament);
+                          setDeletingFilament(filament)
                         }}
                       >
                         <TrashIcon />
@@ -97,7 +97,7 @@ const Filaments = () => {
         />
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default Filaments;
+export default Filaments
