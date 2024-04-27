@@ -1,30 +1,30 @@
-import { saveFilament, type Filament } from "../redux/filamentsSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import Section from "../components/Section";
+import { useFilaments } from "../redux/hooks";
 
 const FilamentsEdit = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { findById, save } = useFilaments();
+  const { id } = useParams();
+  const nameInput = useRef<HTMLInputElement>(null);
+  const filament = findById(id!);
+  const [name, setName] = useState(filament?.name || "");
+  const [price, setPrice] = useState(filament?.price || 0);
 
-  const dispatch = useAppDispatch();
-  const filaments = useAppSelector((state) => state.filaments.value);
-
-  const [filament, setFilament] = useState<Filament>(
-    (id && filaments[id]) || { id: "", name: "", price: 0 },
-  );
-
-  const save = (e: React.FormEvent) => {
+  const onSave = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(saveFilament(filament));
+    save({
+      id: filament?.id,
+      name,
+      price,
+    });
     navigate("/filaments");
   };
 
   useLayoutEffect(() => {
-    document.getElementById("filamentName")?.focus();
+    nameInput.current?.focus();
   }, []);
 
   return (
@@ -33,12 +33,12 @@ const FilamentsEdit = () => {
         <Breadcrumb
           pages={[
             { name: "Filaments", to: "/filaments" },
-            { name: filament.id ? filament.name : "Add a filament" },
+            { name: filament?.id ? "Edit filament" : "Add a filament" },
           ]}
         />
       </div>
       <form
-        onSubmit={save}
+        onSubmit={onSave}
         className="flex flex-col gap-5 lg:flex-row lg:items-center"
       >
         <label htmlFor="filamentName">Name</label>
@@ -46,10 +46,11 @@ const FilamentsEdit = () => {
           id="filamentName"
           name="filamentName"
           type="text"
-          value={filament.name}
-          onChange={(e) => setFilament({ ...filament, name: e.target.value })}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="lg:grow"
+          ref={nameInput}
         />
 
         <label htmlFor="price">Price ($/kg)</label>
@@ -57,10 +58,8 @@ const FilamentsEdit = () => {
           id="price"
           name="price"
           type="number"
-          value={filament.price}
-          onChange={(e) =>
-            setFilament({ ...filament, price: Number(e.target.value) })
-          }
+          value={price}
+          onChange={(e) => setPrice(Number(e.target.value))}
           step={0.01}
           min={0}
           required
