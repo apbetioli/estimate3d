@@ -40,7 +40,7 @@ const Results = () => {
           </Link>
         </EmptyResult>
       ) : (
-        <div className="grid grid-cols-2 gap-y-2">
+        <div className="grid grid-cols-2 gap-y-2 rounded-lg border border-gray-200 p-4 dark:border-gray-700">
           <div>Weight:</div>
           <div>{weight} g</div>
 
