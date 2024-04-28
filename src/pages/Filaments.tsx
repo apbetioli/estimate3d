@@ -11,12 +11,10 @@ import Section from '../components/Section'
 import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
 const Filaments = () => {
+  const { filaments, remove } = useFilaments()
   const [deletingFilament, setDeletingFilament] = useState<Filament | null>(
     null,
   )
-
-  const { filaments, remove } = useFilaments()
-
   return (
     <Section>
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">

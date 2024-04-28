@@ -1,6 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
-import { v4 as uuidv4 } from 'uuid'
+import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 
 export type Filament = {
   id: string
@@ -8,24 +6,20 @@ export type Filament = {
   price: number
 }
 
-type FilamentsState = {
-  value: Record<string, Filament>
-}
+type FilamentsState = Record<string, Filament>
 
-const initialState: FilamentsState = {
-  value: {},
-}
+const initialState: FilamentsState = {}
 
 export const filamentsSlice = createSlice({
   name: 'filamentsSlice',
   initialState,
   reducers: {
     saveFilament: (state, action: PayloadAction<Filament>) => {
-      action.payload.id ||= uuidv4()
-      state.value[action.payload.id] = action.payload
+      const filament = { ...action.payload, id: action.payload.id || nanoid() }
+      state[filament.id] = filament
     },
     removeFilament: (state, action: PayloadAction<Filament>) => {
-      delete state.value[action.payload.id]
+      delete state[action.payload.id]
     },
   },
 })

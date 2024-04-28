@@ -6,30 +6,25 @@ import Breadcrumb from '../components/Breadcrumb'
 import Section from '../components/Section'
 
 const PrintsEdit = () => {
+  const nameInput = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const { findById, save } = usePrints()
-  const { id } = useParams()
-  const nameInput = useRef<HTMLInputElement>(null)
-  const print = findById(id!)
-  const [name, setName] = useState(print?.name || '')
-  const [printer, setPrinter] = useState(print?.printer || '')
-  const [filament, setFilament] = useState(print?.filament || '')
-  const [weight, setWeight] = useState(print?.weight || 0)
-  const [time, setTime] = useState(print?.time || 0)
-
   const { printers } = usePrinters()
   const { filaments } = useFilaments()
+  const { id } = useParams()
+  const [print, setPrint] = useState(
+    findById(id!) || {
+      name: '',
+      printer: '',
+      filament: '',
+      weight: 0,
+      time: 0,
+    },
+  )
 
   const onSave = (e: React.FormEvent) => {
     e.preventDefault()
-    save({
-      id: print?.id,
-      name,
-      printer,
-      filament,
-      weight,
-      time,
-    })
+    save(print)
     navigate('/prints')
   }
 
@@ -43,7 +38,7 @@ const PrintsEdit = () => {
         <Breadcrumb
           pages={[
             { name: 'Prints', to: '/prints' },
-            { name: print?.id ? 'Edit print' : 'Add a print' },
+            { name: print.id ? 'Edit print' : 'Add a print' },
           ]}
         />
       </div>
@@ -57,8 +52,8 @@ const PrintsEdit = () => {
             name="printName"
             type="text"
             required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={print.name}
+            onChange={(e) => setPrint({ ...print, name: e.target.value })}
             ref={nameInput}
           />
         </div>
@@ -70,8 +65,8 @@ const PrintsEdit = () => {
             id="printer"
             name="printer"
             required
-            value={printer}
-            onChange={(e) => setPrinter(e.target.value)}
+            value={print.printer}
+            onChange={(e) => setPrint({ ...print, printer: e.target.value })}
           >
             <option value="">
               {printers.length === 0 ? 'No printers yet' : 'Select a printer'}
@@ -91,8 +86,8 @@ const PrintsEdit = () => {
             id="filament"
             name="filament"
             required
-            value={filament}
-            onChange={(e) => setFilament(e.target.value)}
+            value={print.filament}
+            onChange={(e) => setPrint({ ...print, filament: e.target.value })}
           >
             <option value="">
               {filaments.length === 0
@@ -117,8 +112,10 @@ const PrintsEdit = () => {
             required
             step={1}
             min={0}
-            value={weight}
-            onChange={(e) => setWeight(Number(e.target.value))}
+            value={print.weight}
+            onChange={(e) =>
+              setPrint({ ...print, weight: Number(e.target.value) })
+            }
           />
         </div>
         <div>
@@ -132,8 +129,10 @@ const PrintsEdit = () => {
             required
             step={1}
             min={0}
-            value={time}
-            onChange={(e) => setTime(Number(e.target.value))}
+            value={print.time}
+            onChange={(e) =>
+              setPrint({ ...print, time: Number(e.target.value) })
+            }
           />
         </div>
         <div className="flex justify-between gap-x-5">

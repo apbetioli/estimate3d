@@ -12,29 +12,32 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export const usePrinters = () => {
   const dispatch = useAppDispatch()
-  const printersMap = useAppSelector((state) => state.printers.value)
+  const printersMap = useAppSelector((state) => state.printers)
   const findById = (id: string) => printersMap[id]
   const save = (printer: Printer) => dispatch(savePrinter(printer))
   const remove = (printer: Printer) => dispatch(removePrinter(printer))
-  return { printers: Object.values(printersMap), findById, save, remove }
+  const printers = Object.values(printersMap)
+  return { printers, findById, save, remove }
 }
 
 export const useFilaments = () => {
   const dispatch = useAppDispatch()
-  const filamentsMap = useAppSelector((state) => state.filaments.value)
+  const filamentsMap = useAppSelector((state) => state.filaments)
   const findById = (id: string) => filamentsMap[id]
   const save = (filament: Filament) => dispatch(saveFilament(filament))
   const remove = (filament: Filament) => dispatch(removeFilament(filament))
-  return { filaments: Object.values(filamentsMap), findById, save, remove }
+  const filaments = Object.values(filamentsMap)
+  return { filaments, findById, save, remove }
 }
 
 export const usePrints = () => {
   const dispatch = useAppDispatch()
-  const printsMap = useAppSelector((state) => state.prints.value)
+  const printsMap = useAppSelector((state) => state.prints)
   const findById = (id: string) => printsMap[id]
   const save = (print: Print) => dispatch(savePrint(print))
   const remove = (print: Print) => dispatch(removePrint(print))
-  return { prints: Object.values(printsMap), findById, save, remove }
+  const prints = Object.values(printsMap)
+  return { prints, findById, save, remove }
 }
 
 export const useResults = () => {

@@ -6,21 +6,17 @@ import Breadcrumb from '../components/Breadcrumb'
 import Section from '../components/Section'
 
 const PrintersEdit = () => {
+  const nameInput = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const { findById, save } = usePrinters()
   const { id } = useParams()
-  const nameInput = useRef<HTMLInputElement>(null)
-  const printer = findById(id!)
-  const [name, setName] = useState(printer?.name || '')
-  const [power, setPower] = useState(printer?.power || 0)
+  const [printer, setPrinter] = useState(
+    findById(id!) || { name: '', power: 0 },
+  )
 
   const onSave = (e: React.FormEvent) => {
     e.preventDefault()
-    save({
-      id: printer?.id,
-      name,
-      power,
-    })
+    save(printer)
     navigate('/printers')
   }
 
@@ -34,7 +30,7 @@ const PrintersEdit = () => {
         <Breadcrumb
           pages={[
             { name: 'Printers', to: '/printers' },
-            { name: printer?.id ? 'Edit printer' : 'Add a printer' },
+            { name: printer.id ? 'Edit printer' : 'Add a printer' },
           ]}
         />
       </div>
@@ -47,8 +43,8 @@ const PrintersEdit = () => {
           id="printerName"
           name="printerName"
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={printer.name}
+          onChange={(e) => setPrinter({ ...printer, name: e.target.value })}
           required
           className="lg:grow"
           ref={nameInput}
@@ -59,8 +55,10 @@ const PrintersEdit = () => {
           id="power"
           name="power"
           type="number"
-          value={power}
-          onChange={(e) => setPower(Number(e.target.value))}
+          value={printer.power}
+          onChange={(e) =>
+            setPrinter({ ...printer, power: Number(e.target.value) })
+          }
           step={0.01}
           min={0}
           required

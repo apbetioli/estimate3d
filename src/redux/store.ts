@@ -1,3 +1,4 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import {
   FLUSH,
   PAUSE,
@@ -8,13 +9,12 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import storage from 'redux-persist/lib/storage'
 
 import filaments from './filamentsSlice'
 import general from './generalSlice'
 import printers from './printersSlice'
 import prints from './printsSlice'
-import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
