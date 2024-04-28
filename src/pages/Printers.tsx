@@ -11,9 +11,8 @@ import { type Printer } from '../redux/printersSlice'
 import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
 const Printers = () => {
-  const [deletingPrinter, setDeletingPrinter] = useState<Printer | null>(null)
-
   const { printers, remove } = usePrinters()
+  const [deletingPrinter, setDeletingPrinter] = useState<Printer | null>(null)
 
   return (
     <Section>

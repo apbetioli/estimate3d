@@ -1,29 +1,25 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import Section from '../components/Section'
 import { useFilaments } from '../redux/hooks'
 
 const FilamentsEdit = () => {
+  const nameInput = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const { findById, save } = useFilaments()
   const { id } = useParams()
-  const nameInput = useRef<HTMLInputElement>(null)
-  const filament = findById(id!)
-  const [name, setName] = useState(filament?.name || '')
-  const [price, setPrice] = useState(filament?.price || 0)
+  const [filament, setFilament] = useState(
+    findById(id!) || { name: '', price: 0 },
+  )
 
   const onSave = (e: React.FormEvent) => {
     e.preventDefault()
-    save({
-      id: filament?.id,
-      name,
-      price,
-    })
+    save(filament)
     navigate('/filaments')
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     nameInput.current?.focus()
   }, [])
 
@@ -33,7 +29,7 @@ const FilamentsEdit = () => {
         <Breadcrumb
           pages={[
             { name: 'Filaments', to: '/filaments' },
-            { name: filament?.id ? 'Edit filament' : 'Add a filament' },
+            { name: filament.id ? 'Edit filament' : 'Add a filament' },
           ]}
         />
       </div>
@@ -46,8 +42,8 @@ const FilamentsEdit = () => {
           id="filamentName"
           name="filamentName"
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={filament.name}
+          onChange={(e) => setFilament({ ...filament, name: e.target.value })}
           required
           className="lg:grow"
           ref={nameInput}
@@ -58,8 +54,10 @@ const FilamentsEdit = () => {
           id="price"
           name="price"
           type="number"
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
+          value={filament.price}
+          onChange={(e) =>
+            setFilament({ ...filament, price: Number(e.target.value) })
+          }
           step={0.01}
           min={0}
           required
