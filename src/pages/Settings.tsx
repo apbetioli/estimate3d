@@ -1,30 +1,28 @@
 import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import Breadcrumb from '../components/Breadcrumb'
 import ConfirmationDialog from '../components/ConfirmationDialog'
 import Section from '../components/Section'
 import { persistor } from '../store'
 
 const Settings = () => {
-  const [message, setMessage] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const deleteAll: () => void = () => {
     persistor
       .purge()
       .then(() => {
-        setMessage('All your data was erased!')
-        setTimeout(() => {
-          setMessage('')
-        }, 3000)
+        toast.success('All your data was erased! Please refresh the page.')
       })
       .catch((err) => {
-        setMessage('An error occurred. Check the console for details.')
+        toast.error('An error occurred. Check the console for details.')
         console.error(err)
       })
   }
 
   return (
     <Section>
+      <Toaster />
       <div className="my-5 flex h-[40px] w-full items-center justify-between rounded-lg bg-gray-100 pl-4 dark:bg-gray-800">
         <Breadcrumb pages={[{ name: 'Settings' }]} />
       </div>
@@ -44,7 +42,6 @@ const Settings = () => {
           >
             Delete all
           </button>
-          {message && <p className="mt-5">{message}</p>}
         </div>
       </div>
       {isDialogOpen && (
