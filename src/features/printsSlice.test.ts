@@ -11,6 +11,7 @@ describe('printsSlice', () => {
         printer: '2',
         time: 10,
         weight: 100,
+        quantity: 1,
       }),
     },
   }
@@ -22,6 +23,7 @@ describe('printsSlice', () => {
       printer: '2',
       time: 10,
       weight: 100,
+      quantity: 1,
     })
     const action = savePrint(print)
     const newState = printsReducer(initialState, action)
