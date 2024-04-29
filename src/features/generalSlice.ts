@@ -17,7 +17,7 @@ const initialState: GeneralState = {
 }
 
 export const generalSlice = createSlice({
-  name: 'generalSlice',
+  name: 'general',
   initialState,
   reducers: {
     setEnergyCost: (state, action: PayloadAction<number>) => {
@@ -46,4 +46,6 @@ export const {
   setAdditionalCost,
 } = generalSlice.actions
 
-export default generalSlice.reducer
+export const generalReducer = generalSlice.reducer
+
+export default generalSlice

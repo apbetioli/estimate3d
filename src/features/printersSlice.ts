@@ -11,7 +11,7 @@ const createPrinter = (draft: DraftPrinter): Printer => {
 }
 
 export const printersSlice = createSlice({
-  name: 'printersSlice',
+  name: 'printers',
   initialState,
   reducers: {
     savePrinter: (state, action: PayloadAction<DraftPrinter>) => {
@@ -25,5 +25,6 @@ export const printersSlice = createSlice({
 })
 
 export const { savePrinter, removePrinter } = printersSlice.actions
+export const printersReducer = printersSlice.reducer
 
-export default printersSlice.reducer
+export default printersSlice
