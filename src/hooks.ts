@@ -14,7 +14,7 @@ export const usePrinters = () => {
   const printersMap = useAppSelector((state) => state.printers.byId)
   const findById = (id: string) => printersMap[id]
   const save = (printer: Printer) => dispatch(savePrinter(printer))
-  const remove = (printer: Printer) => dispatch(removePrinter(printer))
+  const remove = (printer: Printer) => dispatch(removePrinter(printer.id))
   const printers = Object.values(printersMap)
   return { printers, findById, save, remove }
 }
@@ -24,7 +24,7 @@ export const useFilaments = () => {
   const filamentsMap = useAppSelector((state) => state.filaments.byId)
   const findById = (id: string) => filamentsMap[id]
   const save = (filament: Filament) => dispatch(saveFilament(filament))
-  const remove = (filament: Filament) => dispatch(removeFilament(filament))
+  const remove = (filament: Filament) => dispatch(removeFilament(filament.id))
   const filaments = Object.values(filamentsMap)
   return { filaments, findById, save, remove }
 }
@@ -34,7 +34,7 @@ export const usePrints = () => {
   const printsMap = useAppSelector((state) => state.prints.byId)
   const findById = (id: string) => printsMap[id]
   const save = (print: Print) => dispatch(savePrint(print))
-  const remove = (print: Print) => dispatch(removePrint(print))
+  const remove = (print: Print) => dispatch(removePrint(print.id))
   const prints = Object.values(printsMap)
   return { prints, findById, save, remove }
 }

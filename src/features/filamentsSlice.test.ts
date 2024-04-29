@@ -8,11 +8,11 @@ import {
 describe('filamentsSlice', () => {
   const initialState = {
     byId: {
-      1: createFilament({
+      '1': createFilament({
         name: 'Prusament PLA Prusa Galaxy Black 2kg',
         price: 49.99,
       }),
-      2: createFilament({
+      '2': createFilament({
         name: 'Prusament PETG Prusa Orange 2kg',
         price: 49.99,
       }),

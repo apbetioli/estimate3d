@@ -22,8 +22,8 @@ export const filamentsSlice = createSlice({
       const filament = createFilament(action.payload)
       state.byId[filament.id] = filament
     },
-    removeFilament: (state, action: PayloadAction<Filament>) => {
-      delete state.byId[action.payload.id]
+    removeFilament: (state, action: PayloadAction<Filament['id']>) => {
+      delete state.byId[action.payload]
     },
   },
 })

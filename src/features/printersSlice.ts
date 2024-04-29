@@ -10,7 +10,7 @@ const initialState: PrintersState = {
 
 type DraftPrinter = Draft<Printer>
 
-const createPrinter = (draft: DraftPrinter): Printer => {
+export const createPrinter = (draft: DraftPrinter): Printer => {
   return { ...draft, id: draft.id || nanoid() }
 }
 
@@ -22,8 +22,8 @@ export const printersSlice = createSlice({
       const printer = createPrinter(action.payload)
       state.byId[printer.id] = printer
     },
-    removePrinter: (state, action: PayloadAction<Printer>) => {
-      delete state.byId[action.payload.id]
+    removePrinter: (state, action: PayloadAction<Printer['id']>) => {
+      delete state.byId[action.payload]
     },
   },
 })

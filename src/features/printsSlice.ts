@@ -12,7 +12,7 @@ const initialState: PrintsState = {
 
 type DraftPrint = Draft<Print>
 
-const createPrint = (draft: DraftPrint): Print => {
+export const createPrint = (draft: DraftPrint): Print => {
   return { ...draft, id: draft.id || nanoid() }
 }
 
@@ -24,21 +24,21 @@ export const printsSlice = createSlice({
       const print = createPrint(action.payload)
       state.byId[print.id] = print
     },
-    removePrint: (state, action: PayloadAction<Print>) => {
-      delete state.byId[action.payload.id]
+    removePrint: (state, action: PayloadAction<Print['id']>) => {
+      delete state.byId[action.payload]
     },
   },
   extraReducers: (builder) => {
     builder.addCase(removePrinter, (state, action) => {
       Object.values(state.byId).forEach((print) => {
-        if (print.printer === action.payload.id) {
+        if (print.printer === action.payload) {
           delete state.byId[print.id]
         }
       })
     })
     builder.addCase(removeFilament, (state, action) => {
       Object.values(state.byId).forEach((print) => {
-        if (print.filament === action.payload.id) {
+        if (print.filament === action.payload) {
           delete state.byId[print.id]
         }
       })
