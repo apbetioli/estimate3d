@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 import { removeFilament } from './filamentsSlice'
 import { removePrinter } from './printersSlice'
+import { reset } from './resetAction'
 
 type PrintsState = {
   byId: Record<string, Print>
@@ -43,6 +44,7 @@ export const printsSlice = createSlice({
         }
       })
     })
+    builder.addCase(reset, () => initialState)
   },
 })
 

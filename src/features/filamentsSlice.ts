@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
+import { reset } from './resetAction'
 
 type FilamentsState = {
   byId: Record<string, Filament>
@@ -25,6 +26,9 @@ export const filamentsSlice = createSlice({
     removeFilament: (state, action: PayloadAction<Filament['id']>) => {
       delete state.byId[action.payload]
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(reset, () => initialState)
   },
 })
 
