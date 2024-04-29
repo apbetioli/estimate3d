@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store'
 
+import { useCallback, useMemo } from 'react'
 import type { TypedUseSelectorHook } from 'react-redux'
 import { removeFilament, saveFilament } from './features/filamentsSlice'
 import { removePrinter, savePrinter } from './features/printersSlice'
@@ -12,31 +13,58 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const usePrinters = () => {
   const dispatch = useAppDispatch()
   const printersMap = useAppSelector((state) => state.printers.byId)
-  const findById = (id: string) => printersMap[id]
-  const save = (printer: Printer) => dispatch(savePrinter(printer))
-  const remove = (printer: Printer) => dispatch(removePrinter(printer.id))
-  const printers = Object.values(printersMap)
-  return { printers, findById, save, remove }
+  const printers = useMemo(() => Object.values(printersMap), [printersMap])
+  const findById = useCallback((id: string) => printersMap[id], [printersMap])
+  const save = useCallback(
+    (printer: Printer) => dispatch(savePrinter(printer)),
+    [dispatch],
+  )
+  const remove = useCallback(
+    (printer: Printer) => dispatch(removePrinter(printer.id)),
+    [dispatch],
+  )
+  return useMemo(
+    () => ({ printers, findById, save, remove }),
+    [printers, findById, save, remove],
+  )
 }
 
 export const useFilaments = () => {
   const dispatch = useAppDispatch()
   const filamentsMap = useAppSelector((state) => state.filaments.byId)
-  const findById = (id: string) => filamentsMap[id]
-  const save = (filament: Filament) => dispatch(saveFilament(filament))
-  const remove = (filament: Filament) => dispatch(removeFilament(filament.id))
-  const filaments = Object.values(filamentsMap)
-  return { filaments, findById, save, remove }
+  const filaments = useMemo(() => Object.values(filamentsMap), [filamentsMap])
+  const findById = useCallback((id: string) => filamentsMap[id], [filamentsMap])
+  const save = useCallback(
+    (filament: Filament) => dispatch(saveFilament(filament)),
+    [dispatch],
+  )
+  const remove = useCallback(
+    (filament: Filament) => dispatch(removeFilament(filament.id)),
+    [dispatch],
+  )
+  return useMemo(
+    () => ({ filaments, findById, save, remove }),
+    [filaments, findById, save, remove],
+  )
 }
 
 export const usePrints = () => {
   const dispatch = useAppDispatch()
   const printsMap = useAppSelector((state) => state.prints.byId)
-  const findById = (id: string) => printsMap[id]
-  const save = (print: Print) => dispatch(savePrint(print))
-  const remove = (print: Print) => dispatch(removePrint(print.id))
-  const prints = Object.values(printsMap)
-  return { prints, findById, save, remove }
+  const prints = useMemo(() => Object.values(printsMap), [printsMap])
+  const findById = useCallback((id: string) => printsMap[id], [printsMap])
+  const save = useCallback(
+    (print: Print) => dispatch(savePrint(print)),
+    [dispatch],
+  )
+  const remove = useCallback(
+    (print: Print) => dispatch(removePrint(print.id)),
+    [dispatch],
+  )
+  return useMemo(
+    () => ({ prints, findById, save, remove }),
+    [prints, findById, save, remove],
+  )
 }
 
 export const useResults = () => {
