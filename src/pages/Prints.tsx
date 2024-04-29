@@ -68,6 +68,13 @@ const Prints = () => {
                   Time
                 </th>
 
+                <th
+                  scope="col"
+                  className="p-4 text-gray-500 dark:text-gray-400"
+                >
+                  Quantity
+                </th>
+
                 <th scope="col" className="relative px-4 py-3.5">
                   <span className="sr-only">Options</span>
                 </th>
@@ -88,6 +95,7 @@ const Prints = () => {
                   </td>
                   <td className="p-4">{print.weight} g</td>
                   <td className="p-4">{print.time} min</td>
+                  <td className="p-4">{print.quantity}</td>
                   <td className="w-1 p-4">
                     <div className="flex items-center gap-x-6">
                       <button

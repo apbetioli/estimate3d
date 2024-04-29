@@ -19,4 +19,5 @@ type Print = {
   filament: string
   weight: number
   time: number
+  quantity: number
 }
