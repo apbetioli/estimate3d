@@ -1,8 +1,12 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 
-type PrintersState = Record<string, Printer>
+type PrintersState = {
+  byId: Record<string, Printer>
+}
 
-const initialState: PrintersState = {}
+const initialState: PrintersState = {
+  byId: {},
+}
 
 type DraftPrinter = Draft<Printer>
 
@@ -16,10 +20,10 @@ export const printersSlice = createSlice({
   reducers: {
     savePrinter: (state, action: PayloadAction<DraftPrinter>) => {
       const printer = createPrinter(action.payload)
-      state[printer.id] = printer
+      state.byId[printer.id] = printer
     },
     removePrinter: (state, action: PayloadAction<Printer>) => {
-      delete state[action.payload.id]
+      delete state.byId[action.payload.id]
     },
   },
 })
