@@ -1,8 +1,14 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
+import { removeFilament } from './filamentsSlice'
+import { removePrinter } from './printersSlice'
 
-type PrintsState = Record<string, Print>
+type PrintsState = {
+  byId: Record<string, Print>
+}
 
-const initialState: PrintsState = {}
+const initialState: PrintsState = {
+  byId: {},
+}
 
 type DraftPrint = Draft<Print>
 
@@ -16,11 +22,27 @@ export const printsSlice = createSlice({
   reducers: {
     savePrint: (state, action: PayloadAction<DraftPrint>) => {
       const print = createPrint(action.payload)
-      state[print.id] = print
+      state.byId[print.id] = print
     },
     removePrint: (state, action: PayloadAction<Print>) => {
-      delete state[action.payload.id]
+      delete state.byId[action.payload.id]
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(removePrinter, (state, action) => {
+      Object.values(state.byId).forEach((print) => {
+        if (print.printer === action.payload.id) {
+          delete state.byId[print.id]
+        }
+      })
+    })
+    builder.addCase(removeFilament, (state, action) => {
+      Object.values(state.byId).forEach((print) => {
+        if (print.filament === action.payload.id) {
+          delete state.byId[print.id]
+        }
+      })
+    })
   },
 })
 

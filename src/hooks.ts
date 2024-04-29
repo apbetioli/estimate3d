@@ -11,7 +11,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export const usePrinters = () => {
   const dispatch = useAppDispatch()
-  const printersMap = useAppSelector((state) => state.printers)
+  const printersMap = useAppSelector((state) => state.printers.byId)
   const findById = (id: string) => printersMap[id]
   const save = (printer: Printer) => dispatch(savePrinter(printer))
   const remove = (printer: Printer) => dispatch(removePrinter(printer))
@@ -21,7 +21,7 @@ export const usePrinters = () => {
 
 export const useFilaments = () => {
   const dispatch = useAppDispatch()
-  const filamentsMap = useAppSelector((state) => state.filaments)
+  const filamentsMap = useAppSelector((state) => state.filaments.byId)
   const findById = (id: string) => filamentsMap[id]
   const save = (filament: Filament) => dispatch(saveFilament(filament))
   const remove = (filament: Filament) => dispatch(removeFilament(filament))
@@ -31,7 +31,7 @@ export const useFilaments = () => {
 
 export const usePrints = () => {
   const dispatch = useAppDispatch()
-  const printsMap = useAppSelector((state) => state.prints)
+  const printsMap = useAppSelector((state) => state.prints.byId)
   const findById = (id: string) => printsMap[id]
   const save = (print: Print) => dispatch(savePrint(print))
   const remove = (print: Print) => dispatch(removePrint(print))

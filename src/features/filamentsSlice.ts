@@ -1,8 +1,12 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 
-type FilamentsState = Record<string, Filament>
+type FilamentsState = {
+  byId: Record<string, Filament>
+}
 
-const initialState: FilamentsState = {}
+const initialState: FilamentsState = {
+  byId: {},
+}
 
 type DraftFilament = Draft<Filament>
 
@@ -16,10 +20,10 @@ export const filamentsSlice = createSlice({
   reducers: {
     saveFilament: (state, action: PayloadAction<DraftFilament>) => {
       const filament = createFilament(action.payload)
-      state[filament.id] = filament
+      state.byId[filament.id] = filament
     },
     removeFilament: (state, action: PayloadAction<Filament>) => {
-      delete state[action.payload.id]
+      delete state.byId[action.payload.id]
     },
   },
 })
