@@ -19,6 +19,7 @@ const PrintsEdit = () => {
       filament: '',
       weight: 0,
       time: 0,
+      quantity: 1,
     },
   )
 
@@ -132,6 +133,23 @@ const PrintsEdit = () => {
             value={print.time}
             onChange={(e) =>
               setPrint({ ...print, time: Number(e.target.value) })
+            }
+          />
+        </div>
+        <div>
+          <label htmlFor="quantity" className="block">
+            Quantity
+          </label>
+          <input
+            id="quantity"
+            name="quantity"
+            type="number"
+            required
+            step={1}
+            min={1}
+            value={print.quantity}
+            onChange={(e) =>
+              setPrint({ ...print, quantity: Number(e.target.value) })
             }
           />
         </div>

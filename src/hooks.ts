@@ -75,14 +75,15 @@ export const useResults = () => {
 
   const { weight, time, filamentCost, energyCost } = prints
     .map((print) => {
-      const printer = findPrinter(print.printer) || { power: 0 }
-      const filament = findFilament(print.filament) || { price: 0 }
+      const { power } = findPrinter(print.printer)
+      const { price } = findFilament(print.filament)
+      const weight = print.weight * print.quantity
+      const time = print.time * print.quantity
       return {
-        weight: print.weight,
-        time: print.time,
-        filamentCost: print.weight * (filament.price / 1000),
-        energyCost:
-          (print.time * printer.power * general.energyCost) / (60 * 1000),
+        weight,
+        time,
+        filamentCost: weight * (price / 1000),
+        energyCost: (time * power * general.energyCost) / (60 * 1000),
       }
     })
     .reduce(
