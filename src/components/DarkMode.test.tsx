@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
 
-import DarkMode from '../components/DarkMode'
+import DarkMode from './DarkMode'
 
 test('renders dark mode button', async () => {
   const darkMode = render(<DarkMode />)
