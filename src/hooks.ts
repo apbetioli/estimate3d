@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store'
 
 import type { TypedUseSelectorHook } from 'react-redux'
-import { removeFilament, saveFilament } from './filamentsSlice'
-import { removePrinter, savePrinter } from './printersSlice'
-import { removePrint, savePrint } from './printsSlice'
+import { removeFilament, saveFilament } from './features/filamentsSlice'
+import { removePrinter, savePrinter } from './features/printersSlice'
+import { removePrint, savePrint } from './features/printsSlice'
 
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

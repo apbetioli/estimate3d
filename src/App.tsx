@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { persistor, store } from './redux/store'
+import { persistor, store } from './store'
 
 import Filaments from './pages/Filaments'
 import FilamentsEdit from './pages/FilamentsEdit'
