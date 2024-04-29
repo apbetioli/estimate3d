@@ -1,3 +1,5 @@
+import Breadcrumb from '../components/Breadcrumb'
+import Section from '../components/Section'
 import {
   setAdditionalCost,
   setEnergyCost,
@@ -6,9 +8,6 @@ import {
   setTransactionFee,
 } from '../redux/generalSlice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-
-import Breadcrumb from '../components/Breadcrumb'
-import Section from '../components/Section'
 
 const General = () => {
   const { energyCost, failureMargin, markup, transactionFee, additionalCost } =

@@ -1,12 +1,10 @@
-import { usePrinters } from '../redux/hooks'
-
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import ConfirmationDialog from '../components/ConfirmationDialog'
 import EmptyResult from '../components/EmptyResult'
 import Section from '../components/Section'
-import { type Printer } from '../redux/printersSlice'
+import { usePrinters } from '../redux/hooks'
 
 import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 
