@@ -59,7 +59,7 @@ const PrintersEdit = () => {
           onChange={(e) =>
             setPrinter({ ...printer, power: Number(e.target.value) })
           }
-          step={0.01}
+          step={1}
           min={0}
           required
           className="lg:w-32"
