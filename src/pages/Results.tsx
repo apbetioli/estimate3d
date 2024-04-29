@@ -3,7 +3,7 @@ import Breadcrumb from '../components/Breadcrumb'
 import EmptyResult from '../components/EmptyResult'
 import { AddIcon } from '../components/Icons'
 import Section from '../components/Section'
-import { useAppSelector, usePrints, useResults } from '../redux/hooks'
+import { useAppSelector, usePrints, useResults } from '../hooks'
 
 const Results = () => {
   const { prints } = usePrints()

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useFilaments, usePrinters, usePrints } from '../redux/hooks'
+import { useFilaments, usePrinters, usePrints } from '../hooks'
 
 import Breadcrumb from '../components/Breadcrumb'
 import Section from '../components/Section'

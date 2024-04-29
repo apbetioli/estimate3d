@@ -11,10 +11,10 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import filaments from './filamentsSlice'
-import general from './generalSlice'
-import printers from './printersSlice'
-import prints from './printsSlice'
+import filaments from './features/filamentsSlice'
+import general from './features/generalSlice'
+import printers from './features/printersSlice'
+import prints from './features/printsSlice'
 
 const persistConfig = {
   key: 'root',

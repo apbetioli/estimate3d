@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Breadcrumb from '../components/Breadcrumb'
 import ConfirmationDialog from '../components/ConfirmationDialog'
 import Section from '../components/Section'
-import { persistor } from '../redux/store'
+import { persistor } from '../store'
 
 const Settings = () => {
   const [message, setMessage] = useState('')

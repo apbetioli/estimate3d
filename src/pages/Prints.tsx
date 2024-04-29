@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb'
 import ConfirmationDialog from '../components/ConfirmationDialog'
 import EmptyResult from '../components/EmptyResult'
 import Section from '../components/Section'
-import { useFilaments, usePrinters, usePrints } from '../redux/hooks'
+import { useFilaments, usePrinters, usePrints } from '../hooks'
 
 import { AddIcon, PenIcon, TrashIcon } from '../components/Icons'
 

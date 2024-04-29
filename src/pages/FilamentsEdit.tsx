@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import Section from '../components/Section'
-import { useFilaments } from '../redux/hooks'
+import { useFilaments } from '../hooks'
 
 const FilamentsEdit = () => {
   const nameInput = useRef<HTMLInputElement>(null)

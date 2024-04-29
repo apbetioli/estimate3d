@@ -6,8 +6,8 @@ import {
   setFailureMargin,
   setMarkup,
   setTransactionFee,
-} from '../redux/generalSlice'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
+} from '../features/generalSlice'
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 const General = () => {
   const { energyCost, failureMargin, markup, transactionFee, additionalCost } =
