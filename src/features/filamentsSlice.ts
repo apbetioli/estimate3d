@@ -6,12 +6,12 @@ const initialState: FilamentsState = {}
 
 type DraftFilament = Draft<Filament>
 
-const createFilament = (draftFilament: DraftFilament): Filament => {
+export const createFilament = (draftFilament: DraftFilament): Filament => {
   return { ...draftFilament, id: draftFilament.id || nanoid() }
 }
 
 export const filamentsSlice = createSlice({
-  name: 'filamentsSlice',
+  name: 'filaments',
   initialState,
   reducers: {
     saveFilament: (state, action: PayloadAction<DraftFilament>) => {
@@ -25,5 +25,6 @@ export const filamentsSlice = createSlice({
 })
 
 export const { saveFilament, removeFilament } = filamentsSlice.actions
+export const filamentsReducer = filamentsSlice.reducer
 
-export default filamentsSlice.reducer
+export default filamentsSlice

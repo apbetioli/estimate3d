@@ -11,10 +11,10 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import filaments from './features/filamentsSlice'
-import general from './features/generalSlice'
-import printers from './features/printersSlice'
-import prints from './features/printsSlice'
+import { filamentsReducer } from './features/filamentsSlice'
+import { generalReducer } from './features/generalSlice'
+import { printersReducer } from './features/printersSlice'
+import { printsReducer } from './features/printsSlice'
 
 const persistConfig = {
   key: 'root',
@@ -22,10 +22,10 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  printers,
-  filaments,
-  general,
-  prints,
+  general: generalReducer,
+  printers: printersReducer,
+  filaments: filamentsReducer,
+  prints: printsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
