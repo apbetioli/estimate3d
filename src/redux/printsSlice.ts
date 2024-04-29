@@ -4,7 +4,7 @@ type PrintsState = Record<string, Print>
 
 const initialState: PrintsState = {}
 
-type DraftPrint = Omit<Print, 'id'> & { id?: string }
+type DraftPrint = Draft<Print>
 
 const createPrint = (draft: DraftPrint): Print => {
   return { ...draft, id: draft.id || nanoid() }

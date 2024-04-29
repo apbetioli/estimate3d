@@ -1,4 +1,4 @@
-type RequireOnly<T, P extends keyof T> = Pick<T, P> & Partial<Omit<T, P>>
+type Draft<T> = Omit<T, 'id'> & { id?: string }
 
 type Filament = {
   id: string
