@@ -4,7 +4,7 @@ type FilamentsState = Record<string, Filament>
 
 const initialState: FilamentsState = {}
 
-type DraftFilament = Omit<Filament, 'id'> & { id?: string }
+type DraftFilament = Draft<Filament>
 
 const createFilament = (draftFilament: DraftFilament): Filament => {
   return { ...draftFilament, id: draftFilament.id || nanoid() }
