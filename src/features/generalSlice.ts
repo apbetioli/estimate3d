@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { reset } from './resetAction'
 
 type GeneralState = {
   energyCost: number
@@ -35,6 +36,9 @@ export const generalSlice = createSlice({
     setAdditionalCost: (state, action: PayloadAction<number>) => {
       state.additionalCost = action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(reset, () => initialState)
   },
 })
 

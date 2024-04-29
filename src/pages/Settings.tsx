@@ -3,21 +3,16 @@ import toast, { Toaster } from 'react-hot-toast'
 import Breadcrumb from '../components/Breadcrumb'
 import ConfirmationDialog from '../components/ConfirmationDialog'
 import Section from '../components/Section'
-import { persistor } from '../store'
+import { reset } from '../features/resetAction'
+import { useAppDispatch } from '../hooks'
 
 const Settings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const dispatch = useAppDispatch()
 
   const deleteAll: () => void = () => {
-    persistor
-      .purge()
-      .then(() => {
-        toast.success('All your data was erased! Please refresh the page.')
-      })
-      .catch((err) => {
-        toast.error('An error occurred. Check the console for details.')
-        console.error(err)
-      })
+    dispatch(reset())
+    toast.success('All your data was erased!')
   }
 
   return (

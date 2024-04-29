@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
+import { reset } from './resetAction'
 
 type PrintersState = {
   byId: Record<string, Printer>
@@ -25,6 +26,9 @@ export const printersSlice = createSlice({
     removePrinter: (state, action: PayloadAction<Printer['id']>) => {
       delete state.byId[action.payload]
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(reset, () => initialState)
   },
 })
 
