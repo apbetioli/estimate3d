@@ -49,29 +49,61 @@ const Results = () => {
           <div>Filament cost:</div>
           <div>$ {filamentCost.toFixed(2)}</div>
 
-          <div>Energy cost:</div>
-          <div>$ {energyCost.toFixed(2)}</div>
+          {energyCost > 0 && (
+            <>
+              <div>Energy cost:</div>
+              <div>$ {energyCost.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Total print cost:</div>
-          <div>$ {totalPrint.toFixed(2)}</div>
+          {totalPrint != filamentCost && (
+            <>
+              <div>Total print cost:</div>
+              <div>$ {totalPrint.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Failure charge ({general.failureMargin}%):</div>
-          <div>$ {failureCharge.toFixed(2)}</div>
+          {general.failureMargin > 0 && (
+            <>
+              <div>Failure charge ({general.failureMargin}%):</div>
+              <div>$ {failureCharge.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Additional charge:</div>
-          <div>$ {general.additionalCost.toFixed(2)}</div>
+          {general.additionalCost > 0 && (
+            <>
+              <div>Additional charge:</div>
+              <div>$ {general.additionalCost.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Total charge:</div>
-          <div>$ {totalCost.toFixed(2)}</div>
+          {totalCost != totalPrint && (
+            <>
+              <div>Total charge:</div>
+              <div>$ {totalCost.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Profit ({general.markup}%):</div>
-          <div>$ {profit.toFixed(2)}</div>
+          {general.markup > 0 && (
+            <>
+              <div>Profit ({general.markup}%):</div>
+              <div>$ {profit.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Sell price:</div>
-          <div>$ {price.toFixed(2)}</div>
+          {price != finalPrice && (
+            <>
+              <div>Sell price:</div>
+              <div>$ {price.toFixed(2)}</div>
+            </>
+          )}
 
-          <div>Transaction fee ({general.transactionFee}%):</div>
-          <div>$ {transactionFee.toFixed(2)}</div>
+          {general.transactionFee > 0 && (
+            <>
+              <div>Transaction fee ({general.transactionFee}%):</div>
+              <div>$ {transactionFee.toFixed(2)}</div>
+            </>
+          )}
 
           <div className="font-bold">Final price:</div>
           <div className="font-bold">$ {finalPrice.toFixed(2)}</div>
